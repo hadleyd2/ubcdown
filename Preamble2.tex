@@ -1,0 +1,390 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{xpatch}
+\makeatletter
+\makeatother
+\usepackage{amssymb, amsfonts, latexsym, fullpage}
+% \usepackage{multirow, hhline} %% To build tables with different sized rows/double dividing lines
+%%%% Packages taken from the ubcdown main_script.Rmd template
+\usepackage{ragged2e}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{float} 
+\floatplacement{figure}{H} 
+\usepackage{wrapfig}
+\usepackage{pdfpages}
+\usepackage{mathtools}
+\usepackage{bm} %For bold lowercase Greek letters
+\usepackage{natbib} %For references
+\usepackage{xcolor} %Allows us to set color for comments
+\usepackage{caption} %using this package to control the font size in the table and figure captions
+\captionsetup{font=small} % \captionsetup{font=footnotesize}
+\usepackage[linesnumbered,ruled]{algorithm2e} %To write algorithms in a neat format
+\usepackage{mathrsfs} %Let's us use \mathscr{} to produce script letters
+\usepackage{graphicx} %% Allows specification of a directory
+%\graphicspath{ {"/Users/danielhadley/Documents/SUMMER 2019/Research/Hadley/R Files/Images/"} }
+
+
+% \usepackage{xypic} %% For drawing vines
+% \usepackage{mathabx} %% For the \notdivides symbol
+% \usepackage{xinttools} %% For making dynamic tables in latex
+% \usepackage{amsthm} %% Trying to get theorems to start after a line break.
+% % \usepackage{showlabels} %% Allows us to see the labels given to equation, figures, etc. for easy reference
+
+
+%\linespread{1.6}
+\newtheorem{theorem}{Theorem}
+% \newtheorem*{theorem*}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem*{lemma*}{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem*{proposition*}{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem*{corollary*}{Corollary}
+\newtheorem{defn}{Definition}
+\newtheorem{definition}{Definition}
+% \newtheorem*{definition*}{Definition}
+% \newtheorem*{example*}{Example}
+\newtheorem{example}{Example}
+\newtheorem{exercise}{Exercise}
+\newtheorem{assumption}{Assumption}[section]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Extra environment provides a shaded box
+% \usepackage{xcolor}
+% \usepackage{comment}
+% \definecolor{shadecolor}{gray}{0.9}
+% \specialcomment{extra}{\begin{shaded}}{\end{shaded}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% New environment for small font matrix
+% \newenvironment{smat}
+%   {\left[\begin{smallmatrix}}
+%   {\end{smallmatrix}\right]}
+  
+\newcommand{\smat}[1]{\brac{\begin{smallmatrix} #1 \end{smallmatrix}}}
+
+%% New environment for box matrix
+\newcommand{\bmat}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+
+%% New environment for parentheses matrix
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+
+%% New environment to number one line of an align* environment
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Equation Environment so I don't have to write out equation* all the time
+\newcommand{\eeq}[2][]{\begin{equation} \label{Eq:#1} #2 \end{equation}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Equation Environment so I don't have to write out equation* all the time
+\newcommand{\eqq}[2][]{\begin{equation*} #2 \end{equation*}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Number equation by their section
+\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Environment for importing R files as code and formatting options
+\usepackage{listings} %For adding line numbers to
+\lstset
+{ %Formatting for code in appendix
+    language=R,
+    basicstyle=\footnotesize,
+    numbers=left,
+    stepnumber=1,
+    showstringspaces=false,
+    tabsize=1,
+    breaklines=true,
+    breakatwhitespace=false,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Matrix environment shortcut
+\def\bma{\begin{pmatrix}}
+\def\ema{\end{pmatrix}}
+
+%% Allows specification of a directory
+\usepackage{graphicx}
+%\graphicspath{ {"/Users/danielhadley/Documents/SUMMER 2019/Research/Hou-Thesis/"} }
+
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Create shortcuts for the set of real numbers, natural numbers, rational numbers, and infinity
+\renewcommand{\a}{\alpha}
+\newcommand{\ab}{\vecl{a}}
+\newcommand{\abm}{\bm{\alpha}}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert} % Absolute Value that take size operator in [\big]
+\newcommand{\AC}{\mcal{A}}
+\newcommand{\alpb}{\vecg{\alpha}}
+\newcommand{\AS}{\mscr{A}} % Script A for sets of states in MCMC
+\newcommand{\avg}[1]{\overline{#1}}
+\renewcommand{\b}{\beta}
+\newcommand{\Bb}{\vecl{B}}
+\newcommand{\bb}{\vecl{b}}
+\newcommand{\bbI}{\mathbbm{I}}
+\newcommand{\bbone}{\mathbbm{1}}
+\newcommand{\bbP}[1]{\mathbb{P}\paren{ #1 }} %% Probability as an operator
+\newcommand{\BC}{\mcal{B}}
+\newcommand{\bdry}[1]{\pd\!#1} %% Function to denote a boundary
+\newcommand{\betab}{\vecg{\beta}}
+\newcommand{\bi}{\Leftrightarrow} %%a biconditional arrow
+\newcommand{\bias}[1]{\text{Bias}\paren{#1}}
+\newcommand{\brac}[1]{\left[ #1 \right]} %% Brackets that dynamically sizene
+\renewcommand{\C}{\mathbb{C}} %% Complex numbers
+\newcommand{\cas}{\stackrel{as}{\to}} %% converges almost surely
+\newcommand{\cb}{\mathbf{c}}
+\newcommand{\CC}{\mcal{C}}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil} %% Ceiling function with dynamic sizing
+\newcommand{\cid}{\stackrel{d}{\to}} %% convergence in distribution symbol
+\newcommand{\cip}{\stackrel{p}{\to}} %% convergence in probability symbol
+\newcommand{\cond}{\ \middle| \ }
+\newcommand{\Corr}[1]{\text{Corr}\!\left(#1\right)} %% write Corr as text in math mode for correlation operator
+\newcommand{\Cov}[1]{\text{Cov}\!\left(#1\right)} %% write Cov as text in math mode for covariance operator
+\newcommand{\D}{\Delta} %% Uppercase delta
+\newcommand{\de}{\delta} %% Lowercase delta
+\newcommand{\deriv}[1]{\frac{d}{d #1}} %% univariate derivative symbol
+\newcommand{\Db}{\mathbf{D}} %% bold capital latin letter D
+\newcommand{\DC}{{\cal D}}
+\newcommand{\db}{\mathbf{d}} %% bold lowercase latin letter D
+\newcommand{\diag}[1]{\text{diag}\paren{#1}}
+\newcommand{\dist}[3][]{\fnc{\text{#2}_{#1}}{#3}}
+\newcommand{\dom}[1]{\mathrm{dom}\paren{#1}} %% domain of a function
+\newcommand{\dotb}{\bullet} %% slightly bigger cdot symbol for dot product
+\newcommand{\Eb}{\vecl{E}}
+\newcommand{\eb}{\vecl{e}}
+\newcommand{\EC}{{\cal E}}
+\newcommand{\eid}{\stackrel{d}{=}} %% equal in distribution
+\newcommand{\ep}{\epsilon}
+\newcommand{\epb}{\vecg{\epsilon}}
+\newcommand{\epp}{\varepsilon}
+\newcommand{\eppbm}{\bm{\varepsilon}} %% bold lowercase epsilon variation
+\newcommand{\eqstar}{\stackrel{*}{=}} %% equal sign with a star over it for a footnote
+\newcommand{\errtr}{\text{Err}_{\text{tr}}}
+\newcommand{\errin}{\text{Err}_{\text{in}}}
+\newcommand{\est}[1]{\widehat{#1}}
+\newcommand{\etab}{\bm{\eta}}
+\newcommand{\Exp}[2][]{\mathbb{E}_{#1}\brac{ #2 }} %% Used for Expectation Operator
+\newcommand{\expo}[1]{\exp\set{#1}} %% exponential function with dynamic braces
+\newcommand{\FC}{{\cal F}}
+\renewcommand{\Finv}[2]{F^{-1}_{#1}\paren{#2}} %% inverse CDF function: arg1 for r.v. and arg2 for expression
+\newcommand{\finv}[2]{#1^{-1}\paren{#2}} %% inverse function: arg1 is the function; arg2 is the variables
+\newcommand{\fnc}[2]{#1\!\paren{#2}} %% function: arg1 is the function; arg2 is the variables
+\newcommand{\fncD}[3][D]{#2\!_{#1\!}\!\paren{#3}} %% function: arg1 is the function; arg2 are the variables (used for shape set)
+\newcommand{\fncDtest}[3][D]{#2\!_{#1\!}\!\paren{#3}} %% function: arg1 is the function; arg2 are the variables (used for shape set)
+\newcommand{\fncEV}[1]{\bbE\left[ #1 \right]}
+\newcommand{\fncf}[2][]{f_{#1}\left( #2 \right)} %For function f() with dynamically sized parentheses and optional argument for subscript
+									% To property use this function \fncf[subscript]{argument in parentheses}
+\newcommand{\fncg}[2][]{g_{#1}\left( #2 \right)} %For function g() with dynamically sized parentheses and optional argument for subscript
+									% To property use this function \fncg[subscript]{argument in parentheses}
+\newcommand{\g}{\gamma} %% shorthand for lowercase gamma
+\newcommand{\gb}{\vecl{g}} %% Bold g
+\newcommand{\gbm}{\bm{{\gamma}}} %% bold lowercase gamma
+\newcommand{\grad}{\nabla} %% Gradient symbol (upside-down Delta)
+\newcommand{\hb}{\vecl{h}}
+\newcommand{\HC}[1]{\cal{H}\!_{\mathit{#1}}} %% Used to denote the class of homothetic densities
+\newcommand{\Ib}{\vecl{I}} %% Bold I for identity matrix
+\newcommand{\Ibb}[1]{\mathbb{I}\paren{#1}} %% I for indicator function
+\newcommand{\IC}{\cal I}
+\newcommand{\iid}{\mathrel{\overset{\text{iid}}{\scalebox{1.5}[1]{$\sim$}}}} %% i.i.d. over distribution symbol
+\renewcommand{\iff}{\Leftrightarrow} %shorter if and only if (biconditional)
+\newcommand{\ind}{\perp\!\!\!\!\perp} %independence symbol
+\newcommand{\inp}[2]{\left\langle #1, #2 \right\rangle} %inner product
+\newcommand{\ith}{\text{i}^{\text{th}}}
+\newcommand{\jth}{\text{j}^{\text{th}}}
+\newcommand{\ka}{\kappa} %% Shortcut for Greek kappa
+\newcommand{\kth}{\text{k}^{\text{th}}}
+\renewcommand{\L}{\Lambda} %% uppercase lambda
+\renewcommand{\l}{\lambda} %% lowercase lambda
+\newcommand\latexcode[1]{#1} %% for using accents in Rmarkdown
+\newcommand{\lavg}[1]{\overline{#1}} %% place a long bar over the argument
+\newcommand{\Lim}[1]{\raisebox{0.5ex}{\scalebox{0.8}{$\displaystyle \lim_{#1}\;$}}} %Place conditions under lim when mixing math mode with text
+\newcommand{\limnf}[1]{\displaystyle\lim_{#1\to\nf}} %% Limit to infinity taking argument for variable that goes to infinity; always places text under lim
+\newcommand{\lr}{\leftrightarrow} %%two-directional arrow for Markov Chain communicating states
+\newcommand{\maxa}[2][]{\max_{#1}\set{#2}} %% Maximum function with braces for argument
+\newcommand{\MC}{{\cal M}}
+\newcommand{\mcal}[1]{\mathcal{#1}} %% Command for calligraphy \mathcal (like Borel sets)
+\newcommand{\mina}[2][]{\min_{#1}\set{#2}} %% Minimum function with braces for argument
+\newcommand{\mink}[1]{n_D\paren{#1}} %% Minkowski Functional or Gauge Function
+\newcommand{\mmid}{\middle|} %% Dynamically sized vertical bar
+\newcommand{\mscr}[1]{\mathscr{#1}} %% Command for script \mathscr (like sigma-algebras)
+\newcommand{\mse}[1]{\text{MSE}\paren{#1}}
+\newcommand{\mth}{\text{m}^{\text{th}}}
+\newcommand{\mub}{\bm{{\mu}}} %% Bold mu symbol; mean vector for multivariate normal
+\newcommand{\N}{\mathbb{N}} %% Natural numbers
+\newcommand{\NC}{{\cal N}}
+\newcommand{\ndiv}{\notdivides} %% symbol for "does not divide"
+\newcommand{\nf}{\infty} %% Infinity sign
+\newcommand{\nlb}{\nolinebreak} %% prevent line breaks and should be used for Equation/Figure/Table references
+\newcommand{\norm}[1]{\normalfont{#1}} %% Revert to Normal Font in an italics or bold environment
+\newcommand{\nset}{\emptyset} %% Empty Set
+\newcommand{\nth}{\text{n}^{\text{th}}}
+\newcommand{\nub}{\bm{\nu}} %% Bold latin nu
+\renewcommand{\O}{\Omega} %%Capital Omega
+\renewcommand{\o}{\omega} %%shorthand for lowercase omega
+%% \newcommand{\om}{\omega} %%shorthand for lowercase omega
+\newcommand{\OC}{\cal{O}} %% Caligraphy O
+\newcommand{\onebb}[1]{\mathbbm{1}\!\paren{#1}} %% Indicator Function
+\newcommand{\paren}[1]{\left( #1 \right)} %% Dynamically size parentheses
+\newcommand{\Pb}{\vecl{P}} %% Bold P for probability transition matrix (MCMC)
+\newcommand{\pb}{\vecl{p}} %% bold lowercase p
+\newcommand{\pd}{\partial} %% Shorthand for partial derivative symbol
+\newcommand{\pderiv}[1]{\frac{\partial}{\partial #1}} %% partial derivative symbol
+\newcommand{\phib}{\bm{\phi}} %% Bold latin phi
+\newcommand{\Pois}{\text{Pois}}
+\newcommand{\point}[1]{\left( #1 \right)}
+\newcommand{\prob}[1]{\bbP{ #1}} %% Probability as an operator with dynamic sized parentheses
+\newcommand{\pset}[1]{\mcal{P}(#1)} %% The Power Set
+\newcommand{\psib}{\vecg{\psi}} %% Vector notation for greek letter psi (score functions)
+\newcommand{\pth}{p^{\text{th}}}
+\newcommand{\Q}{\mathbb{Q}} %% Rational numbers
+\newcommand{\Qb}{\vecl{Q}} %% Bold Q for probability transition matrix (MCMC) when creating sets of states
+\newcommand{\qb}{\vecl{q}} %% Bold Q for probability transition matrix (MCMC) when creating sets of states
+\newcommand{\QC}{\mcal{Q}}
+\newcommand{\R}{\mathbb{R}} %% Real numbers
+\newcommand{\Rho}{\mathrm{P}} %% Capital rho
+\newcommand{\rhobm}{\vecg{\rho}} %% Bold lowercase rho
+\newcommand{\Rplus}{\mathbb{R}^{+}} %% Real numbers
+\newcommand{\rb}{\vecl{r}}
+\newcommand{\rs}{R^2} %%R-squared
+\newcommand{\Rstar}{R^{\star}\!} %%used for star-generalized radius variable
+\newcommand{\rstar}{r^{\star}\!} %%used for star-generalized radius variable
+\newcommand{\rstari}[1]{r^{\star}_{#1}} %%used for star-generalized radius variable
+\renewcommand{\S}{\mathbb{S}} %% Unit sphere
+\newcommand{\s}{\sigma} %% lowercase sigma
+\newcommand{\salgebra}{\sigma\text{-algebra}}
+\newcommand{\salg}{\sigma\text{-algebra}}
+\newcommand{\sbf}{\mathbf{s}}
+\newcommand{\Sbb}{\mathbb{S}} %% S written for the unit sphere
+\newcommand{\SC}{\mcal{S}}
+\newcommand{\SD}[1]{\text{SD}\!\left(#1\right)} %% Standard Deviation
+\newcommand{\seq}[1]{\left( #1 \right)} %% Sequence operator places dynamic parentheses around #1
+\newcommand{\set}[1]{\left\{ #1 \right\}} %Dynamically size braces around an equation
+\newcommand{\setm}{\setminus} %%Symmetric difference
+\newcommand{\sgn}[1]{\text{sgn}\paren{ #1 }} %sign operator
+\newcommand{\Sigmabm}{\bm{\Sigma}}
+\newcommand{\simp}{\ \Rightarrow \ } %%Shorter arrow for implies
+\renewcommand{\ss}{\subset}
+\newcommand{\sumnf}[2][1]{\displaystyle\sum_{#2=#1}^{\nf}} %% Limit to infinity taking argument for variable that goes to infinity; always places text under lim
+\newcommand{\sumto}[2]{\displaystyle\sum_{#1}^{#2}} %% summation without underscore and carrot
+\newcommand{\svar}[1]{\widehat{\text{Var}}\left(#1\right)}
+\renewcommand{\T}{\Theta} %% Uppercase Theta
+\renewcommand{\t}{\theta} %% Lowercase theta
+\newcommand{\tb}{\mathbf{t}} %% Bold-faced lowercase t
+\newcommand{\tbf}[1]{\textbf{#1}} %%Bold-faced in text environment
+\newcommand{\tbm}{\bm{\t}} %% Bold-faced lowercase t
+\newcommand{\TC}{{\cal T}}
+\newcommand{\Tbm}{\bm{\Theta}} %% Bold-faced capital theta
+\newcommand{\thb}{\bm{\theta}} %% Bold-faced lowercase theta
+\newcommand{\tit}[1]{\textit{#1}} %% Italics text
+\newcommand{\tPr}{\text{Pr}}
+\newcommand{\tr}{^{\intercal}}
+\newcommand{\trace}[1]{\text{tr}\paren{#1}} %% trace of matrix
+\newcommand{\tth}{\theta} %% Lowercase theta
+\newcommand{\ttt}[1]{\texttt{#1}} % Code font in LaTeX
+\newcommand{\twonorm}[1]{\left\Vert #1 \right\Vert} % ell-2 (or two-norm) that automatically sizes to the argument
+\newcommand{\oneb}{\mathbf{1}}
+\newcommand{\Ub}{\mathbf{U}}
+\newcommand{\ub}{\mathbf{u}}
+\newcommand{\ubrace}[2]{\underbrace{#2}_\text{#1}}
+\newcommand{\VaR}[2]{\fnc{\text{VaR}_{#1}}{#2}} %% Value-at-Risk operator
+\newcommand{\Var}[2][]{\text{Var}_{#1}\!\left(#2\right)} %% variance operator
+\newcommand{\Vb}{\mathbf{V}}
+\newcommand{\vb}{\mathbf{v}}
+\newcommand{\VC}{{\cal V}}
+\newcommand{\vecg}[1]{\bm{#1}}
+\newcommand{\vecl}[1]{\mathbf{#1}}
+\newcommand{\vphi}{\varphi} %% alternate lowercase phi
+\newcommand{\vt}{\vartheta} %% alternate lowercase theta
+\def\w{\omega}
+\newcommand{\Wb}{\mathbf{W}}
+\newcommand{\wb}{\mathbf{w}}
+\newcommand{\wbm}{\bm{\w}} %% Bold, lowercase omega
+\newcommand{\WC}{\mcal{W}}
+\newcommand{\wtilde}[1]{\widetilde{#1}}
+\newcommand{\Xb}{\vecl{X}}
+\newcommand{\xb}{\mathbf{x}}
+\newcommand{\xbm}{\vecg{\xi}} %% Lowercase xi as a vector (bold)
+\newcommand{\XC}{\mcal{X}}
+\newcommand{\Yb}{\vecl{Y}}
+\newcommand{\yb}{\vecl{y}}
+\newcommand{\YC}{\mcal{Y}}
+\newcommand{\Z}{\mathbb{Z}} %% Denotes the set of integers ..., -2, -1, 0, 1, 2, ...
+\newcommand{\Zb}{\mathbf{Z}}
+\newcommand{\zb}{\mathbf{z}}
+\newcommand{\ZC}{\mcal{Z}}
+\newcommand{\zerob}{\mathbf{0}} %%Bold Number 0 for the zero vector
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclarePairedDelimiter{\ellnorm}{\lVert}{\rVert} % ell-q that take size operator in [\big]
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator{\qnorm}{\Phi}
+\DeclareMathOperator*{\med}{Med}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Glossary Entires
+\usepackage{acronym}
+\newacro{ae}[a.e.]{\textit{almost everywhere}}
+\newacro{aic}[AIC]{\textit{Akaike's Information Criterion}}
+\newacro{ar}[A-R]{\textit{Accept-Reject Method}}
+\newacro{ash}[ASH]{\textit{average shifted histogram}}
+\newacro{av}[AV]{\tit{asymptotic variance}}
+\newacro{bic}[BIC]{\textit{Bayesian information criterion}}
+\newacro{bp}[BP]{\tit{breakdown point}}
+\newacro{cdf}[CDF]{\textit{cumulative distribution function}}
+\newacro{cf}[c.f.]{\textit{Characteristic function}}
+\newacro{clt}[CLT]{\textit{Central Limit Theorem}}
+\newacro{cvar}[CVaR]{\textit{conditional value-at-risk}}
+\newacro{cte}[CTE]{\textit{conditional tail expectation}}
+\newacro{ctp}[CTP]{\textit{conditional tail probability}}
+\newacro{dcl}[$D$-class]{\textit{directionally dispersed class of distributions}}
+\newacro{dgf}[dgf]{\textit{density generating function}}
+\newacro{es}[ES]{\textit{expected shortfall}}
+\newacro{evt}[EVT]{\textit{extreme value theory}}
+\newacro{foc}[F.O.C.]{\tit{First Order Conditions}}
+\newacro{if}[IF]{\tit{influence function}}
+\newacro{gev}[GEV]{\textit{generalized extreme value}}
+\newacro{glb}[GLB]{\textit{Greatest Lower Bound}}
+\newacro{glr}[GLR]{\tit{Generalized Likelihood Ratio}}
+\newacro{iid}[\tit{i.i.d.}]{\textit{independent and identically distributed}}
+\newacro{irwls}[IRWLS]{\textit{iteratively reweighted least-squares}}
+\newacro{kcv}[$CV_k$]{\tit{$k$-fold cross-validation}}
+\newacro{kkt}[KKT]{Karush-Kuhn-Tucker}
+\newacro{lln}[LLN]{Law of Large Numbers}
+\newacro{lmm}[LMM]{\textit{linear mixed-effect models}}
+\newacro{loocv}[LOOCV]{\tit{leave-one-out cross-validation}}
+\newacro{ls}[LS]{\tit{least squares}}
+\newacro{lsas}[LSAS]{\textit{log-sinh-arcsinh}}
+\newacro{lr}[LR]{\textit{Likelihood Ratio}}
+\newacro{lub}[LUB]{\textit{Least Upper Bound}}
+\newacro{mad}[MAD]{\tit{median absolute deviation about the median}}
+\newacro{mcdf}[m.c.d.f.]{\textit{multivariate cumulative distribution function}}
+\newacro{mcmc}[MCMC]{\tit{Markov chain Monte Carlo}}
+\newacro{mcte}[MCTE]{\textit{multivariate conditional tail expectation}}
+\newacro{mctm}[MCTM]{\textit{marginal conditional tail moment}}
+\newacro{mes}[MES]{\textit{marginal expected shortfall}}
+\newacro{mgf}[MGF]{\textit{moment generating function}}
+\newacro{mh}[MH]{\textit{Metropolis-Hastings}}
+\newacro{mise}[MISE]{\tit{mean integrated squared error}}
+\newacro{ml}[ML]{\tit{Maximum Likelihood}}
+\newacro{mle}[MLE]{\tit{maximum likelihood estimate}}
+\newacro{mme}[MME]{\textit{marginal mean excess}}
+\newacro{mse}[MSE]{\tit{mean-squared error}}
+\newacro{ols}[OLS]{ordinary least squares}
+\newacro{pc}[PC]{\tit{principal components}}
+\newacro{pca}[PCA]{\tit{principal component analysis}}
+\newacro{pdf}[PDF]{\textit{probability density function}}
+\newacro{pmf}[PMF]{\textit{probability mass function}}
+\newacro{rjmcmc}[RJMCMC]{\textit{reversible-jump Markov chain Monte Carlo}}
+\newacro{rv}[r.v.]{\textit{random variable}}
+\newacro{sas}[SAS]{\textit{sinh-arcsinh}}
+\newacro{var}[VaR]{\textit{value-at-risk}}
+\newacro{wlln}[WLLN]{\textit{weak law of large numbers}}
+\newacro{wlog}[WLOG]{\tit{without loss of generality}}
+\newacro{wrt}[w.r.t.]{\tit{with respect to}}

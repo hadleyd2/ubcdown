@@ -1,0 +1,69 @@
+%%%% Packages I added %%%%
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{bm} %For bold lowercase Greek letters
+\usepackage{mathtools} %% for :=
+\usepackage{mathrsfs} %Let's us use \mathscr{} to produce script letters
+\usepackage{natbib} %For references using \citet and \citep
+
+%%%% Packages taken from the ubcdown main_script.Rmd template
+\usepackage{ragged2e}
+\usepackage{setspace}
+\usepackage{tocloft}
+\usepackage{float} 
+\floatplacement{figure}{H} 
+\usepackage{wrapfig}
+\usepackage{pdfpages}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Equation Environment so I don't have to write out equation* all the time
+\newcommand{\eqq}[2][]{\begin{equation*} #2 \end{equation*}}
+
+%% Equation Environment so I don't have to write out equation* all the time
+\newcommand{\eeq}[2][]{\begin{equation} \label{Eq:#1} #2 \end{equation}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Create shortcuts for the set of real numbers, natural numbers, rational numbers, and infinity
+\newcommand{\brac}[1]{\left[ #1 \right]} %% Brackets that dynamically sizene
+\newcommand{\expo}[1]{\exp\set{#1}} %% exponential function with dynamic braces
+\newcommand{\fnc}[2]{#1\!\paren{#2}} %% function: arg1 is the function; arg2 is the variables
+\newcommand{\gbm}{\pmb{\gamma}} %% bold lowercase gamma
+\newcommand{\gfnc}[2]{\fnc{n\!_{\mathit{#1}}}{#2}} %% gauge function
+\newcommand{\HC}[1]{\cal{H}\!_{\mathit{#1}}} %% Used to denote the class of homothetic densities
+\newcommand{\mub}{\pmb{\mu}} %% Bold mu symbol; mean vector for multivariate normal
+\newcommand{\nf}{\infty} %% Infinity sign
+\newcommand{\nlb}{\nolinebreak} %% prevent line breaks and should be used for Equation/Figure/Table references
+\newcommand{\QC}[1][]{\mathscr{Q}_{\mathit{#1}}} %% Used to denote the class of homothetic densities
+\newcommand{\paren}[1]{\left( #1 \right)} %% Dynamically size parentheses
+\newcommand{\pd}{\partial} %% Shorthand for partial derivative symbol
+\newcommand{\prob}[1]{\mathbb{P}\!\paren{#1}} %% Probability as an operator with dynamic sized parentheses
+\newcommand{\R}{\mathbb{R}} %% Real numbers
+\newcommand{\Rstar}{R^{\star}\!} %%used for star-generalized radius variable
+\newcommand{\rstar}{r^{\star}\!} %%used for star-generalized radius variable
+\newcommand{\rstari}[1]{r^{\star}_{#1}} %%used for star-generalized radius variable
+\newcommand{\set}[1]{\left\{ #1 \right\}} %Dynamically size braces around an equation
+\renewcommand{\T}{\Theta} %% Uppercase Theta
+\renewcommand{\t}{\theta} %% Lowercase theta
+\newcommand{\tr}{^{\intercal}}
+\newcommand{\Xb}{\mathbf{X}} %% Bold x for vector
+\newcommand{\xb}{\mathbf{x}} %% Bold x for vector
+\newcommand{\Yb}{\mathbf{Y}}
+\newcommand{\yb}{\mathbf{y}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Glossary Entires
+\usepackage{acronym}
+\newacro{ae}[a.e.]{\textit{almost everywhere}}
+\newacro{aic}[AIC]{\textit{Akaike's Information Criterion}}
+\newacro{ar}[A-R]{\textit{Accept-Reject Method}}
+\newacro{ash}[ASH]{\textit{average shifted histogram}}
+\newacro{av}[AV]{\textit{asymptotic variance}}
+\newacro{bic}[BIC]{\textit{Bayesian information criterion}}
+\newacro{bp}[BP]{\textit{breakdown point}}
+\newacro{cdf}[CDF]{\textit{cumulative distribution function}}
+\newacro{cf}[c.f.]{\textit{Characteristic function}}
+\newacro{clt}[CLT]{\textit{Central Limit Theorem}}
+\newacro{dcl}[$D$-class]{directionally dispersed class of distributions}
+\newacro{dg}[dg]{\textit{density generator}}
+\newacro{pdf}[PDF]{\textit{probability density function}}

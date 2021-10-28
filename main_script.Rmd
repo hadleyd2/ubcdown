@@ -3,19 +3,13 @@ output:
   bookdown::pdf_book: # comment when rendering to word document
   # bookdown::word_document2: # uncomment if rendering to word document
     toc: no # change me to yes if rendering to Word
-    keep_tex: no
+    keep_tex: yes
     number_sections: yes
     fig_width: 6
     fig_height: 4
     latex_engine: xelatex
-header-includes:
-   - \usepackage{ragged2e}
-   - \usepackage{setspace}
-   - \usepackage{tocloft}
-   - \usepackage{float} 
-   - \floatplacement{figure}{H} 
-   - \usepackage{wrapfig}
-   - \usepackage{pdfpages}
+    includes:
+        in_header: ./Preamble2.tex
 bibliography: ./References/reference_list.bib
 csl: ./References/reference_format.csl
 ---
@@ -35,7 +29,7 @@ library("knitr")
 library("kableExtra")
 library("dplyr")
 library("tibble")
-
+library("here")
 
 
 ```
@@ -162,6 +156,11 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 ```{r Introduction, child = './Sections/08_Introduction.Rmd', eval = T}
 ```
 
+## Modelling and Estimation {#SS:intro-modelling}
+
+```{r Introduction, child = './Sections/081_IntroModelling.Rmd', eval = T}
+```
+
 \clearpage
 
 <!-- From here on, include your different data chapters using normal Rmarkdown titles -->
@@ -241,7 +240,7 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 
 <!-- # References -->
 \section*{Bibliography}
-\addcontentsline{toc}{section}{Bibliography} 
+\addcontentsline{toc}{section}{Bibliography}
 
 <!-- Reset page config. For proper referencing  -->
 \noindent
