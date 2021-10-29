@@ -1,0 +1,128 @@
+
+
+In this section, we introduce trochoidal distributions which are distributions on $\R^2$ whose densities have homothetic level sets with boundaries that are curtate trochoids. We begin with an overview of trochoids, discuss hypotrochoids and epitrochoids, present parametric equations with constraints for trochoids that trace a valid boundary for a shape set $D$ of a density $f \in \HC{D}$, and derive gauge functions leading to trochoidal distributions. Finally, we use simulated data to fit trochoidal distribution families and the bivariate normal distribution family to the data using \ac{ml} estimation and compare the results.
+
+## Trochoids
+
+Trochoids have been studied for centuries by mathematicians such as Galileo, Pascal, and Bernoulli \citep[Section 13.3]{Rutter2017} and are roulettes that include cycloids commonly encountered in geometry and calculus. A classic review of trochoids can be found in \citet{Morley1894}. These curves have known parametric equations and are often found in engineering and machinery literature in the construction of gear wheels\citep{Shung1994}. The motivation to use trochoids as the boundaries of density level sets came from trying to recreate the simulation of \citet[Figure 1]{Jacob1996-edge}, where the edge of the support for a bivariate distribution is an epitrochoid.
+
+We focus on centered trochoids which are roulettes in $\R^2$ formed by tracing a point $P$ that is a distance $d$ from the center of a circle as it rolls around either the inside or outside of a fixed circle. The rolling circle has radius $r>0$ and the fixed circle has radius $R>0$. The distance $d \in \R$ is given with respect to the center of the rolling circle.
+
+Without loss of generality, the center of the fixed circle is assumed to be the origin in $\R^2$. Parametric equations for trochoids in $\R^2$ take argument $t$ for the radian angle measured counter-clockwise from the positive horizontal axis to the line passing through the centers of the fixed and rolling circles. See Figure \ref{Fig:trochoid-construct} for a geometric interpretation and Figure \ref{Fig:distances-pos} and Figure \ref{Fig:distances-epi} for construction of 2 trochoids as $t$ traverses $[0, 2\pi]$.
+
+The most common form of parametric equations for trochoids are based on its construction and have parameters $R$, $r$, and $d$ in addition to argument $t$. To avoid confusion as we start talking about the parameterization of trochoids, we refer to $t$ strictly as the argument so that the point $\paren{\fnc{x}{t; R, r, d}, \fnc{y}{t; R, r, d}}$ is the point evaluated at argument $t$ for the trochoid with parameters $R$, $r$, and $d$.
+
+![\label{Fig:trochoid-construct}Tracing a hypotrochoid in plot (a) and an epitrochoid in plot (b) as the argument traverses $\brac{0, t}$ where the radius of the fixed black circle is $R$, the radius of the grey rolling circle is $r$, and point $P$ is a distance $d$ in green from the center of the rolling circle. The resulting trochoids are indicated by the red dashed curve traced by point $P$.](../Thesis/Trochoidal/Images/trochoid-construction-1.pdf)
+
+As with any curve represented by parametric equations, we need to know the interval that the argument must traverse to complete one full trace of the curve. This interval can be calculated as \eqq{
+  t \in \paren{0, 2\pi \times \dfrac{\fnc{\text{LCM}}{r, R}}{R}}, 
+} where LCM stands for the least common multiple. If $r, R \in \Q$ with $r=r_1/r_2$ and $R=R_1/R_2$, \eqq{
+  \fnc{\text{LCM}}{\frac{r_1}{r_2}, \frac{R_1}{R_2}} = \dfrac{\fnc{\text{LCM}}{r_1, R_1}}{\fnc{\text{HCF}}{r_2, R_2}},
+} where HCF is the highest common factor.
+
+### Hypotrochoids {#SSS:hypotrochoids}
+
+Hypotrochoids are roulettes formed by tracing a point $P$ that is a distance $d$ from the center of a circle as it rolls counter-clockwise around the inside of a fixed circle. Plot (a) of Figure \ref{Fig:trochoid-construct} shows the roles of argument $t$ and parameters $R$, $r$, $d$ in the construction of a hypotrochoid. When the argument $t=0$, point $P(0)$ is on the positive horizontal axis. As the rolling circle rolls counter-clockwise, $t$ is the angle in radians between the positive horizontal axis and a line between the centers of the fixed and rolling circles.
+
+Hypotrochoids in $\R^2$ have parametric equations \eeq[hypo1]{
+  \fnc{x}{t} = (R - r)\cos(t) + d\fnc{\cos}{\frac{R-r}{r}t} \qquad \text{and} \qquad
+  \fnc{y}{t} = (R - r)\sin(t) - d\fnc{\sin}{\frac{R-r}{r}t}.
+} 
+
+Some examples of hypotrochoids are presented in Figure \ref{Fig:hypo-examples}. Plots (a) and (b) make one full trace of the trochoid for $t \in [0, 2\pi]$ while plots (c) and (d) require $t \in [0, 4\pi]$. Plots (a) and (c) are examples of curtate hypotrochoids which are formed when $\abs{d} < r$ so that the point $P$ is inside the rolling circle. Plots (b) and (d) are examples of prolate hypotrochoids where $\abs{d} > r$ and $P$ lies outside of the rolling circle. When $d = r$, $P$ lies on the rolling circle and the curve is called a hypocycloid.
+
+![\label{Fig:hypo-examples}Examples of curtate hypotrochoids $\paren{\abs{d} \leq r}$ are given in plots (a) and (c) and examples of prolate hypotrochoids $\paren{\abs{d} > r}$ are given in plots (b) and (d). Plots (a) and (b) complete one full trace for $t \in \brac{0, 2\pi}$ while plots (c) and (d) require $t \in \brac{0, 4\pi}$.](../Thesis/Trochoidal/Images/hypotrochoid-examples-1.pdf){width=50%}
+
+The distance $d$ can be positive or negative, but we are only concerned with $d \geq 0$. Figure \ref{Fig:distances-pos} shows how a hypotrochoid is traced in its standard construction as $t$ traverses the interval $\brac{0, 2\pi}$. When $d > 0$, point $P(0)$ is a distance of $d$ units to the right of the center of the rolling circle.
+
+![\label{Fig:distances-pos}Tracing a hypotrochoid with R=1.2, r=0.4, and d=0.2 as argument $0 \leq t < 2\pi$ traverses its domain](../Thesis/Trochoidal/Images/distances-pos-1.pdf){width=80%}
+
+### Epitrochoids
+
+Epitrochoids are roulettes formed by tracing a point $P$ that is a distance $d$ from the center of a circle that rolls counter-clockwise around the outside of a fixed circle. Plot (b) of Figure \ref{Fig:trochoid-construct} shows the role of argument $t$ and parameters $R$, $r$, $d$ in the construction of an epitrochoid with the same interpretation as explained in Section \@ref(SSS:hypotrochoids).
+
+Epitrochoids in $\R^2$ have parametric equations \eeq[epi1]{
+  \fnc{x}{t} = (R + r)\cos(t) + d\fnc{\cos}{\frac{R+r}{r}t} \qquad \text{and} \qquad
+  \fnc{y}{t} = (R + r)\sin(t) + d\fnc{\sin}{\frac{R+r}{r}t}.
+}
+
+Some examples of epitrochoids are presented in Figure \ref{Fig:epi-examples}. Plots (a) and (b) make one full trace of the trochoid for $t \in [0, 2\pi]$ while plots (c) and (d) require $t \in [0, 4\pi]$. Plots (a) and (c) are examples of curtate epitrochoids which are formed when $\abs{d} < r$ so that the point $P$ is inside the rolling circle. Plots (b) and (d) are examples of prolate epitrochoids where $\abs{d} > r$ so that $P$ lies outside of the rolling circle. When $d = r$, point $P$ is on the rolling circle, and the curve is called an epicycloid.
+
+![\label{Fig:epi-examples}Curtate epitrochoids $\paren{\abs{d} \leq r}$ are given in plots (a) and (c) and prolate epitrochoids $\paren{\abs{d} > r}$ are given in plots (b) and (d). Plots (a) and (b) complete one full trace for $t \in \brac{0, 2\pi}$ while plots (c) and (d) require $t \in \brac{0, 4\pi}$.](../Thesis/Trochoidal/Images/epitrochoid-examples-1.pdf){width=50%}
+
+We show the tracing of an epitrochoid as $t$ traverses the interval $\brac{0, 2\pi}$ in Figure \ref{Fig:distances-epi}. The grey circle is the rolling circle with radius $r$ given by the purple line, the fixed circle is black with radius $R$ given by the blue line, point $P$ is the red point of distance $d$ from the center of the rolling circle given by the green line.
+
+![\label{Fig:distances-epi}Tracing an epitrochoid with R=0.36, r=0.36, and d=0.27 as argument $0 \leq t < 2\pi$ traverses its domain](../Thesis/Trochoidal/Images/distances-epi-1.pdf){width=80%}
+
+### Parameterization {#trochoidal-param}
+
+To guarantee we generate trochoidal curves that are suitable density contours for densities $f \in \HC{D}$, the curve needs to form the boundary of a bounded star-shaped set and be continuous. The simultaneous generation of trochoids \citep{Morley1894} means that a trochoid need not have a unique parameterization, so we must constrain the parameters to ensure identifiability of the associated trochoidal distribution. In addition, we define a shape set as the largest density level set contained inside the unit circle. This additional constraint eliminates the need to specify $R$ and reduces the number of parameters needed.
+
+Constraining the parameters from Equations \eqref{Eq:hypo1} or Equations \eqref{Eq:epi1} is difficult since it is not always obvious how changes to $R$, $r$, and $d$ affect the resulting curve. We adopt the parameterization of \citet{Ferreol2017} since it is intuitive and interpretable. The parameters, interpretations, constraints, and domains are given below:
+
+  - $q \in \set{2, 3, 4, \dots}$ for hypotrochoids and $q \in \set{1, 2, 3, \dots}$ for epitrochoids determines the number of rotations the rolling circle completes as it makes one revolution around the fixed circle. The radius of the rolling circle is thus contrained to evenly divide the radius of the fixed circle by $r = R/q$. When point $P$ lies on the rolling circle, then $P$ touches the fixed circle $q$ times forming $q$ cusps. We use the term cusps generically when referring to $q$. For ease of notation, let $q\in\set{1_e, 2_e, 2_h, 3_e, 3_h, \dots}$ where subscript $e$ refers to epitrochoid with $q$ cusps and $h$ refers to hypotrochoids. Mathematical operations on $q$ ignore the subscript and we do not use subscripts when the type of trochoid is obvious. 
+  - $k \in [0, 1)$ is the distance to point $P$ from the center of the rolling circle expressed as a proportion of the rolling circle's radius. Parameter $k$ is related to the distance parameter through $d = kr$. Constraining $k$ in this way ensures that we have a curtate trochoid. Parameter $k$ determines how sharp the curve turns at a cusp. As $k\to0^{+}$, the trochoids converge to a circle and as $k\to1^{-}$, the trochoids converge to cycloids and are not differentiable at the cusps.
+
+Constraining the shape set to the unit circle allows us to calculate $R$ as a function of $q$ and $k$. By construction, $P$ is furthest from the origin when $t=0$. For hypotrochoids, this distance is calculated as $R - r + d$ while for epitrochoids the distance is $R + r + d$. Constraining this distance to $1$ yields $R = q/(q + k -1)$ for hypotrochoids and $R = q/(q+k+1)$ for epitrochoids. The standard parameterization is related to our parameterization by \eqq{
+  R = \frac{q}{q+k\pm1}; \qquad r = \frac{1}{q+k\pm1}; \qquad d = \frac{k}{q+k\pm1},
+} where we subtract 1 in the denominator for hypotrochoids and add 1 for epitrochoids.
+  
+Examples of hypotrochoids and epitrochoids under our parameterization are shown in Figure \ref{Fig:examples} and Figure \ref{Fig:epi-examples2}, respectively. Each plot in the figures is a different trochoidal curve family indexed by $q$ for various values of parameter $k$. The constraint $k \in [0, 1)$ avoids the straight line that results from hypotrochoid family $q=2$ with parameter $k=1$. The family of trochoidal curves indexed by $q$ are generically referred to by the names of their cycloid found in Table \ref{Tab:cycloid-names}.
+
+![\label{Fig:examples}Hypotrochoids index by $q = 2, \dots, 7$ with parameter values $k = n/4$ for $n=1, 2, 3, 4$. Family $q$ is characterized by having $q$ cusps while $k$ controls how sharp the cusps turn](../Thesis/Trochoidal/Images/hypotrochoid-examples2-1.pdf){width=85%}
+
+![\label{Fig:epi-examples2}Epitrochoids index by $q = 1, \dots, 6$ with parameter values $k = n/10$ for $n=1, 4, 7, 10$. Family $q$ is characterized by having $q$ cusps while $k$ controls how sharp the cusps turn](../Thesis/Trochoidal/Images/epitrochoid-examples2-1.pdf){width=85%}
+
+```{r trochoid-names, echo=FALSE}
+df <- data.frame(q = c(1:4), 
+                 Sad = c("NA", "Ellipse", "Deltoid", "Asteroid"), 
+                 Happy = c("Cardioid", "Nephroid", "Trefoil", "Quatrefoil"))
+kable(df, col.names = c("$q$", "Hypotrochoid", "Epitrochoid"), escape = F, 
+      caption = "\\label{Tab:cycloid-names}Names used to refer to trochoids for certain indices") %>%
+  kable_styling(latex_options = "hold_position")
+rm(df)
+```
+
+The number of directional dependencies is given by the index of the trochoidal curve family $q$, and parameter $k$ has information regarding the strength of those dependencies, but we need a rotation parameter to account for the direction. In the bivariate setting, we can rotate a vector $\paren{x, y}\tr$ counter clockwise by $\a$ radians using the rotation matrix \eqq{
+  \bmat{\fnc{\cos}{\a} & -\fnc{\sin}{\a} \\ \fnc{\sin}{\a} & \fnc{\cos}{\a}}\bmat{\fnc{x}{t} \\ \fnc{y}{t}}
+    = \bmat{\fnc{x}{t}\fnc{\cos}{\a} - \fnc{y}{t}\fnc{\sin}{\a} \\ \fnc{x}{t}\fnc{\sin}{\a} - \fnc{y}{t}\fnc{\cos}{\a}}.
+} Substituting parametric equations for $\fnc{x}{t}$ and $\fnc{y}{t}$ and simplifying, we get the new parametric equations for a hypotrochoid \eeq[hypo-angle]{
+  \begin{aligned}
+  \fnc{x}{t; q, k, \a} &= \frac{q-1}{q+k-1}\fnc{\cos}{t + \a} + \frac{k}{q+k-1}\fnc{\cos}{\paren{q-1}t - \a} \\
+  \fnc{y}{t; q, k, \a} &= \frac{q-1}{q+k-1}\fnc{\sin}{t + \a} - \frac{k}{q+k-1}\fnc{\sin}{\paren{q-1}t - \a},
+  \end{aligned}
+} and an epitrochoid, \eeq[epi-angle]{
+  \begin{aligned}
+  \fnc{x}{t; q, k, \a} &= \frac{q+1}{q+k+1}\fnc{\cos}{t + \a} + \frac{k}{q+k+1}\fnc{\cos}{\paren{q+1}t + \a} \\
+  \fnc{y}{t; q, k, \a} &= \frac{q+1}{q+k+1}\fnc{\sin}{t + \a} + \frac{k}{q+k+1}\fnc{\sin}{\paren{q+1}t + \a}.
+  \end{aligned}
+}
+
+Assuming $\fnc{f_0}{r}$ is decreasing in $r$, then $f \in \HC{D}$ is unimodal and invariant under linear transformations \citep{Balkema2010}. Then if random vector $\Xb \in \R^2$ has density $f \in \HC{D}$ and $S$ is a diagonal matrix with positive entries and $A$ is a rotation matrix, $\Yb = AS\Xb$ has density $g \in \HC{E}$ for some shape set $E$. Thus, we can allow for a rotation parameter in the equations for a trochoid and still remain in the class $\HC{D}$.
+
+Figure \ref{Fig:construction-rotation} shows the effect of a rotation on the construction of a trochoid. Suppose we have a hypotrochoid with $q = 2$ and parameter $k = 0.83$. When argument $t=0$ with no rotation, point $P$ has polar angle $\t=0$ as in plot (a) of Figure \ref{Fig:construction-rotation}. When the rotation parameter is $3\pi/4$, point $P$ has polar angle $\t=3\pi/4$ when argument $t=0$. In effect, a rotation parameter changes the starting position of the rolling circle inside the fixed circle. Similar plots for an epitrochoid with the same index and parameter are presented in plots (c) and (d).
+
+![\label{Fig:construction-rotation}The effect of a rotation parameter $\a$ in the construction of a hypotrochoid is shown between plot (a) where $\a=0$ and plot (b) where $\a=3\pi/4$. Similar plots are presented for an epitrochoid in plots (c) and (d), respectively. The effect of rotation is to change the starting position of the rolling circle.](../Thesis/Trochoidal/Images/construction-rotation-1.pdf){width=50%}
+
+Restricting the rotation parameter to $\a \in [0, 2\pi/q)$ preserves identifiability. For example, an ellipse can be fully rotated through angle $0 \leq \a < \pi$. Any angle of rotation outside this interval can be generated by applying a rotation from inside the interval. This same restriction applies to other hypotrochoids and to epitrochoids.
+
+<!-- Restricting the rotation parameter to $\a \in [0, 2\pi/q)$ preserves identifiability. For example, an ellipse can be fully rotated through angle $0 \leq \a < \pi$. Any angle of rotation outside this interval can be generated by applying a rotation from inside the interval. For a deltoid, symmetry exists along the lines through the center of the fixed circle and any point on the deltoid whose distance is 1 from the center. Thus, any rotation can be produced by choosing $\a \in [0, 2\pi/3)$. For an astroid, $\a \in [0, \pi/2)$ is the range of rotation to create a unique hypotrochoid. This same restriction applies to epitrochoids. -->
+
+## Trochoidal Gauge Function
+
+The trochoidal distribution families are indexed by $q$ and have parameters $k$ and $\a$. All families $q \in \set{1_e, 2_e, \dots, 2_h, 3_h, \dots}$ form a subclass of $\HC{D}$ characterized by having a gauge function describing a curtate trochoid. Using the parametric equations for a hypotrochoid and an epitrochoid, respectively, we first derive the polar functions for the trochoidal boundaries of shape sets. Using the parametric equations for hypotrochoids in Equation \eqref{Eq:hypo-angle}, the polar function is \eqq{
+  \fncD[D_h]{r}{\t; q, k, \a} = \frac{1}{q + k - 1}\sqrt{\paren{q-1}^2 + k^2 + 2k\paren{q-1}\fnc{\cos}{qt_{\t}}},
+} where $D_h$ denotes that the shape set $D$ has a hypotrochoidal boundary and $t_{\t}$ is the argument $t$ that produces a point with a polar angle of $\t$. Similarly, denoting a shape set $D$ with an epitrochoidal boundary as $D_e$, the parametric equations in Equation \eqref{Eq:epi-angle} give us the polar function for an epitrochoidal boundary, \eqq{
+  \fncD[D_e]{r}{\t; q, k, \a} = \frac{1}{q + k + 1}\sqrt{\paren{q+1}^2 + k^2 + 2k\paren{q+1}\fnc{\cos}{qt_{\t}}}.
+}
+
+As per Equation \eqref{Eq:stargen}, the gauge function for hypotrochoidal and epitrochoidal shape set boundaries with respect to the origin are, respectively, \eqq{
+  \fncD[D_h]{n}{\xb; q, k, \a} = \dfrac{\twonorm{\xb}_2}{\fncD[D_h]{r}{\t_{\xb}; q, k, \a}} \qquad \text{and} \qquad
+  \fncD[D_e]{n}{\xb; q, k, \a} = \dfrac{\twonorm{\xb}_2}{\fncD[D_e]{r}{\t_{\xb}; q, k, \a}},
+} where $\t_{\xb}$ is the polar angle of vector $\xb$. For a trochoidal family $q$ with valid parameter $k$ and $\a$ and a density generator $f_0$ meeting the condition in Equation \eqref{Eq:normalizing-constant}, the densities \eqq{
+  \fnc{f_0}{\fncD[D_h]{n}{\xb; q, k, \a}} \qquad \text{and} \qquad \fnc{f_0}{\fncD[D_e]{n}{\xb; q, k, \a}}
+} are in $\HC{D}$ and correspond to a trochoidal distribution.
+
+Calculation of the density for a trochoidal distribution may involve finding the area of the shape set. The area for the enclosed region bounded by a curtate epitrochoid has an analytical form \citep{Broman1981}, \eqq{
+  \int_{0}^{2\pi}\frac{1}{2}\fncD[D_e]{r}{\t; q, k}^2d\t = \frac{\pi\paren{q+1}\paren{q+1+k^2}}{\paren{q+k+1}^2}.
+} The area of the region bounded by a curtate hypotrhcoid does not have an analytical form and is by numerically integration of the polar function.
