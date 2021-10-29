@@ -1,0 +1,94 @@
+
+
+This section summarizes the anticipated work to be done in completion of this research proposal. The objectives are categorized into primary objectives and secondary objectives. Primary objectives are the state research goals or large components of those goals. Secondary objectives are open questions encountered while performing the research and compiling the results for this proposal. Preliminary ideas and references are included for the objectives to give the research direction.
+
+## Primary Objectives
+
+### Estimation of Densities with Homothetic Level Sets
+
+#### Estimation of Density Generator
+
+Research has not yet been performed on the various methods for estimating $f_0$. Regardless of the dimensionality, the density generator remains a univariate function and nonparametric estimators do not suffer from the curse of dimensionality. Since we assume $f_0$ is monotonically decreasing, we are interested in nonparametric estimators of monotone functions. An extensive review and comparative study can be found at \citet{Dette2006-monotone} and \citet{Dette2006-comparative}.
+
+There are many candidate parametric models that are appropriate for strictly decreasing, light-tailed densities. For example, the Weibull distribution is a flexible parametric family that can model light-tailed and heavy-tailed behavior. Under the assumption of a light-tailed density generator, \citet{Abdous2008} derives admissible forms of the survival function for the distribution of the star-generalized radius variable. Alternatively, we can assume various heavy-tailed and light-tailed density generators, estimate via \ac{ml} and perform model selection.
+
+#### Iterative Approach {#SSS:iterative-approach}
+
+The general estimation approach presented in Section \@ref(estimation) might be improved by updating estimates of $D$ and $f_0$ until convergence as discussed in Section \@ref(S:estimation-dg). Work is currently being performed on this approach.
+
+<!-- For example, suppose we estimate $D$ with Kamiya's estimator in Equation \eqref{Eq:K-standard} to produce the estimate $\est{D}^{(1)}$ and use $\est{D}^{(1)}$ to find the estimate $\est{f}_0^{(1)}$ for the density estimator. Now, we can incorporate $\est{f}_0^{(1)}$ into any other estimator for the shape set to produce $\est{D}^{(2)}$. For example, we can use kernel regression where we choose the bandwidth to maximize the likelihood given $\est{f}_0^{(1)}$. -->
+
+<!-- When using the free-knot spline shape set estimator of \citet{Ferreira2005} with an assumed parametric family for the density generator, the iterative approach is similar to the EM-algorithm \citep{Dempster1977} since the \ac{rjmcmc} algorithm produces a sample from the posterior distribution of the shape set. We can thus perform an expectation step on the shape set and maximize with respect to the parameters of the density generator.  -->
+
+<!-- Using polar coordinates, the EM-algorithm itself may provide an algorithm to estimate $f\in\HC{D}$, and references such as \citet{Liu1995, McLachlan2007} should be consulted to aid in deriving the complete log-likelihood function and the conditional distribution required for the $E$-step. -->
+
+<!-- There are no guidelines in the literature to recommend estimation of $f_0$ or $D$ first. While Kamiya's estimator provides a good starting point for estimating $D$ first, since it is unaffected by the density generator, the estimation approach needs to be examined to see if there are certain scenarios where estimating either the density generator or shape set first is advantageous.  -->
+
+<!-- When estimating the shape set first, any of the approaches in Section \@ref(S:shape-set) can be used to estimate $D$ as $\est{D}$. The star-generalized radii are then estimated as the proportion of the Euclidean distance from $\mub$ to each observation divided by the Euclidean distance from $\mub$ to $\est{D}$ in the same direction as the observation. Assuming $\mub$ is known, the star-generalized radius estimates for observations $\xb_i$ for $i = 1, \dots, n$ are calculated as \eqq{ -->
+<!--   \est{r}_i = \frac{\twonorm{\xb_i - \mub}_2}{\fncDtest[\est{d}]{r}{\ub_i}}, -->
+<!-- } where $\ub_i = \dfrac{\xb_i - \mub}{\twonorm{\xb_i - \mub}_2}$ and $\fncDtest[\est{D}]{r}{\cdot}$ is the polar function of the estimated boundary $\pd\est{D}$. The density generator can then be estimated using the estimates $\est{r}_i$ for $i = 1, \dots, n$. -->
+
+<!-- Starting the iterative approach with the density generator is also possible. For example, when the star-generalized radius variables are equal to the Euclidean distance, we have a spherical distribution. Under this assumption, we set $\est{r}_i = \twonorm{\xb_i - \mub}_2$. The estimated star-generalized radii can then be used to estimate either their density, $\fnc{f_R}{r}$, or the density generator, $\fnc{f_0}{r}$, using Equation \eqref{Eq:scale-r}. Once we have the density generator, we can then utilize free-knot splines to estimate $D$ or kernel regression and smoothing splines where we can now select the bandwidth or penalty parameter, respectively, that maximizes the likelihood function. This produces the estimate $\est{D}$ which may be used to update the estimate of the density generator. -->
+
+#### Generalizing Estimation to Higher Dimensions
+
+So far we have performed shape set estimation in the bivariate setting, but a goal of our research is estimation in higher dimensions such as $\R^3$. Some techniques such as kernel regression and splines are known to suffer from the curse of dimensionality, although splines on the sphere \citep{Wahba1981} should generalize. Other techniques, such as Kamiya's estimator and the free-knot splines of \citet{Ferreira2005}, are said to generalize to higher dimensions by the authors, but a thorough simulation study has not yet been performed in the literature.
+
+#### Estimation of Location
+
+In our simulation study, we have assumed that $\mub$ is the origin. We lose generality through this assumption when the star-shaped set $D$ has a center that is not the mean. Examples include the trochoidal distribution family $q = 1_e$ or a distribution with elliptical density level sets where $\mub$ could be any point in $D$. To handle such possibilities, estimation of $\mub$ is an important component of the estimation of a density $f \in \HC{D}$.
+
+### Asymptotic Behavior and Approximations for Measures of Light-Tailed Financial Risks
+
+The literature review is complete and presented in Section \@ref(SS:intro-financial-risk). The next phase towards completion of this objective is to attempt to generalize the work of \citet{Hashorva2019} and \citet{Ling2019} for the bivariate case to the class of distributions with densities $f \in \HC{D}$ and then trying to generalize the results to higher dimensions.
+
+### Estimation of Risk Regions
+
+The third primary objective is the estimation of high-risk regions for light-tailed random vectors with \ac{pdf} $f\in\HC{D}$. After estimation of $f$, the challenge of risk region estimation is to determine the quantile of the star-generalized radius distribution at probability level $p$. As we let $p\to1$ beyond the available data, such as when $p > n/(n+1)$ for some dataset of size $n$, this becomes a univariate extreme value problem. The estimator of \citet{Asimit2010} provides a reasonable starting point for this research.
+
+## Secondary Objectives
+
+<!-- ### Assuming $f_0$ is von Mises Implies Marginal Densities in Gumbel DOA -->
+
+<!-- By assuming $f_0$ is a von Mises function, we assume that the marginal distributions of $\Xb$ lie in the Gumbel maximum domain of attraction. This claim is taken from \citet[p. 7]{Hou2017}, but is stated without citation or proof. If this fact is used in our analysis, it needs to be proven. -->
+
+<!-- ### Marginal Distribution of Direction and $\fncD{r}{\t}$ -->
+
+<!-- Assume bivariate random vector $\Xb \sim \dist{N}{\zerob, \Sigma}$ has polar coordinates $\paren{\Rho, \T}\tr$. Motivated by the work of \citet{Cooper2020} (though this reference is taken from arXiv.org and has some small mistakes) and fully derived in Appendix \@ref(App:conditional-expectation), the conditional expectation $\Exp{\Rho | \T = \t}$ is equivalent up to proportion to the polar function $\fncD{r}{\t}$. Combining this observation with \citet[Lemma 3.1]{Kamiya2019}, it appears that an unnormalized marginal density of direction is $\fncD{r}{\t}$ in $\R^2$. I would like to prove/disprove this conjecture for densities $f \in \HC{D}$ for $\R^p$, $p \geq 2$. If true, this would make simulation via the stochastic representation of Section \@ref(sim-boundary) easier than simulating over the shape set. -->
+
+<!-- ### Estimating Shape Set Boundary up to Proportion -->
+
+<!-- As shown for the bivariate normal distribution family in Section \@ref(SSS:shape-set-scaling), the proportionality constant $\ka$ is inconsequential when estimating $\ka\fncD{r}{\t}$ versus estimating $\fncD{r}{\t}$ due to the homogeneity of the gauge function and its one-to-one relationship to $\fncD{r}{\cdot}$. Further analysis is necessary to show this conclusion holds in general for $f \in \HC{D}$. -->
+
+### Free-Knot Splines
+
+Free-knot splines presented in Section \@ref(SSS:free-knot-splines) provide a shape set estimator that performs well under the right assumptions, but work is needed to understand the consequences for misspecifying the density generator. Misspecification can be avoided altogether if the \ac{rjmcmc} algorithm is fully Bayesian, meaning that the density generator or its parameters are treated as additional random variables to be sampled. However, this adds complexity to the estimator in the form of:
+
+  (i) computational intensity - the algorithm already takes a long time to run, so adding more variables is likely to increase the computational load multiplicatively;
+  (i) complex calculations - acceptance probabilities are relatively simple in the \ac{rjmcmc} algorithm of \citet{Ferreira2005}, but adding prior and proposal densities for the density generator might make the calculations intractable, particularly if we allow the class of density generators to change. A major complication arises if classes of density generators have different numbers of parameters. The Jacobian for inter-dimensional moves is $1$ for the current version of the \ac{rjmcmc} algorithm \citep{Lindstrom2002}, but this is likely to change as the inputs grow and the Jacobian may need derivation.
+
+Another possibility to improve free-knot splines is to incorporate informed priors and proposal densities into the algorithm. For example, the shape set estimator of \citet{Kamiya2019} is relatively simple, shows promise in our simulation study for producing reasonable estimates, and does not consider the density generator. Thus, it is desirable to incorporate this estimate into the prior distribution for knot locations. For example, we may require new knots to be sampled uniformly from a confidence region produced by this estimator. The feasibility of implementing such a strategy needs investigation.
+
+Other changes to investigate the improvement of the \ac{rjmcmc} algorithm for free-knot splines is a Dirichlet prior on knot directions to prevent knots that are too close and implementing a locality heuristic \citep{Zhou2001} for the proposal distribution of new knots. The locality heuristic states that newly accepted knots are likely to occur in regions where the curve is fluctuating and so additional knots should have higher probabilities of being proposed in these regions.
+  
+### Trochoidal Distributions
+
+There are a few questions to investigate in an attempt to further generalize trochoidal distributions:
+
+  - Trochoids are in the domain of glissettes and roulettes, which generalize curves beyond epitrochoids and hypotrochoids previously discussed. Rigorous studies of such curves are given in \citet{Putnam2012, Yates1947}. The idea for generalizing the family of curves is to relax the constraint that the fixed and rolling objects are circles. For example, one may trace a point on an ellipse as one ellipse rolls around the inside of some fixed ellipse.
+  
+  - Generalizing to higher dimensions beyond $\R^2$: While it is relatively simple to rotate a trochoid to create a surface, I have yet to find a construction of surfaces similar to the construction of trochoids. There is work available on trochoidal curves in 3-dimensions, but not surfaces.
+  
+  - Estimation of the trochoid using the EM-Algorithm: The difficulty in finding an EM-Algorithm for trochoidal distributions is in the mapping of parametric equation argument $t$ and the resulting point's polar angle, $\t$. I believe this would be necessary to calculate the partial derivatives with respect to the shape set's parameters. There may be other representations of trochoids that are more convenient and the above references need a thorough review.
+
+### Assessing Estimation Performance {#SSS:assessing-performance}
+
+For shape set estimation, the symmetric difference has been used by \citet{Cai2011}.
+
+The modified Anderson-Darling test \citep{Sinclair1990} and the Kolmogorov-Smirnov test can be used to assess the fit of the tail for the distribution of the star-generalized radius variable.
+
+For parametric models, \ac{aic} \citep{Akaike1974} and \ac{bic} \citep{Schwarz1978} are commonly used for model selection and the appropriateness of these measures under $f \in \HC{D}$ is to be analyzed.
+
+Criteria to select among nonparametric and parametric estimators should be compiled in order to select among estimates of the density where the shape set is both nonparametrically and parametrically estimated.
+  
+  
