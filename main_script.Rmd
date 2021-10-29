@@ -3,15 +3,15 @@ output:
   bookdown::pdf_book: # comment when rendering to word document
   # bookdown::word_document2: # uncomment if rendering to word document
     toc: no # change me to yes if rendering to Word
-    keep_tex: yes
+    keep_tex: no
     number_sections: yes
     fig_width: 6
     fig_height: 4
     latex_engine: xelatex
     includes:
         in_header: ./Preamble2.tex
-bibliography: ./References/reference_list.bib
-csl: ./References/reference_format.csl
+# bibliography: ./References/reference_list.bib
+# csl: ./References/reference_format.csl
 ---
 
 
@@ -138,7 +138,7 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 
 \clearpage
 
-# Chapter One: Introduction
+# Introduction
 
 <!-- Set Numbering properly for rest of the document -->
 \pagenumbering{arabic}
@@ -153,12 +153,12 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \renewcommand{\theequation}{1.\arabic{equation}}
 \setcounter{equation}{0}
 
-```{r Introduction, child = './Sections/08_Introduction.Rmd', eval = T}
+```{r Introduction, child = './Sections/080_Introduction.Rmd', eval = T}
 ```
 
 ## Modelling and Estimation {#SS:intro-modelling}
 
-```{r Introduction, child = './Sections/081_IntroModelling.Rmd', eval = T}
+```{r Introduction2, child = './Sections/081_IntroModelling.Rmd', eval = T}
 ```
 
 \clearpage
@@ -166,7 +166,7 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 <!-- From here on, include your different data chapters using normal Rmarkdown titles -->
 
 <!-- Modify me! -->
-# Chapter Two: Insert Title Chapter Here 
+# Background on Densities with Homothetic Level Sets {#S:background}
 
 <!-- Set figure and table numbering according to the chapter -->
 \renewcommand{\thefigure}{2.\arabic{figure}}
@@ -176,7 +176,32 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \renewcommand{\theequation}{2.\arabic{equation}}
 \setcounter{equation}{0}
 
-```{r chapter_two, child = 'insert_project_path_here/chapter_manuscript.Rmd', eval = F}
+```{r Background, child = './Sections/0900_Background.Rmd', eval = T}
+```
+
+## Definitions {#definitions}
+
+```{r Background1, child = './Sections/0910_Definitions.Rmd', eval = T}
+```
+
+## Density Generator {#density-generator}
+
+```{r Background2, child = './Sections/0920_DensityGenerator.Rmd', eval = T}
+```
+
+## Simulation of Random Vectors with Density $f \in \HC{D}$ {#stochastic-representation}
+
+```{r Background3, child = './Sections/0930_Simulation.Rmd', eval = T}
+```
+
+### Simulation over Boundary of Shape Set {#sim-boundary}
+
+```{r Background32, child = './Sections/0931_Boundary.Rmd', eval = T}
+```
+
+### Simulation over Shape Set {#sim-shapeset}
+
+```{r Background33, child = './Sections/0932_ShapeSet.Rmd', eval = T}
 ```
 
 \clearpage
@@ -246,6 +271,9 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \noindent
 \leftskip=2em
 \parindent=-2em
+
+\bibliographystyle{chicago} 
+\bibliography{`r as.name(here::here("References", "reference_list.bib"))`}
 
 <div id="refs"></div>
 
