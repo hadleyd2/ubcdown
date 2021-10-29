@@ -1,0 +1,33 @@
+
+
+We assume that the density generator is a positive, continuous, and strictly decreasing function with \mbox{domain $(0, \nf)$}. This implies that for $f \in \HC{D}$, the corresponding \mbox{density $\fnc{f}{\xb} = \fnc{f_0}{\fnc{n_D}{\xb - \mub}}$} is unimodal with mode $\mub$. We now consider conditions on the density generator that ensure $\fnc{f_0}{\fnc{n_D}{\xb - \mub}; \gbm}$ is a proper \ac{pdf} in $\R^p$.
+
+The density generator takes the star-generalized radius variable as its argument. The probability that random vector $\Xb \in \R^p$ with density $f \in \HC{D}$ is in the set $s_cD$ can be calculated as \eqq{
+  \prob{\Xb \in s_cD} = \int_{s_cD}f(\xb)d\xb 
+    = \int_{s_cD}\fnc{f_0}{\fnc{n_D}{\xb - \mub}}d\xb
+    = f_0(s_c)\abs{s_cD} + \abs{D}\int_{0}^{s_c}r^p\abs{df_0(r)},
+} where $f_0(s_c)\abs{s_cD}$ is the volume of a cylinder with height $f_0(s_c)$ and base volume $\abs{s_cD}$, and $\abs{D}\int_{0}^{s_c}r^p\abs{df_0(r)}$ is the volume of the region under the density and above the cylinder. Note that $\abs{\cdot}$ denotes the absolute value operator, but is also used to denote volume when the argument is a set.
+
+Using integration by parts and $\abs{s_cD} = \paren{s_c}^p\abs{D}$, the probability can be calculated as \eqq{
+  \prob{\Xb \in s_cD} = \abs{D}\int_{0}^{s_c}pr^{p-1}f_0(r)dr.
+} By letting $s_c\to \nf$, the constraint on the density generator to ensure a proper \ac{pdf} is \eqq{
+  1 = \prob{\Xb \in \R^p} = \lim_{s_c\to \nf}\prob{\paren{\Xb - \mub} \in s_cD} = \lim_{s_c\to \nf}p\abs{D}\int_{0}^{s_c}r^{p-1}f_0(r)dr = p\abs{D}\int_{0}^{\nf}r^{p-1}f_0(r)dr.
+} As a result, for a given shape set $D$, the density generator must satisfy the following condition \eeq[normalizing-constant]{
+  p\abs{D}\int_{0}^{\nf}r^{p-1}f_0(r)dr = 1.
+} This is equivalent to the condition in \citet[Equation (5)]{Fernandez1995} for the $\nu$-spherical distributions.
+
+<!-- We illustrate this condition on the density generator $f_0$ for the bivariate normal \ac{pdf} in Appendix \@ref(App:normal-constant). -->
+
+<!-- When analyzing the asymptotic behavior of multivariate financial risk measures and when estimating high risk regions for random vectors, we assume multivariate density $f \in \HC{D}$ that is light-tailed. Since the asymptotic behavior of $f_0$ determines the decay of the tails for the density $f$, we assume that $f_0$ is of exponential decay. This assumption is formalized by assuming $f_0$ is a von Mises function. -->
+
+<!-- A function $e^{\psi}$ on $[0, \nf)$ is a von Mises function with scale function (or auxiliary function) \eqq{ -->
+<!--   \fnc{c}{r} = \dfrac{1}{\psi'(r)} -->
+<!-- } if (a) $\fnc{\psi}{\cdot}$ is a $C^2$-function; (b) the first derivative of $\psi$ is positive, $\psi'(r) > 0$; and (c) $\lim_{t\to\nf}c'(t) = 0$. From \citet[Proposition 1.1(a)]{Resnick1987}, we have \eqq{ -->
+<!--   \dfrac{\fnc{f_0}{r + vc(r))}}{\fnc{f_0}{r}} \to e^{-v}, \qquad \text{as } r \to \nf, \text{ and } v \in \R^p. -->
+<!-- } -->
+
+The density generator determines tail behavior. For heavy-tailed data, it is typical to assume that $f_0$ is regularly varying, \eqq{
+  \lim_{t\to\nf}\dfrac{\fnc{f_0}{tx}}{\fnc{f_0}{t}} = x^{\rho}, \qquad x > 0, \ \rho \in \R.
+} When $\rho = 0$, $f_0$ is called slowly varying. For light-tailed data, $f_0$ is assumed to be rapidly varying, \eqq{
+  \lim_{t\to\nf}\dfrac{\fnc{f_0}{tx}}{\fnc{f_0}{t}} = \begin{cases} 0 & t > 1, \\ \nf & 0 < t < 1. \end{cases}
+}

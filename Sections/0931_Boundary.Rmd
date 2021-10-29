@@ -1,0 +1,24 @@
+
+
+The stochastic representation of \citet[Theorem 8]{Richter2014} is \eeq[Richter]{
+  \Xb = \mub + R\Ub,
+} where $\Ub$ is simulated uniformly over the boundary of shape set $D$, and the scaling variable $R$ is the star-generalized radius variable, independent from $\Ub$, with density \eeq[scale-r]{
+  \fnc{f_{R}}{r} = p\abs{D}r^{p-1}\fnc{f_0}{r}, \qquad r > 0.
+} This representation exploits the independence of direction $\Ub$ and star-generalized radius $R$. Simulation is relatively straightforward, though simulating $\Ub$ over the boundary can be computationally complex.
+
+We can simulate $\Xb$ from density $f \in \HC{D}$ on $\R^2$ according to Equation \eqref{Eq:Richter} by Algorithm \ref{Alg:sim-boundary}.
+
+\begin{algorithm}[H] \label{Alg:sim-boundary}
+  \SetAlgoLined
+  \LinesNumbered
+  \KwResult{Sample of $n$ independent and identically distributed random vectors from density $f \in \HC{D}$ on $\R^2$}
+  Calculate the length of the boundary, $L = \int_{0}^{2\pi}\sqrt{\paren{\fncD{r}{\t}}^2 + \paren{\frac{d}{d\t}\fncD{r}{\t}}^2}d\t$, with $r\!_D$ in Equation \eqref{Eq:D-boundary}\;
+  \For{$i = 1, \dots, n$}{
+    Simulate $U_i \sim \text{Unif}(0, L)$ to produce $u_i$\;
+    Solve $\int_{0}^{\t_i}\sqrt{\paren{\fncD{r}{\t}}^2 + \paren{\frac{d}{d\t}\fncD{r}{\t}}^2}d\t = u_i$ for $\t_i$\; 
+    Denote uniform random vector simulated over boundary by $\ub_i = \fncD{r}{\t_i}\paren{\fnc{\cos}{\t_i}, \fnc{\sin}{\t_i}}$\;
+    Simulate $R_i$ from density $f_{R}$ to get $r_i$\;
+    Calculate observation $i$, $\xb_i = \mub + r_i\ub_i$\;
+  }
+  \caption{Simulate from $f \in \HC{D}$ by simulating uniformly over the boundary}
+  \end{algorithm}

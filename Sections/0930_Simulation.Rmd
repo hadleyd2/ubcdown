@@ -1,0 +1,5 @@
+
+
+There are two stochastic representations in the literature for a random vector with a homothetic density on $\R^p$, providing two simulation approaches. These representations provide insight into the relationship between the direction and distance of an observation with respect to $\mub \in \R^p$ and their presentation is thus worthwhile.
+
+<!-- In general, $\Xb \in \R^p$ with density $f \in \HC{D}$ can be represented as an affine transformation of a uniform random vector $\Ub$ that multiplies $\Ub$ by a scaling random variable in $\R^{+}$ and adds a location vector $\mub \in \R^p$. While each stochastic representation is similar in its functional form, they differ in the distributions of $\Ub$ and the scaling random variable. -->

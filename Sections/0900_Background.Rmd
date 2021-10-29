@@ -1,0 +1,8 @@
+In this section, we introduce definitions and results to facilitate discussion and estimation of homothetic densities. Throughout, we consider a random vector $\Xb \in \R^p$ having \ac{pdf} $f \in \HC{D}$. The bivariate case is used where appropriate to illustrate a concept or motivate a result.
+
+
+
+
+
+
+
