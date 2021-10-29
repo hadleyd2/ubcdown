@@ -1,0 +1,60 @@
+
+
+<!-- Removing for proposal -->
+<!-- The most commonly used nonparametric density estimator is the histogram \citep{Hardle2004} due to its simple construction and interpretation. The histogram is motivated by the intuitive idea that a density can be estimated at $x$ by the proportion of observations in an interval containing $x$. The shape of a histogram is governed by the choices of binwidth $h$ and origin $x_0$. The choice-of-origin problem is eliminated by defining intervals around $x$ instead of fixing all intervals based on some origin point. If we let the interval around $x$ be of length $2h$ so that the interval is $(x - h, x + h)$, the estimator is \eqq{ -->
+<!--   \est{f}_{\text{hist}}(x) = \frac{1}{n2h}\sumto{i=1}{n}\Ibb{x_i \in (x - h, x + h)}, -->
+<!-- } where $n$ is the sample size, $h$ is the length of the interval, and $\Ibb{\cdot}$ is the indicator function. The normalizing constant $2h$ ensures that the area under the histogram is 1. -->
+
+<!-- We can rewrite the above estimator using the uniform kernel function, \eqq{ -->
+<!--   \fnc{K_{\text{unif}}}{u} = \frac{1}{2}\Ibb{\abs{u}\leq 1}, -->
+<!-- } so that \eqq{ -->
+<!--   \fnc{\est{f}_{\text{hist}}}{x} = \frac{1}{nh}\sumto{i=1}{n}\fnc{K_{\text{unif}}}{\frac{x - x_i}{h}} -->
+<!-- } The issue with this estimator is that it is piecewise constant and thus has points of discontinuity which introduces bias which can be large when the \ac{pdf} is smooth. -->
+
+<!-- Generalizing through the kernel function $\fnc{K}{u}$, we can solve the issue of discontinuities by selecting a smooth continuous kernel function since the estimator inherits the continuity and differentiability properties of $K$. The result is the kernel density estimator \citep{Rosenblatt1956, Parzen1962} which is a normalized kernel estimator with the specific goal of estimating a smooth \ac{pdf}. The kernel density estimator requires specification of bandwidth parameter $h$ and kernel function $K$. -->
+
+<!-- The kernel function assigns a sequence of weights to observations based on their distance from $x$ with observations closer to $x$ receiving higher weights. Suppose we have observations $x_1, \dots, x_n$. The sequence of weights for each $x_i$ are determined by a kernel function $K(u)$ where $u = (x - x_i)/h$ for bandwidth $h>0$. The process of deriving this estimator is formalized by \eqq{ -->
+<!--   \fnc{\est{f}_{\text{kern}}}{x} = \frac{1}{nh}\sum_{i=1}^n\fnc{K_h}{u} = \frac{1}{nh}\sum_{i=1}^nK\paren{\frac{x - x_i}{h}}, -->
+<!-- } where we require that the kernel function integrates to $1$. -->
+
+<!--  Some common kernel functions include -->
+
+<!--   1. Triangle - $\paren{1 - \abs{u}}\Ibb{\abs{u} \leq 1}$; -->
+
+<!--   1. Epanechnikov - $\frac{3}{4}\paren{1 - u^2}\Ibb{\abs{u} \leq 1}$; -->
+
+<!--   1. Quartic (Biweight) - $\frac{15}{16}\paren{1 - u^2}^2\Ibb{\abs{u} \leq 1}$; -->
+
+<!--   1. Triweight - $\frac{35}{32}\paren{1 - u^2}^3\Ibb{\abs{u} \leq 1}$; -->
+
+<!--   1. Gaussian - $\frac{1}{\sqrt{2\pi}}\expo{-\frac{1}{2}u^2}$; -->
+
+<!--   1. Cosine - $\frac{\pi}{2}\cos\paren{\frac{\pi}{2}u}\Ibb{\abs{u}\leq 1}$, -->
+
+<!-- where $h$ can be referred to as the window, scale parameter, bandwidth, smoothing parameter or concentration parameter. This list is not nearly exhaustive, and many other kernel functions are given in the literature derived to have desirable asymptotic properties for different settings. -->
+
+Suppose $\Xb \sim F$ with density $f \in \fnc{\HC{D}}{\mathrm{\zerob, \mathit{f}_0, \gbm}}$ on $\R^p$ for $p \geq 2$. Let $\xb \in \R^p$ and $\ub = \xb/\twonorm{\xb}_2 \in \S^{p-1}$. Using the homogeneity property of $\fncD{n}{\cdot}$, we can write the boundary of the shape set using the directional unit vector, \eqq{
+  \bdry{D} = \set{\xb \in \R^p : \fncD{n}{\xb} = 1} = \set{\xb \in \R^p : \ub\fncD{n}{\xb} = \ub}
+    = \set{\xb \in \R^p : \xb\fncD{n}{\ub} = \ub} = \set{\frac{1}{\fncD{n}{\ub}}\ub : \ub \in \S^{p-1}},
+} which coincides with Equation \eqref{Eq:boundary-u}. Let $\tbm_{\ub} \in \O$ be the angular component vector for $\ub$. Under the assumptions for $\Xb$ above, it is shown in \citet[Lemma 3.1]{Kamiya2019} that the directional vector $\Ub$ follows a distribution with \ac{pdf} \eqq{
+  \fnc{f_{\Ub}}{\ub} \ \propto \ \fncD{n}{\ub}^{-p} = \fncD{r}{\tbm_{\ub}}^{p},
+} and we can estimate $\fncD{r}{\cdot}$ by estimating $f_{\Ub}$.
+
+Suppose we have a sample of random vectors $\xb_1, \dots, \xb_n$ from density $f \in \HC{D}$ with directional unit vectors $\ub_i = \xb_i/\twonorm{\xb_i}_2 \in \S^{p-1}$ for $i = 1, \dots, n$. The proposed estimator in \citet{Kamiya2019} is \eeq[estimator-Kamiya] {
+  \bdry{\est{D}_n} = \set{\fnc{\est{f}_{\Ub}^{(n)}}{\ub}^{1/p}\ub : \ub \in \S^{p-1}},
+} where \citet{Kamiya2019} suggests estimating density $f_{\Ub}$ using the kernel density estimator for a random sample of directional variables $\ub_1, \dots, \ub_n$ provided by \citet{Hall1987}, \eeq[estimator-Hall]{
+  \fnc{\est{f}_{\Ub}^{(n)}}{\ub} = \frac{C(\eta)}{n\eta^{p-1}}\sumto{i=1}{n}\fnc{L}{\frac{1-\ub\tr\ub_i}{\eta^2}},
+} where $L(t)=e^{-t}$ is the von Mises kernel, $\eta>0$ is the bandwidth or concentration parameter, $n$ is the sample size, and $C(\eta) = \eta^{p-1}/\int_{\S^{p-1}}\fnc{L}{(1-\ub\tr\yb)/\eta^2}du > 0, \ \yb \in \S^{p-1}$.
+
+We adopt Kamiya's estimator from Equation \eqref{Eq:estimator-Kamiya} to estimate $\fncD{r}{\cdot}$ by scaling the estimator to satisfy the constraint that the largest value of $\fncD{r}{\cdot}$ is 1. This results in the estimator, \eeq[K-standard]{
+  \fncD{K}{\ub} = \dfrac{1}{\maxa[\ub \in \S^{p-1}]{\fnc{\est{f}_{\Ub}^{(n)}}{\ub}^{1/p}\ub}}\fnc{\est{f}_{\Ub}^{(n)}}{\ub}^{1/p}\ub,
+} which is especially appealing as it uses unit vectors of the observations enabling estimation of $\fncD{r}{\cdot}$ without consideration for the density generator. Since information regarding the density generator is likely to be unknown when modelling real data, this estimator provides a candidate starting point for estimation of $f$. For example, we can use $\fncD{K}{\ub}$ to estimate the star-generalized radius variables, which in turn are used to estimate the density generator. In addition, the kernel density estimator generalizes to dimensions $p > 2$.
+
+Unfortunately, \citet{Kamiya2019} does not discuss the estimation of the location parameter in detail and suggests using the sample mean when the distribution may be assumed to be centrally symmetric with finite first moment or the estimated mode using a multivariate kernel estimator. In addition, the kernel function and bandwidth selection problems are not addressed. The kernel function problem is less important due to the work of \citet{Hall1987} and \citet{Bai1988}, who show that the von Mises kernel gives the estimator optimal asymptotic properties. Bandwidth selection for a von Mises kernel is still an ongoing problem with recent work by \citet{Taylor2008, Portugues2013}. Since the observations are scaled to unit vectors, cross-validation can be used to select the bandwidth without overweighting directions where observations are furthest from the origin.
+
+Using the estimator in Equation \eqref{Eq:K-standard}, we present the estimates for shape sets $D_1$ and $D_2$ using a rule-of-thumb bandwidth \citet{Taylor2008} in Figure \ref{Fig:sim-1-kde} and Figure \ref{Fig:sim-2-kde}, respectively. Despite the simplicity of Kamiya's estimator, the estimates resemble the true shape sets.
+
+![\label{Fig:sim-1-kde}Kamiya's estimate for $D_1$](../Thesis/images/kde.1.norm.png){width=80%}
+
+![\label{Fig:sim-2-kde}Kamiya's estimate for $D_2$](../Thesis/images/kde.2.log.png){width=80%}
+

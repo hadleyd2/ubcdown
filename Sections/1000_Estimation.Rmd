@@ -1,0 +1,33 @@
+
+
+As mentioned in Section \@ref(definitions), a density $f\in\HC{D}$ on $\R^p$ has the representation \eqq{
+  \fnc{f}{\xb} = \fnc{f_0}{\fnc{n_D}{\xb - \mub}; \gbm},
+} where $n_D(\cdot)$ is the gauge function analytically describing the shape set $D \ss \R^p$, $\mub \in \R^p$ is the location parameter, and $f_0$ is the density generator with finite parameter vector $\gbm$. Estimation of a homothetic density can be accomplished by estimating $\mub$, $D$, and $f_0$. In this section, we focus on the estimation of $D$ and $f_0$ for simplicity and assume that $\mub = \zerob$. A goal of future research is to incorporate estimation of $\mub$.
+
+Given a sample of independent and identically distributed random vectors from a distribution with density $f \in \HC{D}$ on $\R^p$, a primary goal of our research is to devise a general approach for estimating $f$ when a parametric family is unknown. An outline of the proposed approach is as follows:
+
+  1. Using an estimator from Section \@ref(S:shape-set), estimate $\fncD{r}{\cdot}$ from the dataset.
+  1. Estimate the star-generalized radius variables as in Equation \eqref{Eq:stargen} using the polar coordinates of the observed data and replacing $\fncD{r}{\cdot}$ with the estimate $\fncD{\est{r}}{\cdot}$ from the previous step.
+  1. Assuming a parametric form for the density generator, estimate the parameters using \ac{ml} estimation.
+
+<!-- There may be some improvements by repeating the process by incorporating the estimated density generator in the re-estimation of the shape set. This idea is to be investigated as part of the primary objective for estimating densities with homothetic level sets. -->
+
+Shape set $D$ is only defined up to a scaling constant as re-scaling set $D$ does not change the shape of the density level sets for a density $f \in \HC{D}$. As a result, we have some flexibility in choosing which density level set is the shape set. We choose $D$ to be the largest density level set that fits inside of the unit circle centered at the origin (since $\mub = \zerob$ by assumption). Under this specification, it follows that the largest value of $\fncD{r}{\cdot}$ is 1 for all $D \in D_p$.
+
+As per Equation \eqref{Eq:stargen}, choosing the shape set in this way affects the star-generalized radius variable up to scale. As a result, a scaling parameter is incorporated into the density generator when estimating a density $f \in \HC{D}$. To see this, suppose we have shape set $D$ and we re-define the shape set as \eqq{
+  E = kD, \qquad \text{for some} \ k > 0.
+} Then, the redefined shape set can be written in terms of the gauge function for shape set $D$, \eqq{
+  E = \set{k\xb : \fncD{n}{\xb} \leq 1}
+    = \set{\xb : \fncD{n}{\frac{\xb}{k}} \leq 1}
+    = \set{\xb : \frac{1}{k}\fncD{n}{\xb} \leq 1},
+} where the last equality follows from the homogeneity property of the gauge function.
+
+The gauge function for sets $D$ and $E$ are identical up to scale, \eqq{
+  \fncD[E]{n}{\xb} = \frac{1}{k}\fncD{n}{\xb},
+} and we can write \eqq{
+  \fnc{f}{\xb} = \fnc{f_0}{\fncD{n}{\xb}} = \fnc{f_0}{k\frac{1}{k}\fncD{n}{\xb}}
+    = \fnc{f_0}{k\cdot\fncD[E]{n}{\xb}} = \fnc{f_0^{\ast}}{\fncD[E]{n}{\xb}}.
+}
+  
+
+

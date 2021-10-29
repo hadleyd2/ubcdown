@@ -1,0 +1,111 @@
+
+
+The aim of this section is to review existing approaches for estimation of shape set $D$ under the assumption $\Xb_i \iid F$ for $i = 1, \dots, n$ with \ac{pdf} $f \in \HC{D}$ on $\R^p$. Our discussion focuses on the bivariate setting ($p=2$) with a future research goal to examine the performance of these methods in higher dimensions.
+
+We denote realizations of the random vectors by the sample $\XC = \xb_1, \dots, \xb_n$. In the bivariate setting, the components of each random vector in Cartesian and polar coordinates are, respectively, \eqq{
+  \Xb_i = \bmat{X_{i1} \\ X_{i2}} \qquad \text{and} \qquad \Wb_i = \bmat{\Rho_i \\ \T_i},
+} for $\Rho_i \in R_{+}$ and $\T_i \in [0, 2\pi)$. Realizations of the components are given as \eqq{
+  \xb_i = \bmat{x_{i1} \\ x_{i2}} \qquad \text{and} \qquad \wb_i = \bmat{\rho_i \\ \t_i}.
+} We refer to $\Rho_i$ as the radial variable and $\rho_i$ as the radial component. Similarly, $\T_i$ is the angular variable \mbox{and $\t_i$} is the angular component. In higher dimensions, $\Tbm_i$ and $\tbm_i$ are vectors on $\O = [0, \pi)^{p-2}\times[0, 2\pi)$.
+
+The techniques for estimating $D$ are motivated by the equivalent problem of estimating $\bdry{D}$. From \mbox{Equation \eqref{Eq:D-boundary}} and Equation \eqref{Eq:boundary}, the boundary of the shape set is \eeq[boundary-u]{
+  \bdry{D} = \set{\fncD{r}{\tbm_{\ub}}\ub : \ub \in \S^{p-1}},
+} where $\fncD{r}{\tbm_{\ub}} = 1/\fncD{n}{\ub}$ is referred to as the "polar function", $\tbm_{\ub} \in \O$ is the angle associated with direction $\ub$, and $\ub = \xb/\twonorm{\xb}_2$ with $\S^{p-1} \coloneqq \set{\xb : \twonorm{\xb}_2 = 1}$. Hence, estimation of $D$ is reduced to estimation of $\fncD{r}{\cdot}$.
+
+We investigate 2 general approaches for estimating $\fncD{r}{\cdot}$ in the bivariate setting. The first, developed by \citet{Kamiya2019} and presented in Section \@ref(SSS:kde), derives an estimator of $\fncD{r}{\cdot}$ as a transformation of a kernel density estimator for the marginal density of direction. The second approach, presented in Section \@ref(SSS:regression), uses Equation \eqref{Eq:stargen} and the independence of $R$ and $\Tbm$ \citep{Kamiya2008} to estimate $\fncD{r}{\cdot}$ as a scalar multiple of the radial variable's conditional expectation. We use kernel regression \citep{Nadaraya1964, Watson1964}, smoothing splines \citep{Spath1988, Spath1995}, and free-knot splines \citep{DiMatteo2001} to estimate this functional and compare results.
+
+Each approach is adopted to estimate the shape set from datasets simulated from respective densities in $\HC{D}$. The first dataset is simulated from a distribution with density \eeq[Simulation-1]{
+  f_1(\xb) = \begin{cases} \frac{1}{2 + \pi}\expo{-\frac{1}{2}\paren{\abs{x_1} + \abs{x_2}}^2}, & \text{if $x_2 \geq 0$}; \\
+      \frac{1}{2 + \pi}\expo{-\frac{1}{2}\paren{x_1^2 + x_2^2}}, & \text{otherwise,}
+      \end{cases}
+} having gauge function and normal density generator, respectively, \eeq[simulation-1]{
+  \fncD[D_1]{n}{\xb} = \begin{cases} \abs{x_1} + \abs{x_2} & \text{for $x_2 > 0$}, \\
+                               \sqrt{x_1^2 + x_2^2} & \text{for $x_2 \leq 0$}
+                 \end{cases} \qquad \text{and} \qquad 
+  \fnc{f_{01}}{r} = \frac{1}{2\abs{D_1}}\expo{-\frac{r^2}{2}}.
+}
+
+The second dataset is simulated from a distribution with density \eqq{
+  f_2(\xb; k) = \frac{1}{2\abs{D_2}\sqrt{x_1^2 + x_2^2}\paren{1 + k\frac{x_2^2}{x_1^2 + x_2^2}}}\expo{-\sqrt{x_1^2 + x_2^2}\paren{1 + k\frac{x_2^2}{x_1^2 + x_2^2}}},
+} where $k > -1$ is a parameter for the shape set \citep{Liebscher2016}. The corresponding gauge function and logistic density generator are, respectively, \eeq[simulation-2]{
+  \fncD[D_2]{n}{\xb} = \sqrt{x_1^2 + x_2^2}\paren{1 + k\frac{x_2^2}{x_1^2 + x_2^2}},
+  \qquad \text{and} \qquad
+  \fnc{f_{02}}{r} = \frac{1}{2\abs{D_2}r}e^{-r}.
+}
+
+<!-- Finally, by assuming $\fncD{r}{\cdot}$ traces a curtate trochoid, we introduce the parametric trochoidal distribution families as candidate models for bivariate data in Section \@ref(SS:trochoidal-dist) and estimate the distribution and perform model selection using \ac{ml} estimation. -->
+
+<!--Move this discussion to the estimation approach using the conditional mean-->
+
+<!-- An important distinction must be made between the radial variable and the star-generalized radius variable. For random vector $\Xb_i \in \R^p$, the radial variable and the star-generalized radius variable are transformations of $\Xb_i$, respectively, \eqq{ -->
+<!--   \Rho_i = \paren{\sumto{j=1}{p}X_{ij}^2}^{1/2} \qquad \text{and} \qquad R_i = \fnc{n_D}{\Xb_i}. -->
+<!-- } The radial variable is the Euclidean distance of $\Xb$ from the origin and the star-generalized radius variable is the "distance" from the origin as measured by the gauge function. -->
+
+<!-- In the bivariate setting, the function $\fnc{r_D}{\t, \mub}$ for $\t \in [0, 2\pi)$ is a univariate function in the polar plane with periodicity $2\pi$. There are many well founded strategies to estimating a continuous univariate function including nonparametric methods such as kernel smoothing \citep{Nadaraya1964, Watson1964} and smoothing splines \citep{Wahba1990, Spath1995}, semiparametric methods such as free-knot splines \citep{DiMatteo2001}, and parametric methods which are appropriate when the functional form of the underlying function is assumed to be from a family parameterized by a finite number of unknown parameters. -->
+
+<!-- Nonparametric regression techniques provide simple and intuitive approaches to estimating a function through noisy data that do not assume a parametric form for the regression curve. A function space believed to contain the unknown regression curve is chosen based on assumptions of its smoothness such as continuity and differentiability. The data then determine an element of the function space to approximate the curve. -->
+
+<!-- Compared to parametric models, nonparametric regression techniques rely more heavily on the data, are usually less interpretable, and inference may be more difficult and less efficient. However, the advantages of the parametric model are predicated on correctly specifying the functional form of the underlying regression curve. Nonparametric regression techniques overcome the difficulty of knowing the true functional form and are best suited for situations where little or no prior information about the function of interest is available. Parametric methods are most appropriate when details about the underlying process are known through scientific theory or expert knowledge. -->
+
+<!-- For example, let $m(\cdot)$ denote the true regression curve and suppose we have a sample of $n$ observations. With a correctly specified parametric model, the mean squared error decays to zero at a rate of $n^{-1}$. The corresponding rate for nonparametric estimators is usually $n^{-\de}$ for $\de \in (0, 1)$ depending upon the smoothness of $m(\cdot)$. If $m(\cdot)$ is twice differentiable, then the decay rate is often quoted as $n^{-4/5}$ \citep{Eubank1999}. When the parametric model is misspecified, however, the $n^{-1}$ rate is no longer obtained and the nonparametric technique is likely to perform better in terms of mean-squared error. -->
+
+<!-- Use of one technique does not preclude the use of the other. For example, nonparametric regression may be the approach used to perform the final stages of data analysis such as inference or may be exploratory in nature and aid in the selection of an appropriate parametric form. Thus, it is worth considering and comparing both approaches in our estimation of $\fncD{r}{\cdot}$. -->
+
+<!--Below is a talk about choosing the "shape set" -->
+
+<!-- When using the gauge function, we have some flexibility in determining which density level set is the shape set. The impact of this choice is examined later in the paper to assess whether estimation is affected by our choice of mapping a density level set to the shape set. For example, we may use an $\ell_{q}$-norm and say that the boundary of a density level set for which the largest $\ell_q$-norm is 1 is the boundary of the shape set. In other words, a more useful definition of the gauge function is \eeq[nD2]{ -->
+<!--   \mink{\xb - \mub} = \maxa[\yb\in\R^p:\fnc{f}{\yb - \mub}=k]{\twonorm{\yb-\mub}_q}=\rstar, \qquad k = \fnc{f}{\xb - \mub}, -->
+<!-- } where the value of the star-generalized radius variable produced by the gauge function is equal to the largest $\ell_q$-norm for all vectors producing a value $k$ of the density $f$. -->
+
+<!-- For example, suppose we use the $\ell_2$-norm. Then the shape set is restricted to fit inside $\S^{p-1}$. In the bivariate setting, $D$ fits inside the unit circle and cannot have a volume greater than $\pi$. If instead we use the $\ell_{\nf}$-norm, then the shape set is restricted to fit inside the hypercube $\brac{-1, 1}^p$. In the bivariate setting, $D$ fits inside the square with vertices $(1, 1), (-1, 1), (-1, -1), (1, -1)$ and has a volume bounded above by $4$. -->
+
+<!-- Finally, Equation \ref{Eq:nD2} gives us an intuitive way to find the star-generalized radius variable associated with an observation $\xb_i$ generated by a distribution $F \in \HC{D}$. The method is outlined below and uses the one-to-one relationship between the gauge function and the polar function for the boundary of the shape set given in Equation \ref{Eq:boundary}: -->
+
+<!--   (1) Convert $\xb_i$ to polar coordinates $(\rho_i, \tbm_i)$ with respect to the center $\mub$, where $\rho_i$ is the radial component given as $\twonorm{\xb_i}_2$ and $\tbm_i$ is the angular component; -->
+<!--   (1) Find the distance $r_i = \fnc{r}{\tbm_i}$ from $\mub$ to $\pd D$ in the direction of $\tbm_i$; -->
+<!--   (1) The star-generalized radius variable for the $\ith$ observation is defined as \eqq{ \rstari{i} = \frac{\rho_i}{r_i}.} -->
+
+<!-- To find the normalizing factor of the \ac{dgf}, assume we know the form of $f_0$ up to a proportional constant. We look at two \ac{dgf}'s with different tail decay, \eqq{ -->
+<!--   \fnc{f_{01}}{r^{*}} \propto \ e^{-(r^{*})^2/2} \qquad \text{and} \qquad \fnc{f_{02}}{r^{*}} \propto \ \frac{1}{r^{*}}e^{-r^{*}}, -->
+<!-- } where $f_{01}$ has the same rate of decay in the tails as the normal distribution and $f_{02}$ has the rate of decay equivalent to the logistic distribution. We previously found that the condition required of the \ac{dgf} to ensure that $f(\cdot) = f_0(n_D(\cdot))$ is a valid \ac{pdf} is \eqq{ -->
+<!--   d\abs{D}\int_{0}^{\nf}(r^{*})^{d-1}\fnc{f_0}{r^{*}}dr^{*} = 1, -->
+<!-- } where $d$ is the dimensionality of the random vector $\Xb$ with distribution that has a homothetic density and $\abs{D}$ denotes the volume of the shape set. Replacing $D$ with $\est{D}$, and assuming $\Xb \in \R^2$, then this integral is easily found for each of the two \ac{dgf}'s under consideration: \begin{align*} -->
+<!--   2\abs{\est{D}}\int_{0}^{\nf}(r^{*})^{2-1}\fnc{f_{01}}{r^{*}}dr^{*} -->
+<!--     &= 2\abs{\est{D}}\int_{0}^{\nf}r^{*}e^{-(r^{*})^2/2}dr^{*} \\ -->
+<!--     &= 2\abs{\est{D}}\int_{0}^{\nf}e^{-u}du \qquad \text{where $u = r^2/2$} \\ -->
+<!--     &= 2\abs{\est{D}}. -->
+<!--   \end{align*} -->
+<!-- To ensure this integral equals 1, we require the \ac{dgf} $f_{01}$ to be \eqq{ -->
+<!--   \fnc{f_{01}}{r^{*}} = \frac{1}{2\abs{\est{D}}}e^{-(r^{*})^2/2}. -->
+<!-- } Similarly for $f_{02}$, \begin{align*} -->
+<!--   2\abs{\est{D}}\int_{0}^{\nf}(r^{*})^{2-1}\fnc{f_{02}}{r^{*}}dr^{*} -->
+<!--     &= 2\abs{\est{D}}\int_{0}^{\nf}r^{*}\frac{1}{r^{*}}e^{-r^{*}}dr^{*} \\ -->
+<!--     &= 2\abs{\est{D}}\int_{0}^{\nf}e^{-r^{*}}dr^{*} \\ -->
+<!--     &= 2\abs{\est{D}}, -->
+<!--   \end{align*} -->
+<!-- so the same normalizing constant applies to $f_{02}$ to ensure $f$ is a valid \ac{pdf}, \eqq{ -->
+<!--   \fnc{f_{02}}{r^{*}} = \frac{1}{2r^{*}\abs{\est{D}}}e^{-r^{*}}. -->
+<!-- } -->
+
+<!-- Finally, the likelihood function for the sample $\paren{\xb_1, \dots, \xb_n}$ with star-generalized radius variables $\paren{r^{*}_1, \dots, r^{*}_n}$ is \eqq{ -->
+<!--   \fnc{L}{\paren{\xb_1, \dots, \xb_n}; \est{D}, \gbm} = \prod_{i=1}^n\fnc{f_0}{r^{*}; \gbm}, -->
+<!-- } where $\gbm$ is the vector of parameters used by the \ac{dgf}. -->
+
+<!-- We look at the log likelihood functions for the two \ac{dgf}'s $f_{01}$ and $f_{02}$, as this sheds some light on the tradeoff between the smoothness of the function for the boundary of the shape set, $\est{r}(\t)$ and the resulting star-generalized variables. Let $\ell_{01}$ and $\ell_{02}$ denote the log-likelihood functions of \ac{dgf}'s $f_{01}$ and $f_{02}$, respectively. Then, \begin{align*} -->
+<!--   \ell_{01} &= \sumto{i=1}{n}\fnc{\log}{\frac{1}{2\abs{\est{D}}}e^{-(r^{*})^2/2}} = -n\fnc{\log}{2\abs{\est{D}}} - \frac{n\overline{(r^{*})^2}}{2}; \\ -->
+<!--   \\ -->
+<!--   \ell_{02} &= \sumto{i=1}{n}\fnc{\log}{\frac{1}{2r^{*}\abs{\est{D}}}e^{-r^{*}}} = -n\fnc{\log}{2\abs{\est{D}}} - n\overline{\log(r^{*})} - n\overline{r^{*}}, -->
+<!--   \end{align*} -->
+<!-- where $\overline{r^{*}} = \sumto{i=1}{n}r_i/n$ and $\overline{\log(r^{*})} = \sumto{i=1}{n}\log(r_i)/n$. -->
+
+<!-- Looking first at $\ell_{01}$, we see that the likelihood is inversely related to both the volume of the shape set and the average of the squared star-generalized radius variables. Maximizing the likelihood requires maximizing the shape set volume and minimizing the star-generalized radii. However, there is a trade-off between the volume of the shape set and the star-generalized radii.  -->
+
+<!-- For example, assume we are dealing with a dataset of 2-dimensional vectors where each coordinate is centered about the origin and scaled by the sample standard deviation. A kernel regression estimator using a very small bandwidth is likely to produce a shape that is not very smooth with the resulting estimate overfitting the data, producing an estimated function that has many local minima (points near the origin) and maxima (points far from the origin). Scaling the resulting function so that its global maximum is $1$ shrinks the estimated function into the unit circle producing the estimated boundary of the shape set $\partial\est{D}$. The maximum volume of $\est{D}$ in the 2-dimensional setting is $\pi$. The more local minima and maxima there are in $\partial\est{D}$ and the larger the differences of the values of these minima and maxima, the smaller the volume of $\est{D}$. However, since $\partial\est{D}$ is overfitting the data, the resulting mean of the star-generalized radii are smaller since the kernel estimator is closer to the actual observations than that of an equivalent kernel estimator with a larger bandwidth. -->
+
+<!-- Conversely, the kernel estimator with a bandwidth that is too large estimates a shape set resembling the unit circle. In fact, as the bandwidth increases the kernel estimator converges to a constant function. The volume of resulting estimated shape set thus approaches the maximum volume $\pi$ in the 2-dimensional setting as we increase the bandwidth. While maximizing the volume of the shape set serves to increase the likelihood through the normalizing constant of the \ac{dgf}, using this shape set increases mean of the star-generalized radii as the resulting estimated function converges to the global average. In addition, the large bandwidth leads to an estimated shape set that smooths over the dependencies in the coordinates of the sample vectors. The overall effect is a lower likelihood, as the trade-off between larger shape set volume and larger star-generalized radii lead to a lower likelihood and an uninformative shape set in regards to the dependence structure. -->
+
+<!-- With this in mind, we choose the bandwidth argument by calculating a kernel estimate using a grid of bandwidths, calculating the log-likelihood function for each bandwidth, and choosing the one that maximizes the likelihood. Figures \ref{Fig:sim1-nwllik} and \ref{Fig:sim2-nwllik} plot the estimated shape set boundary using the optimal bandwidth for each simulation, respectively. We also show the log-likelihood function calculated at each value in the grid of prospective bandwidths and the trade-off between the volume of the estimated shape set and resulting mean of the star-generalized radius variables. -->
+
+<!-- ![\label{Fig:sim1-nwllik}Simulation 1: Estimation of shape set using Nadaraya-Watson estimator with a Gaussian kernel and bandwidth selected to maximize the likelihood assuming a \ac{dgf} with decay equivalent to the normal distribution](images/nw-llik1.png) -->
+
+<!-- ![\label{Fig:sim2-nwllik}Simulation 2: Estimation of shape set using Nadaraya-Watson estimator with a Gaussian kernel and bandwidth selected to maximize the likelihood assuming a \ac{dgf} with decay equivalent to the normal distribution](images/nw-llik2.png) -->

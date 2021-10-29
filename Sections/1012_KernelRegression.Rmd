@@ -1,0 +1,99 @@
+
+
+By a simple rearrangement of the terms in Equation \eqref{Eq:stargen}, the radial variable is a function of the star-generalized radius variable and the polar function for $\bdry{D}$, \eqq{
+  \Rho = R\cdot \fncD{r}{\Tbm}.
+} Taking the expectation of both sides given $\Tbm = \tbm$, \eeq[condition-mean]{
+  \Exp{\Rho \mmid \Tbm = \tbm} = \Exp{R\mmid \Tbm=\tbm}\fncD{r}{\tbm} = \Exp{R}\fncD{r}{\tbm} = \ka\fncD{r}{\tbm}, \qquad \tbm \in \O, \ \ka = \Exp{R},
+} where we use the independence of $R$ and $\Tbm$ \citep[Theorem 3.1]{Kamiya2008} to write $\Exp{R}$ as a constant $\ka > 0$. As discussed in Section \@ref(estimation), the proportional constant can be accounted for by including a scaling parameter in the density generator and so we can treat estimation of $\fncD{r}{\cdot}$ as the estimation of a conditional expectation of the radial variable.
+
+Estimation of a conditional expectation is well studied with many approaches. We look at nonparametric kernel regression and smoothing spline estimators and a semiparametric approach using free-knot splines to estimate the conditional expectation.
+
+The model for the conditional expectation of the radial variable for the nonparametric approaches is \eeq[cond-mean]{
+  \fnc{m}{\tbm} = \ka\fncD{r}{\tbm},
+} where Equation \eqref{Eq:cond-mean} is well-defined when \eqq{
+  \Exp{R} = \int_{0}^{\nf}p\abs{D}r^p\fnc{f_0}{r}dr < \nf.
+}
+
+<!-- The model for the conditional expectation of the radial variable for the nonparametric approaches is \eeq[cond-mean]{ -->
+<!--   \fnc{m}{\tbm} = \ka\fncD{r}{\tbm}, -->
+<!-- } where Equation \eqref{Eq:cond-mean} is well-defined when $\Exp{R}$ exists ($\ka < \nf$). Using the \ac{pdf} for the star-generalized radius variable in Equation \eqref{Eq:scale-r}, the condition under which the regression problem is well-defined is \eqq{ -->
+<!--   \int_{0}^{\nf}p\abs{D}r^p\fnc{f_0}{r}dr < \nf. -->
+<!-- } -->
+
+<!-- As an example where the model in Equation \eqref{Eq:cond-mean} is not well-defined, suppose our data is generated from a bivariate $t$-distribution with $1$ degree of freedom (a bivariate Cauchy distribution). The density generator is of the form \eqq{ -->
+<!--   \fnc{f_0}{r} \propto \ \dfrac{1}{\paren{1 + r^2}^{3/2}}. -->
+<!-- } Then, the expected value of the star-generalized radius variable is \eqq{ -->
+<!--   \Exp{R} \ \propto \ \int_{0}^{\nf}\dfrac{r^2}{\paren{1 + r^2}^{3/2}}dr = \nf. -->
+<!-- } Since this integral does not converge, the regression problem is not well-defined and estimators of $\fnc{m}{\tbm}$ can be misleading. -->
+
+<!-- When modelling real data where we do not know the true density generator, one has to make an assumption that $\Exp{R} < \nf$. A simple diagnostic for assessing the appropriateness of this assumption is as follows: suppose we have a dataset, $\XC_n = \xb_1, \dots, \xb_n$, of independent and identically distributed random variables generated from density $f \in \HC{D}$. Let $\XC_i = \xb_1, \dots, \xb_i$ for $i = 1, \dots, n$ be a subset of the data. Then, estimate $\fnc{m}{\tbm}$ for datasets $\XC_{i_1}, \XC_{i_2}, \dots, \XC_{n}$ where $\XC_{i_1} \ss \XC_{i_2} \ss \cdots \ss \XC_{n}$. When $\Exp{R}$ is not finite, the estimated shape set is likely to get larger with the size of the dataset. -->
+
+#### Kernel Regression
+
+The intuition for nonparametric estimators is that if $\fnc{m}{\tbm}$ is believed to be smooth, then observations $(\rho_i, \tbm_i)$, where $\tbm_i$ is in a small neighborhood of $\tbm$, should contain information about $\fnc{m}{\tbm}$. Then, a reasonable estimator for $\fnc{m}{\tbm}$ is a function of the radial components of those observations. This idea motivates kernel regression which is a simple, intuitive, and flexible estimation technique that works well for many regression problems. See \citet{Eubank1999, Hardle1990, Hardle2004} for full treatments.
+
+<!-- A specific example is the bivariate normal distribution. The conditional expectation of $\Rho$ given $\T=\t$ for the bivariate normal distribution is a scalar multiple of $\fncD{r}{\t}$. See Appendix \@ref(App:conditional-expectation) for the derivation. This further motivates the kernel regression estimator as a viable shape set estimation technique.  -->
+
+Kernel regression has been used previously to estimate the shape of sample clouds. In \citet{Jacob1996-edge}, the Nadaraya-Watson estimator is used to estimate the edge of the support of a bivariate distribution under the assumption of a bounded, star-shaped support with known center. Their intuition is similar to ours, where the boundary of the support is a scalar multiple of the conditional expectation, \eqq{
+  \Exp{\Rho|\T = \t} = \int_{0}^{\varphi(\t)}\paren{ 1 - \fnc{F}{\frac{\rho}{\varphi(\t)}}}d\rho = a\varphi(\t),
+} where $\varphi(\t)$ is a star-shaped function of the angular component $\t$ giving the outermost edge of the support and $a > 0$ \citep[Equation 2]{Jacob1996-edge}.
+
+<!-- In the bivariate setting, the expected value of $\Rho$ given $\T=\t$ is \eeq[polar-expectation]{ -->
+<!--   \Exp{\Rho|\T=\t} = \int \rho\dfrac{\fnc{f_{\Rho,\T}}{\rho,\t}}{\fnc{f_{\T}}{\t}}d\rho = \dfrac{\int \rho\fnc{f_{\Rho,\T}}{\rho,\t}d\rho}{\fnc{f_{\T}}{\t}}. -->
+<!-- } For a dataset $\xb_1, \dots, \xb_n$, we can use the kernel density estimator from Section \@ref(SSS:kde) to estimate the marginal density in the denominator of Equation \eqref{Eq:polar-expectation}, \eqq{ -->
+<!--   \fnc{\est{f}_{\T}}{\t} = \frac{1}{n}\sumto{j=1}{n}\frac{1}{h_1}\fnc{K}{\frac{\t - \T_j}{h_1}} = \frac{1}{n}\sumto{j=1}{n}\fnc{K_{h_1}}{\t - \T_j}. -->
+<!-- } For the joint distribution in the numerator, we use the multiplicative kernel density estimator \citep[Section 3.6]{Hardle2004}, \begin{align*} -->
+<!--   \int \rho \fnc{\est{f}_{\Rho,\T}}{\rho, \t}d\rho &= \frac{1}{n}\sumto{i=1}{n}\frac{1}{h_1}\fnc{K}{\frac{\t - \t_i}{h_1}}\int\frac{\rho}{h_2}\fnc{K}{\frac{\rho - \rho_i}{h_2}}d\rho \\ -->
+<!--     &= \frac{1}{n}\sumto{i=1}{n}\fnc{K_{h_1}}{\t - \t_i} \int\paren{\rho_i + sh_2}\fnc{K}{s}ds & \text{by letting $s = \frac{\rho - \rho_i}{h_2}$} \\ -->
+<!--     &= \frac{1}{n}\sumto{i=1}{n}\fnc{K_{h_1}}{\t - \t_i} \brac{\rho_i\int\fnc{K}{s}ds + h_2\int s\fnc{K}{s}ds} \\ -->
+<!--     &= \frac{1}{n}\sumto{i=1}{n}\fnc{K_{h_1}}{\t - \t_i}\rho_i, -->
+<!--   \end{align*} -->
+<!-- where $\int\fnc{K}{s}ds = 1$ follows from our requirement that the kernel function integrates to 1 and $\int s\fnc{K}{s}ds=0$ due to the symmetry of the kernel function about $0$. -->
+
+<!-- Combining the estimators of the numerator and denominator gives us the Nadaraya-Watson \citep{Nadaraya1964, Watson1964} estimator, \eeq[nadaraya-watson]{ -->
+<!--   \fnc{\est{m}}{\t; h} = \dfrac{\int \rho \fnc{\est{f}_{\Rho,\T}}{\rho, \t}d\rho}{\fnc{\est{f}_{\T}}{\t}}  -->
+<!--     = \frac{1}{n}\sumto{i=1}{n}\paren{\dfrac{\fnc{K_{h}}{\t - \T_i}}{\frac{1}{n}\sumto{j=1}{n}\fnc{K_h}{\t - \T_j}}}\Rho_i -->
+<!--     = \frac{1}{n}\sumto{i=1}{n}\fnc{W_{hi}}{\t}\Rho_i, -->
+<!-- } which acts like a weighted average with weight $W_{hi}$ assigned to observation $i$ and $h$ controls the smoothness of the estimator. -->
+
+In the bivariate setting, we can sort observations $\wb_1, \dots, \wb_n$ by the angular component and use the Nadaraya-Watson  estimator \citep{Nadaraya1964, Watson1964}, \eqq{
+  \fnc{\est{m}}{\t; h} = \dfrac{\int \rho \fnc{\est{f}_{\Rho,\T}}{\rho, \t}d\rho}{\fnc{\est{f}_{\T}}{\t}}
+     = \frac{1}{n}\sumto{i=1}{n}\paren{\dfrac{\fnc{K_{h}}{\t - \t_i}}{\frac{1}{n}\sumto{j=1}{n}\fnc{K_h}{\t - \t_j}}}\rho_i 
+     = \frac{1}{n}\sumto{i=1}{n}\fnc{\o_{hi}}{\t}\rho_i,
+} where $\fncD[h]{K}{\t - \t_i} = \fnc{K}{\frac{\t-\t_i}{h}}$ is a kernel function assigning weights to observations inversely related to their distances from $\t$. The Nadaraya-Watson estimator acts like a weighted average with weight $\o_{hi}$ assigned to observation $i$ and bandwidth $h$ controlling the smoothness of the estimator. Boundary points are handled by recycling observations using the periodicity of $2\pi$. This produces the estimator for the boundary of the shape set, \eeq[NW-est]{
+  \fncD{NW}{\t} = \frac{1}{\maxa[\t \in [0, 2\pi)]{\fnc{\est{m}}{\t; h}}}\fnc{\est{m}}{\t; h},
+} where we scale by the maximum so that the shape set is a subset of the interior of the unit circle.
+
+As $h\to0_{+}$, $\fnc{\o_{hi}}{\t}\to 1_{-}$ when $\t = \T_i$ and is $0$ otherwise. Thus, decreasing $h$ leads to an interpolating estimator that overfits the data, performing poorly in regions with no data. At the other extreme, if $h\to\nf$, then $\fnc{\o_{hi}}{\t}\to 1/n$ and the estimator converges to the sample mean. Bandwidth selection is thus a crucial problem where the challenge is to choose $h$ to balance the tradeoff between bias (increasing $h$ increases bias) and variance (decreasing $h$ increases variance).
+
+The choice of kernel is less important. One recommendation is to choose a kernel function that assigns a weight of zero outside of some finite interval to avoid numerical underflow in computation \citep[p.25]{Hardle1990}, though we found no significant differences in our simulation study between the Epanechnikov kernel and the Gaussian kernel when choosing $h$ using \ac{loocv}.
+
+The nonparametric estimator in Equation \eqref{Eq:NW-est} requires no prior knowledge of the shape set other than assumptions regarding the smoothness/differentiability of its boundary. This avoids the model misspecification problem of parametric methods. Furthermore, the estimator requires no knowledge of the density generator other than the assumption that $\Exp{R} < \nf$.
+
+Unfortunately, statistical precision of nonparametric regression estimators decreases as the dimensionality increases, called the curse of dimensionality. Generalizing the estimator in Equation \eqref{Eq:NW-est} to higher dimensions requires a multivariate kernel, such as the von Mises kernel used in Equation \eqref{Eq:estimator-Hall}.
+
+We compare the kernel regression estimate using the Gaussian and Epanechnikov kernels for the simulated datasets discussed in Section \@ref(S:shape-set). The Gaussian kernel has nice smoothness properties while the Epanechnikov kernel is known to have optimal asymptotic bias and variance. The kernel regression estimates for $D_1$ using the Gaussian and Epanechnikov kernels are presented in Figure \ref{Fig:sim-1-kreg-gau} and Figure \ref{Fig:sim-1-kreg-epa}, respectively. Bandwidths are chosen using \ac{loocv}. By comparing the estimates of $D_1$, we find the choice of kernel does not substantially affect the estimate and so only the Gaussian kernel is used to estimate $D_2$ which is presented in \mbox{Figure \ref{Fig:sim-2-kreg-gau}}. While the estimates are able to model the general shape of the boundaries, the estimated functions fluctuate too much indicating the method is overfitting the data. The following suggestions may improve the performance of the kernel regression estimator:
+
+  (i) use a periodic kernel function;
+  (i) use a bandwidth selection criteria that may be more appropriate for the shape set estimation problem;
+  (i) impose constraints, such as symmetry, that limit the function space of the estimator.
+
+![\label{Fig:sim-1-kreg-gau}Kernel regression estimate of $D_1$ when using a Gaussian kernel](../Thesis/images/kreg.gau.1.norm.png){width=85%}
+
+![\label{Fig:sim-1-kreg-epa}Kernel regression estimate of $D_1$ when using a Epanechnikov kernel](../Thesis/images/kreg.epa.1.norm.png){width=85%}
+
+![\label{Fig:sim-2-kreg-gau}Kernel regression estimate of $D_2$ when using a Gaussian kernel](../Thesis/images/kreg.gau.2.log.png){width=85%}
+
+<!-- Once we have $\fnc{\est{m}}{\t; h}$, we need to find the scalar $k$ such that $\fnc{\est{r}}{\t} = \frac{1}{k}\fnc{\est{m}}{\t}$ and this is done using the operational definition of the gauge function given in Equation \ref{Eq:nD2}. By assuming \eqq{ -->
+<!--   \fnc{\est{m}}{\t; h} \approx \Exp{R|\T}, -->
+<!-- } then the \ac{pdf} for a distribution $F \in \HC{D}$ evaluated at any point $\xb = \paren{\fnc{\est{m}}{\t; h}\cos\t, \fnc{\est{m}}{\t; h}\sin\t}$ should produce approximately the same constant $c > 0$, since $\fnc{\est{m}}{\t; h}$ is a scalar copy of the boundary of the shape set. In other words, for some distribution $F \in \HC{D}$ with density $f$, \eqq{ -->
+<!--   \Exp{R|\T} = k\fnc{r}{\t} \implies \fnc{f}{\Exp{R|\T}} = \fnc{f}{k\fnc{r}{\t}} = c. -->
+<!-- } With our estimate $\fnc{\est{m}}{\t}$ for the conditional expectation of $R$ given $\T$, we assume \eqq{ -->
+<!--   \fnc{\est{m}}{\t} = k\fnc{\est{r}}{\t} \approx \Exp{R|\T} \implies \fnc{f}{k\fnc{\est{r}}{\t}} \approx c. -->
+<!-- } We do not concern ourselves with the value of $c$. -->
+
+<!-- Then, Equation \ref{Eq:nD2} tells us that \eqq{ -->
+<!--   \est{k} = \maxa[\xb \in k\fnc{\est{r}}{\t}]{\twonorm{\xb}_q} -->
+<!-- } for some $q \geq 1$. The estimate of the star-generalized radius variables follow directly by finding the scalar $\est{\rstari{i}}$ such that $\xb \in \set{\est{\rstari{i}}\fnc{\est{r}}{\t} : \t \in \S^1}$. When using the $\ell_2$-norm to define the gauge function in Equation \ref{Eq:nD2}, the estimate of the star-generalized radius variable for observation $\xb_i$ is the ratio of the Euclidean distance from the origin (center of the shape set) to $\xb_i$ divided by the distance from the origin to $\pd\est{D}$ in the direction of $\xb_i$. -->
+
+\newpage

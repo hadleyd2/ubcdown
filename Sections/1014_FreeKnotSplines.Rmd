@@ -1,0 +1,108 @@
+
+
+Free-knot splines are similar to nonparametric smoothing splines except that the number and location of knots are parameters free to move around the domain space of the underlying function. The free-knot spline interpolate through the knots so that the degree of smoothing is determined by the number of knots and their locations. Once the knots are selected, the problem reduces to a nonparametric regression problem.
+
+Assume random vectors $\Xb_i \in \R^p$ for $i = 1, \dots, n$ are independently generated according to the model \eeq[free-knot]{
+  \Xb_i = \mub + \ep_i,
+} where $\mub$ is the center of a shape set and error $\ep_i$ is a random variable with density $f \in \fnc{\HC{D}}{\mathrm{\mub, \mathit{f}_0, \gbm}}$. Then by Theorem 4 of \citet{Ferreira2005}, Equation \eqref{Eq:free-knot} implies $\Xb_i \iid \fnc{\HC{D}}{\mathrm{\mub, \mathit{f}_0, \gbm}}$.
+
+The modelling framework of \citet{Ferreira2005} provides an approach to estimating densities on $\R^p$ in the \ac{dcl}, denoted $\fncD[p]{DC}{\mub, g^{(p)}, D}$, introduced in the same article. A density $f\in\fncD[p]{DC}{\mub, g^{(p)}, D}$ if it has the representation \eqq{
+  \fnc{f}{\xb} = \frac{1}{K_D}\fnc{g^{(p)}}{\dfrac{\twonorm{\xb - \mub}_2^2}{\fncD[p]{D}{\ub_{\xb - \mub}}}},
+} where $\fnc{g^{(p)}}{\cdot}$ plays the same role as the density generator, $K_D$ is the normalizing constant, and $\fncD[p]{D}{\ub_{\xb - \mub}}$ is the directional dispersion function on the unit vector in the direction of $\xb - \mub$. Under constraints that $\fncD[p]{D}{\cdot}$ is a positive, bounded function for all $\ub \in \S^{p-1}$ and $\fnc{g^{(p)}}{\cdot}$ is a decreasing function, the \ac{dcl} coincides with the class of densities with homothetic level sets and $\fncD[p]{D}{\cdot}$ has a one-to-one relationship with the gauge function $\fncD{n}{\cdot}$ given $f_0$ and $g^{(p)}$. Thus, estimation of $\fncD[p]{D}{\ub_{\xb - \mub}}$ is equivalent to estimation of $\ka\fncD{r}{\tbm}$ in Equation \eqref{Eq:cond-mean}.
+
+Adapting the estimation approach of \citet{Ferreira2005} to a density $f \in \HC{D}$, the conditional mean for the radial variable of the error term in Equation \eqref{Eq:free-knot} is modelled by hyperspherical log-splines \eeq[log-spline]{
+  \fnc{\log}{\fnc{m}{\tbm}} = \fnc{h}{\tbm; K, \xbm} = c_0 + \sumto{k=1}{K}c_k\fnc{R^{\ell}_{p}}{\tbm|\tbm_k},
+} where $K$ is the number of knots, $\xbm \in \R^{2K}$ is the vector of knot directions $\tbm_1, \dots, \tbm_K$ and knot values $v_1, \dots, v_K$, $c_0, \dots, c_K$ are the spline coefficients, $R^{\ell}_{p} \in C^{\ell}$ is the reproducing kernel function with $\ell$ continuous derivatives and dimensionality $p$.
+
+Taking a Bayesian perspective, free-knot splines consider $K$ to be a discrete random variable and each knot as a jointly continuous random vector of direction and value. The effect is that $\fnc{h}{\tbm; K, \xbm}$ for each $\tbm \in \O$ is a random variable, and the estimator $\fnc{\est{h}}{\cdot}$ is the mean of the posterior distribution of $\fnc{h}{\cdot}$ for each $\tbm \in \O$. The posterior distribution is approximated by simulation, where samples are generated using the \ac{rjmcmc} algorithm \citep{Green1995}.
+
+The use of \ac{rjmcmc} to fit free-knot splines to data has been used previously by \citet{Denison1998} and \citet{DiMatteo2001}. By combining free-knot splines with hyperspherical log-splines, \citet{Ferreira2005} construct a highly flexible framework for modelling the shape of density level sets for densities in $\HC{D}$. Unfortunately, specification of the density generator is required a priori and methods for estimating $\mub$ are not discussed leaving a gap in the literature that we aim to fill. 
+
+We now provide an outline for the estimation approach of \citet{Ferreira2005} in the bivariate setting. Assume data $\xb_i\in\R^2$ for $i=1, \dots, n$ are transformed to polar coordinates $\paren{\t_i, \rho_i}$ with respect to known $\mub = \zerob$. We model the log-transform of the conditional expectation of the radial variable in Equation \eqref{Eq:log-spline}.
+
+In $\R^2$, the $K$ knot directions are ordered so that $0 \leq \t_1 < \cdots < \t_K < 2\pi$, and the reproducing kernel is \eqq{
+  R_{2}^{\ell}\paren{\t | \t_k} = \begin{cases} \dfrac{(-1)^{\ell/2}(2\pi)^{\ell+1}}{(\ell+2)!}\fnc{B_{\ell_2}}{\frac{\t-\t_k}{2\pi}} & \t \geq \t_k \\
+  \\
+    \dfrac{(-1)^{\ell/2}(2\pi)^{\ell+1}}{(\ell+2)!}\fnc{B_{\ell_2}}{\frac{\t-\t_k}{2\pi} + 1} & \t < \t_k, \end{cases}
+} where $B_{\ell+2}$ is the Bernoulli polynomial of degree $\ell+2$ with domain $\t \in [0, 2\pi)$. Following the convention of \citet{Ferreira2005}, we use $\ell=2$ so the Bernoulli polynomial can be written explicitly as \eqq{
+  \fnc{B_{4}}{x} = x^4 - 2x^3 + x^2 - \frac{1}{30}.
+}
+
+<!-- The piecewise nature of the kernel comes from the requirement $\t - \t_k \in [0, 2\pi)$.  -->
+
+<!-- The unknown spline coefficients are calculated by solving the linear system \eeq[linear-system]{ -->
+<!--   \bmat{\oneb_K & R \\ 0 & \oneb_K'}\cb = \bmat{\vb \\ 0}, -->
+<!-- } where $\oneb_K \in \R^K$ is a vector of $1$'s, $\vb\in\R^{K+1}$ is a vector of the log-transformed knot values, and $R\in\R^{K\times K}$ is a matrix with entries $r_{ij}$ calculated from the knots, \eqq{ -->
+<!--   r_{ij} = \begin{cases} -\dfrac{\pi^3}{3}\fnc{B_{4}}{\frac{\t_j-\t_i}{2\pi}} & \t_j \geq \t_i \\ -->
+<!--   \\ -->
+<!--     -\dfrac{\pi^3}{3}\fnc{B_{4}}{\frac{\t_j-\t_i}{2\pi}+1} & \t_j < \t_i. \end{cases} -->
+<!-- } A simple algorithm for calculating matrix $R$ is to first create the $K\times K$ matrix with $i,j$ entry $(\t_j - \t_i)/2\pi$, add $2\pi$ to all entries below the diagonal, then apply the Bernoulli polynomial $\fnc{B_4}{x}$ to each entry and multiply by $-\pi^3/3$. -->
+
+The unknown spline coefficients are calculated by solving the linear system \eeq[linear-system]{
+  \bmat{\oneb_K & R \\ 0 & \oneb_K'}\cb = \bmat{\vb \\ 0},
+} where $\oneb_K \in \R^K$ is a vector of $1$'s, $\vb\in\R^{K+1}$ is a vector of the log-transformed knot values, and $R\in\R^{K\times K}$ is a matrix with entries $r_{ij} = \fnc{R_2^{\ell=2}}{\t_j|\t_i}$ calculated from the knots.
+
+<!-- Exponentiating the results of Equation \eqref{Eq:log-spline} for $\t \in [0, 2\pi)$ produces an estimate of $\ka\fncD{r}{\t}$ which is used to estimate the gauge function of the shape set $D$. By assuming $f_0$ is known, we can calculate the likelihood which is an integral part of the \ac{rjmcmc} algorithm used in determining the probability of accepting or rejecting move proposals at each iteration. See the following papers for thorough presentations on the theory behind and examples of \ac{rjmcmc}: \citet{Green1995, Waagepetersen2001, Hastie2012}. -->
+
+Exponentiating the results of Equation \eqref{Eq:log-spline} for $\t \in [0, 2\pi)$ produces an estimate of $\ka\fncD{r}{\t}$ which is used to estimate the gauge function of the shape set $D$. By assuming $f_0$ is known, the likelihood is calculated and used by the \ac{rjmcmc} algorithm to produce samples from the posterior distribution. See \citet{Green1995, Waagepetersen2001, Hastie2012} for thorough presentations on the theory behind and examples of the \ac{rjmcmc} algorithm.
+
+<!-- In addition, the normalizing constant for a density generator can contain the volume of the estimated shape set. See derivations for $f_{01}$ and $f_{02}$ in Section \@ref(density-generator). The volume $\abs{\est{D}}$ is found numerically for the 2-dimensional case using the multiple integral transformation from the Cartesian to the polar plane, \begin{align*} -->
+<!--   \iint_{\est{D}}\fnc{f}{x,y}dxdy &= \int_{0}^{2\pi}\int_{0}^{\est{r}(\t)}\fnc{f}{r\cos(\t), r\sin(\t)}rdrd\t -->
+<!--     = \int_{0}^{2\pi}\int_{0}^{\est{r}(\t)}\est{r}(\t)d\est{r}(\t)d\t -->
+<!--     = \frac{1}{2}\int_{0}^{2\pi}\brac{\est{r}(\t)}^2d\t, -->
+<!--   \end{align*} -->
+<!-- which is equivalent to an integral in one variable and thus easily approximated using numerical integration. -->
+
+<!-- When numerically integrating to find $\abs{\est{D}}$, it is much more efficient to use the observations $\t_1, \dots, \t_n$ instead of a fine grid, but accuracy is sacrified and the amount of accuracy depends upon the sample size $n$. To minimize this loss, we use the midpoint rule for each approximating rectangle so that the height of the rectangle is the function $\est{r}(\t_i)$ evaluated at the midpoint of the endpoints of the rectangle. Since the widths of the rectangles are not equal, it is important to make sure the proper width $\Delta_i$ is aligned to the proper height $\est{r}(\t_i)$. Thus, \eqq{ -->
+<!--   \Delta_i = \frac{\t_{i+1} - \t_{i-1}}{2}, \qquad \text{for all $i = 1, \dots, n$}, -->
+<!-- } where $\t_{0} = \t_n - 2\pi$ and $\t_{n+1} = \t_1 + 2\pi$. As a result, the approximation is \eqq{ -->
+<!--   \frac{1}{2}\int_{0}^{2\pi}\est{r}(\t)^2d\t \approx \sumto{i=1}{n}\est{r}(\t_i)^2\Delta_i. -->
+<!-- } -->
+
+We now briefly give an overview of the \ac{rjmcmc} algorithm. Let the current state of a Markov chain be specified by $\yb = \paren{K, \xbm}$, where $K$ is the number of knots and $\xbm \in \R^{2K}$ is the parameter vector for knot directions, $\paren{\t_1, \dots, \t_K} \in [0, 2\pi)^K$, and knot values $\paren{v_1, \dots, v_K} \in \R^K$. At each iteration of the \ac{rjmcmc} algorithm, there are 4 possible move proposals:
+
+  (i) a change to an existing knot's direction;
+  (i) a change to an existing knot's value;
+  (i) add a new knot; or
+  (i) remove an existing knot.
+
+Proposals to change a knot's direction or value do not change the dimensionality of the model and are referred to as fixed-dimensional move types. Cross-dimensional move types are proposals to add a new knot or remove an existing knot. The probability of accepting a move proposal is referred to as the move probability. To calculate this probability, let $\fnc{\pi}{\yb}$ be the posterior density, where it is understood that this density is conditional on the data. The conditional joint density of the data given $\yb$ is $\fnc{p_{\Xb|\Yb}}{\xb|\yb}$, and the prior density for $\yb$ is $\fnc{p_{\Yb}}{\yb}$. The proposal density $\fnc{q_{\tilde{\Yb}|\Yb}}{\tilde{\yb}|\yb}$ is a conditional density for proposing a move to state $\tilde{\yb}$ given the current state $\yb$. and is calculated as \begin{align*}
+  \fnc{\a}{\tilde{\yb} | \yb} &= \mina{\dfrac{\fnc{\pi}{\tilde{\yb}}\fnc{q_{\tilde{\Yb}|\Yb}}{\yb|\tilde{\yb}}}{\fnc{\pi}{\yb}\fnc{q_{\tilde{\Yb}|\Yb}}{\tilde{\yb}|\yb}}, 1} \\
+  &= \mina{\dfrac{\frac{1}{Z}\fnc{p_{\Xb|\Yb}}{\xb | \tilde{\yb}}\fnc{p_{\Yb}}{\tilde{\yb}}\fnc{q_{\tilde{\Yb}|\Yb}}{\yb|\tilde{\yb}}}{\frac{1}{Z}\fnc{p_{\Xb|\Yb}}{\xb | \yb}\fnc{p_{\Yb}}{\yb}\fnc{q_{\tilde{\Yb}|\Yb}}{\tilde{\yb}|\yb}}, 1} \\
+  &= \mina{\dfrac{\fnc{p_{\Xb|\Yb}}{\xb | \tilde{\yb}}}{\fnc{p_{\Xb|\Yb}}{\xb | \yb}} \dfrac{\fnc{p_{\Yb}}{\tilde{\yb}}}{\fnc{p_{\Yb}}{\yb}}\dfrac{\fnc{q_{\tilde{\Yb}|\Yb}}{\yb|\tilde{\yb}}}{\fnc{q_{\tilde{\Yb}|\Yb}}{\tilde{\yb}|\yb}}, 1} \\
+  &= \mina{\text{likelihood ratio} \times \text{prior ratio} \times \text{proposal ratio}, 1} \\
+  &= \expo{\mina{\fnc{\log}{\text{likelihood ratio}} + \fnc{\log}{\text{prior ratio}} + \fnc{\log}{\text{proposal ratio}}, 0}},
+  \end{align*}
+where the log transformation is used for numerical precision. Cross-dimensional move probabilities also require a Jacobian term to account for the mapping between spaces of different dimensions, but is excluded above since this specific algorithm has a Jacobian of 1 \citep{Lindstrom2002}. 
+
+<!-- The prior and proposal densities as well as the subsequent derivation of each ratio for each move type are presented in Appendix \@ref(App-freeknot). Since this discussion ultimately leads to the calculation of move-type proposal probabilities and acceptance probabilities, the definitions and calculations associated with these probabilities are also supplied in Appendix \@ref(App-freeknot). -->
+
+The free-knot spline estimator for $\fncD{r}{\tbm}$ in the bivariate setting is \eeq[free-knot-estimator]{
+  \fncD{FK}{\t} = \frac{1}{\maxa[\t\in[0, 2\pi)]{\fnc{\est{h}}{\t; K, \t_1, \dots, \t_K}}}\fnc{\est{h}}{\t; K, \t_1, \dots, \t_K}.
+} The method generalizes to higher dimensions as discussed by \citet{Ferreira2005}.
+
+Since the estimator in Equation \eqref{Eq:free-knot-estimator} requires specification of the density generator, we are interested in the sensitivity of the estimator when the density generator is misspecified. As a result, we estimate each of $D_1$ and $D_2$ using the correct density generator and a misspecified density generator.
+
+The estimate of $D_1$ using free-knot splines with the correct, normal density generator $f_{01}$ in Equation \eqref{Eq:simulation-1} is presented in Figure \ref{Fig:sim-1-freeknot-correct}, and the estimate assuming misspecified logistic density generator $f_{02}$ in Equation \eqref{Eq:simulation-2} is presented in Figure \ref{Fig:sim-1-freeknot-mis}. We see that the estimate for $D_1$ is significantly affected by the choice of density generator.
+
+![\label{Fig:sim-1-freeknot-correct} Free-knot spline estimate of $D_1$ with the 95% confidence region under the assumption of the correct, normal density generator](../Thesis/images/rjmcmc.1.norm.png){width=80%}
+
+![\label{Fig:sim-1-freeknot-mis} Free-knot spline estimate of $D_1$ with the 95% confidence region when the true density generator is normal, but is misspecified as logistic](../Thesis/images/rjmcmc.1.log.png){width=80%}
+
+We estimate $D_2$ similarly. Here, the misspecified generator is the normal density generator $f_{01}$ in Equation \eqref{Eq:simulation-1}, and the correct density generator is the logistic density generator $f_{02}$ in Equation \eqref{Eq:simulation-2}. The estimates under misspecification and correct specification are presented in Figure \ref{Fig:sim-2-freeknot-mis} and Figure \ref{Fig:sim-2-freeknot-correct}, respectively. For this dataset, the choice of density generator does not have a significant effect, suggesting that density generator misspecification may not always be a primary concern. The conditions under which misspecification may not be a problem are yet to be discovered.
+
+![\label{Fig:sim-2-freeknot-mis} Free-knot spline estimate of $D_2$ with the 95% confidence region when the true density generator is logistic, but is misspecified as normal](../Thesis/images/rjmcmc.2.norm.png){width=80%}
+
+![\label{Fig:sim-2-freeknot-correct} Free-knot spline estimate of $D_2$ with the 95% confidence region under the assumption of the correct, logistic density generator](../Thesis/images/rjmcmc.2.log.png){width=80%}
+
+
+
+
+
+
+
+
+
+
+
+
