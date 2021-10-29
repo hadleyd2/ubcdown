@@ -175,18 +175,14 @@
 \newcommand{\finv}[2]{#1^{-1}\paren{#2}} %% inverse function: arg1 is the function; arg2 is the variables
 \newcommand{\fnc}[2]{#1\!\paren{#2}} %% function: arg1 is the function; arg2 is the variables
 \newcommand{\fncD}[3][D]{#2\!_{#1\!}\!\paren{#3}} %% function: arg1 is the function; arg2 are the variables (used for shape set)
-\newcommand{\fncDtest}[3][D]{#2\!_{#1\!}\!\paren{#3}} %% function: arg1 is the function; arg2 are the variables (used for shape set)
 \newcommand{\fncEV}[1]{\bbE\left[ #1 \right]}
-\newcommand{\fncf}[2][]{f_{#1}\left( #2 \right)} %For function f() with dynamically sized parentheses and optional argument for subscript
-									% To property use this function \fncf[subscript]{argument in parentheses}
-\newcommand{\fncg}[2][]{g_{#1}\left( #2 \right)} %For function g() with dynamically sized parentheses and optional argument for subscript
 									% To property use this function \fncg[subscript]{argument in parentheses}
 \newcommand{\g}{\gamma} %% shorthand for lowercase gamma
 \newcommand{\gb}{\vecl{g}} %% Bold g
 \newcommand{\gbm}{\bm{{\gamma}}} %% bold lowercase gamma
 \newcommand{\grad}{\nabla} %% Gradient symbol (upside-down Delta)
 \newcommand{\hb}{\vecl{h}}
-\newcommand{\HC}[1]{\cal{H}\!_{\mathit{#1}}} %% Used to denote the class of homothetic densities
+\newcommand{\HC}[1]{\cal H\!_{\textit{#1}}} %% Used to denote the class of homothetic densities
 \newcommand{\Ib}{\vecl{I}} %% Bold I for identity matrix
 \newcommand{\Ibb}[1]{\mathbb{I}\paren{#1}} %% I for indicator function
 \newcommand{\IC}{\cal I}
@@ -250,6 +246,7 @@
 \newcommand{\rhobm}{\vecg{\rho}} %% Bold lowercase rho
 \newcommand{\Rplus}{\mathbb{R}^{+}} %% Real numbers
 \newcommand{\rb}{\vecl{r}}
+\renewcommand\refname{}
 \newcommand{\rs}{R^2} %%R-squared
 \newcommand{\Rstar}{R^{\star}\!} %%used for star-generalized radius variable
 \newcommand{\rstar}{r^{\star}\!} %%used for star-generalized radius variable
@@ -266,7 +263,7 @@
 \newcommand{\set}[1]{\left\{ #1 \right\}} %Dynamically size braces around an equation
 \newcommand{\setm}{\setminus} %%Symmetric difference
 \newcommand{\sgn}[1]{\text{sgn}\paren{ #1 }} %sign operator
-\newcommand{\Sigmabm}{\bm{\Sigma}}
+\newcommand{\Sigmabm}{\bm{{\Sigma}}}
 \newcommand{\simp}{\ \Rightarrow \ } %%Shorter arrow for implies
 \renewcommand{\ss}{\subset}
 \newcommand{\sumnf}[2][1]{\displaystyle\sum_{#2=#1}^{\nf}} %% Limit to infinity taking argument for variable that goes to infinity; always places text under lim
@@ -276,10 +273,9 @@
 \renewcommand{\t}{\theta} %% Lowercase theta
 \newcommand{\tb}{\mathbf{t}} %% Bold-faced lowercase t
 \newcommand{\tbf}[1]{\textbf{#1}} %%Bold-faced in text environment
-\newcommand{\tbm}{\bm{\t}} %% Bold-faced lowercase t
+\newcommand{\tbm}{\bm{{\t}}} %% Bold-faced lowercase t
 \newcommand{\TC}{{\cal T}}
-\newcommand{\Tbm}{\bm{\Theta}} %% Bold-faced capital theta
-\newcommand{\thb}{\bm{\theta}} %% Bold-faced lowercase theta
+\newcommand{\Tbm}{\bm{{\Theta}}} %% Bold-faced capital theta
 \newcommand{\tit}[1]{\textit{#1}} %% Italics text
 \newcommand{\tPr}{\text{Pr}}
 \newcommand{\tr}{^{\intercal}}
