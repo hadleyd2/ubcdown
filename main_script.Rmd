@@ -207,7 +207,7 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \clearpage
 
 <!-- Modify me! -->
-# Chapter Three: Insert Title Chapter Here
+# Estimation of Homothetic Densities {#estimation}
 
 <!-- Set figure and table numbering according to the chapter -->
 \renewcommand{\thefigure}{3.\arabic{figure}}
@@ -217,13 +217,43 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \renewcommand{\theequation}{3.\arabic{equation}}
 \setcounter{equation}{0}
 
-```{r chapter_three, child = 'insert_project_path_here/chapter_manuscript.Rmd', eval = F}
+```{r ShapeSet, child = './Sections/1000_Estimation.Rmd', eval = T}
+```
+
+## Shape Set Estimation {#S:shape-set}
+
+```{r ShapeSet1, child = './Sections/1010_ShapeSet.Rmd', eval = T}
+```
+
+### Kernel Density Estimation {#SSS:kde}
+
+```{r ShapeSet2, child = './Sections/1011_KernelDensity.Rmd', eval = T}
+```
+
+### Conditional Mean of the Radial Variable {#SSS:regression}
+
+```{r ShapeSet3, child = './Sections/1012_KernelRegression.Rmd', eval = T}
+```
+
+#### Smoothing Splines
+
+```{r ShapeSet4, child = './Sections/1013_SmoothingSplines.Rmd', eval = T}
+```
+
+#### Free-Knot Splines {#SSS:free-knot-splines}
+
+```{r ShapeSet5, child = './Sections/1014_FreeKnotSplines.Rmd', eval = T}
+```
+
+## Density Estimation {#S:estimation-dg}
+
+```{r ShapeSet6, child = './Sections/1030_DensityEstimation.Rmd', eval = T}
 ```
 
 \clearpage
 
 <!-- Modify me! -->
-# Chapter Four: Insert Title Chapter Here
+# Trochoidal Distributions {#SS:trochoidal-dist}
 
 <!-- Set figure and table numbering according to the chapter -->
 \renewcommand{\thefigure}{4.\arabic{figure}}
@@ -233,13 +263,13 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \renewcommand{\theequation}{4.\arabic{equation}}
 \setcounter{equation}{0}
 
-```{r chapter_four, child = 'insert_project_path_here/chapter_manuscript.Rmd', eval = F}
+```{r Trochoidal, child = './Sections/1100_TrochoidalDist.Rmd', eval = T}
 ```
 
 \clearpage
 
 <!-- Modify me! -->
-# Chapter Five: Insert Title Chapter Here
+# Remaining Research Objectives {#S:objectives}
 
 <!-- Set figure and table numbering according to the chapter -->
 \renewcommand{\thefigure}{5.\arabic{figure}}
@@ -249,16 +279,7 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \renewcommand{\theequation}{5.\arabic{equation}}
 \setcounter{equation}{0}
 
-```{r chapter_five, child = 'insert_project_path_here/chapter_manuscript.Rmd', eval = F}
-```
-
-\clearpage
-
-<!-- Done with data chapters, last sections -->
-
-# Synthesis and Conclusion
-
-```{r Conclusion, child = './Sections/09_Conclusion.Rmd', eval = T}
+```{r Objectives, child = './Sections/1200_Objectives.Rmd', eval = T}
 ```
 
 \clearpage
