@@ -1,0 +1,326 @@
+
+
+```{r sim-trochoid-setup, cache=TRUE, echo=FALSE}
+# source(file=here::here("Thesis", "Trochoidal", "Epitrochoid-Fncs.R"))
+# source(file=here::here("Thesis", "Trochoidal", "Hypotrochoid-Fncs.R"))
+
+## Inputs for simulation uniformly over shape set
+## Parameters for shape set
+q <- 3; k.0 <- 1/3; alpha.0=pi/6
+D.true <- hypo.fnc(R=q/(q + k.0 -1), r=1/(q + k.0 - 1), d=k.0/(q + k.0 -1), alpha=alpha.0)
+
+## Create monotonic mapping from parameter t to theta ####
+##
+t.grid <- seq(0, 2*pi, len=5e3)
+## Build original mapping that may not be monotonic for alpha != 0
+theta.q3 <- theta.t(q=q, k=k.0, t=t.grid, alpha=alpha.0)
+  find.t.for <- 0 ## we want to find the parameter t producing a point that has this polar angle
+  idx <- which.min(abs(theta.q3$theta - find.t.for)) #find closest point from map of estimated shape to find.t.for
+  uni.int <- c(theta.q3$t[length(theta.q3$t)-1]-2*pi, 
+               theta.q3$t, theta.q3$t[2] + 2*pi)[c(idx, idx+2)] ## choose uniroot interval endpoints
+  uni.int[1] <- uni.int[1] - 2*pi*(uni.int[1] >= uni.int[2]) #endpoints should be increasing
+  test.t <- uniroot(f=polar.angle, interval=uni.int, q=q, k=k.0, alpha=alpha.0, theta=find.t.for, tol=1e-8)$root
+  test.t <- round(test.t, 8) #round to handle numerical inaccuracy
+      
+## Map new theta(t) function shifted
+theta.q3 <- theta.t(q=q, k=k.0, alpha=alpha.0, t=seq(test.t, test.t+2*pi, len=2500))
+theta.q3$theta[c(1, length(theta.q3$theta))] <- c(0, 2*pi)
+
+## Parameters for dgf
+sig <- sqrt(2)
+
+## Simulate uniform vector over shape set
+N <- 1000 #sample size
+n <- 0 #counter of accepts
+iter <- 1 #count iterations
+u <- data.frame('theta'=rep(NA, N), 'r'=rep(NA,N)) #keep track of accepted simulations
+
+## Simulate scalar
+gam.shape <- 2
+```
+
+In this section, we simulate a random sample of $`r N`$ bivariate random vectors independently from the hypotrochoidal family indexed by $q = `r q`$ with parameters $k = `r round(k.0, 2)`$ and $\a = `r round(pi/6, 2)`$ and density generator \eqq{
+  \fnc{f_{0}}{r} = \frac{1}{2\abs{D}\s^2}\expo{-\frac{r^2}{2\s^2}},
+} with $\s = `r round(sig, 3)`$. Parameter estimation is performed via the maximum likelihood for the same candidate families as in Section \@ref(SS:biv-norm-example). To simulate, we use Algorithm \ref{Alg:sim-shapeset} with scaling variable density \eqq{
+  \fnc{f_S}{s} = \frac{s^3}{2\s^4}\expo{-\frac{s^2}{2\s^2}}, \qquad s > 0.
+}
+
+<!-- To simulate $S$, we need to derive its distribution by Equation \ref{Eq:scale-r}. For $\Xb \in \R^p$, \eqq{ -->
+<!--   \fnc{f_S}{s} = s^p\abs{D}\abs{\fnc{f_0'}{s}}  -->
+<!--     = s^2\abs{D}\abs{\frac{s}{2\abs{D}\s^4}\expo{-\frac{s^2}{2\s^2}}} -->
+<!--     = \frac{s^3}{2\s^4}\expo{-\frac{s^2}{2\s^2}}. -->
+<!-- } Through the transformation \eqq{ -->
+<!--   S_1 = \fnc{g}{S} = S^2/2 \iff S = \finv{g}{S_1} = \sqrt{2S_1}, -->
+<!-- } we can find the density for $S_1$ as \eqq{ -->
+<!--   \fnc{f_{S_1}}{s_1} = \fnc{f_S}{\finv{g}{s_1}}\abs{\frac{d}{ds_1}\finv{g}{s_1}} -->
+<!--     = \frac{s_1}{\paren{\s^2}^2}\expo{-\frac{s_1}{\s^2}} -->
+<!--     \ \propto \ \frac{1}{\fnc{\Gamma}{2}\paren{\s^2}^2}s_1^{2-1}\expo{-\frac{s_1}{\s^2}}, -->
+<!-- } so that $S_1 \sim \text{Gamma}\paren{\text{shape} = 1, \text{scale} = \s^2}$. To simulate $S$, we simulate $S_1$ using `rgamma()` and perform the transformation $S = \sqrt{2S_1}$ to get the desired distribution for $S$. -->
+
+```{r sim-trochoidal, cache=TRUE}
+set.seed(20210611)
+while (n < N & iter < N*5) {
+  ## Simulate over unit circle
+  theta.sim <- runif(1, 0, 2*pi)
+  r.sim <- sqrt(runif(1, 0, 1))
+  
+  ## Test whether simulation is within shape set
+  ## Find parameter value leading to boundary of shape set in the direction of polar angle theta.sim
+  t.tmp <- signal::pchip(x=theta.q3$theta, y=theta.q3$t, xi=theta.sim)
+  ## Find the radial component to the boundary of shape set at angle theta.sim
+  ht.tmp <- hypo.fnc(R=q/(q + abs(k.0) - 1), r=1/(q + abs(k.0) - 1), d=k.0/(q + abs(k.0) - 1), t=t.tmp, alpha=alpha.0)
+  r.tmp <- sqrt(ht.tmp$x^2 + ht.tmp$y^2)
+  
+  ## Accept/Reject
+  if (r.sim <= r.tmp) {
+    n <- n+1
+    u[n,] <- c(theta.sim, r.sim)
+  }
+  iter <- iter + 1
+  rm(theta.sim, r.sim, t.tmp, ht.tmp, r.tmp)
+}
+rm(n, iter)
+
+## Simulate scaling
+set.seed(20210611)
+s <- sqrt(2*rgamma(n=N, shape=gam.shape, scale=sig^2))
+
+## Create sample
+u$x1 <- u$r*cos(u$theta)
+u$x2 <- u$r*sin(u$theta)
+dat <- data.frame('x1'=u$x1*s, 'x2'=u$x2*s)
+rm(u, s)
+```
+
+```{r estimation-trochoid, cache=TRUE}
+## Find maximum likelihood estimates using profile-loglikelihood
+q.h <- 2:5
+q.e <- q.h-1
+
+## Starting value for scale parameter
+sig.str <- var(sqrt(dat$x1^2 + dat$x2^2))
+
+## Grid of parameter values for k and alpha
+k <- seq(0.05, 0.95, by=0.1)
+alpha.num <- 10 #number of angles to view
+
+## House estimates - Hypotrochoid
+sig.tmp <- rep(NA, length(q.h)*length(k)*alpha.num)
+q.tmp <- rep(q.h, each=length(k)*alpha.num)
+q.e.tmp <- rep(q.e, each=length(k)*alpha.num)
+alpha.tmp <- as.numeric(apply(sapply(2*pi/q.h - 0.25, seq, from=0.25, len=alpha.num), 
+                              2, rep, each=length(k)))
+k.tmp <- rep(k, length(q.h)*alpha.num)
+
+profile.ll <- data.frame('sig.h'=sig.tmp,
+                         'sig.e'=sig.tmp,
+                         'q.h'=q.tmp,
+                         'q.e'=q.e.tmp,
+                         'alpha'=alpha.tmp,
+                         'k'=k.tmp,
+                         'nllk.h'=sig.tmp,
+                         'nllk.e'=sig.tmp,
+                         'gradient.h'=sig.tmp,
+                         'gradient.e'=sig.tmp)
+rm(sig.tmp, q.tmp, alpha.tmp, k.tmp, k) #keep q for now
+
+## Hypotrochoidal Profile log-likelihoods for sigma
+for (i in seq(nrow(profile.ll))) {
+  ## parameters for each iteration specified in each row
+  tmp <- nlm(hypo.pll.sig, p=sig.str, q=profile.ll$q.h[i], alpha=profile.ll$alpha[i],
+             k=profile.ll$k[i], dat=dat, iterlim=50)
+  profile.ll$sig.h[i] <- tmp$estimate
+  profile.ll$nllk.h[i] <- tmp$minimum
+  profile.ll$gradient.h[i] <- tmp$gradient
+  rm(tmp, i)
+}
+## Epitrochoidal Profile log-likelihoods for sigma
+for (i in seq(nrow(profile.ll))) {
+  ## parameters for each iteration specified in each row
+  tmp <- nlm(epi.pll.sig, p=sig.str, q=profile.ll$q.e[i], alpha=profile.ll$alpha[i],
+             k=profile.ll$k[i], dat=dat, iterlim=50)
+  profile.ll$sig.e[i] <- tmp$estimate
+  profile.ll$nllk.e[i] <- tmp$minimum
+  profile.ll$gradient.e[i] <- tmp$gradient
+  rm(tmp, i)
+}
+rm(sig.str)
+
+## Decide on starting values based on results of profile log-likelihood
+str.val.h <- str.val.e <- NULL
+## Hypotrochoid
+for (i in q.h) {
+  tmp <- profile.ll[profile.ll$q.h == i,]
+  str.tmp <- tmp[which.min(tmp$nllk.h),]
+  str.val.h <- rbind(str.val.h, str.tmp)
+ rm(tmp, str.tmp, i) 
+}
+## Epitrochoid
+for (i in q.e) {
+  tmp <- profile.ll[profile.ll$q.e == i,]
+  str.tmp <- tmp[which.min(tmp$nllk.e),]
+  str.val.e <- rbind(str.val.e, str.tmp)
+ rm(tmp, str.tmp, i) 
+}
+rm(profile.ll)
+
+## Create vector to house MLE results for each q
+## Hypotrochoid
+mle.ht <- mle.et <- vector(mode="list", length=length(q.h))
+names(mle.ht) <- sapply("qh", paste0, q.h)
+names(mle.et) <- sapply("qe", paste0, q.e)
+
+## MLE Hypotrochoid
+for (i in seq(nrow(str.val.h))) {
+  strt.tmp <- str.val.h[i,]
+  mle.ht[[i]] <- nlm(nllk.trochoid, p=c(strt.tmp$k, strt.tmp$alpha, strt.tmp$sig.h), 
+                     q=strt.tmp$q.h, dat=dat, trochoid="hypo") ## estimates returned as (k, alpha, sigma)
+  rm(strt.tmp, i)
+}
+rm(str.val.h)
+## MLE Epitrochoid
+for (i in seq(nrow(str.val.e))) {
+  strt.tmp <- str.val.e[i,]
+  mle.et[[i]] <- nlm(nllk.trochoid, p=c(strt.tmp$k, strt.tmp$alpha, strt.tmp$sig.e), 
+                     q=strt.tmp$q.e, dat=dat, trochoid="epi") ## estimates returned as (k, alpha, sigma)
+  rm(strt.tmp, i)
+}
+rm(str.val.e)
+```
+
+```{r trochoidal-normal-mle, cache=TRUE}
+## This chunk finds the maximum likelihood estimates assuming a bivariate normal model
+
+## Starting values are the sample variances and sample covariance
+scov_mat = as.numeric(var(dat))[-2]
+## Perform MLE
+mle.bivnorm <- nlm(nllk.bivnorm, p=scov_mat, dat=dat)
+
+## Convert estimates to hypotrochoidal parameters
+ests <- mle.bivnorm$estimate
+Sigma.hat <- matrix(c(ests[1], rep(ests[2], 2), ests[3]), nrow=2, byrow=TRUE)
+tmp <- eigen(Sigma.hat)
+sigma.tmp <- sqrt(max(tmp$values))
+alpha.tmp <- atan(tmp$vectors[2,1]/tmp$vectors[1,1])
+alpha.tmp <- (1 - sign(alpha.tmp))/2*(pi) + alpha.tmp
+k.tmp <- (1 - sqrt(min(tmp$values))/sigma.tmp)/(1 + sqrt(min(tmp$values))/sigma.tmp)
+bivnorm.mle <- c('k'=k.tmp, 'alpha'=alpha.tmp, 'sigma'=sigma.tmp)
+rm(ests, Sigma.hat, tmp, sigma.tmp, alpha.tmp, k.tmp)
+```
+
+\renewcommand{\arraystretch}{1.5}
+```{r compare-profile-ll-hypo, cache=TRUE}
+# nllk <- c(unlist(lapply(mle.ht, FUN=function(x){x$minimum})),
+#           unlist(lapply(mle.et, FUN=function(x){x$minimum})))
+# ests <- data.frame(rbind(matrix(unlist(lapply(mle.ht, FUN=function(x){x$estimate})), byrow=TRUE, ncol = 3),
+#                          matrix(unlist(lapply(mle.et, FUN=function(x){x$estimate})), byrow=TRUE, ncol = 3)))
+# grad <- data.frame(matrix(rbind(c(unlist(lapply(mle.ht, FUN=function(x){x$gradient})),
+#           unlist(lapply(mle.et, FUN=function(x){x$gradient})))), nrow=nrow(ests), byrow=TRUE))
+# ests <- as.data.frame(cbind(nllk, ests, rep(k.0, nrow(ests)), rep(pi/6, nrow(ests)), rep(sqrt(2), nrow(ests)), 
+#                             apply(grad, 1, function(x){all(x<1e-2)})))
+# rm(nllk, grad)
+# 
+# ests$nllk <- round(ests$nllk, 2)
+# ests$nllk = cell_spec(ests$nllk, bold = ifelse(rank(ests$nllk) == 1, TRUE, FALSE))
+# 
+# rownames(ests) <- c("$q_h=2$", "$q_h=3$", "$q_h=4$", "$q_h=5$", 
+#                     "$q_e=1$", "$q_e=2$", "$q_e=3$", "$q_e=4$")
+# colnames(ests) <- c('nllk', 'k', 'alpha', 'sigma', 'k.true', 'alpha.true', 'sigma.true', 'converge')
+# 
+# kable(ests,
+#       col.names = c("nllk", "$\\est{k}$", "$\\est{\\a}$", "$\\est{\\s}$", "$k_0$", "$\\a_0$", "$\\s_0$", "Converge"),
+#       "latex", escape=F, digits=2,
+#       caption=c("\\label{Tab:ests-hypo}Negative log-likelihood and maximum likelihood estimates for trochoidal families fit to data simulated from hypotrochoidal family $q=2$. Lower negative log-likelihoods indicate a better fit. True parameter values are given in columns $k_0$, $\\a_0$ and $\\s_0$. The final columns tells whether the optimization converged to a solution (TRUE) or a boundary (FALSE).")) %>% 
+#   kable_styling(latex_options = c("hold_position", "striped"))
+
+## Estimates for Trochoidal Families and MVN
+nllk <- c(unlist(lapply(mle.ht, FUN=function(x){x$minimum})),
+          unlist(lapply(mle.et, FUN=function(x){x$minimum})),
+          mle.bivnorm$minimum)
+ests <- data.frame(rbind(matrix(unlist(lapply(mle.ht, FUN=function(x){x$estimate})), byrow=TRUE, ncol = 3),
+                         matrix(unlist(lapply(mle.et, FUN=function(x){x$estimate})), byrow=TRUE, ncol = 3),
+                         bivnorm.mle))
+grad <- data.frame(matrix(rbind(c(unlist(lapply(mle.ht, FUN=function(x){x$gradient})),
+                                  unlist(lapply(mle.et, FUN=function(x){x$gradient})),
+                                  mle.bivnorm$gradient)), nrow=nrow(ests), byrow=TRUE))
+ests <- as.data.frame(cbind(nllk, ests, rep(k.0, nrow(ests)), rep(alpha.0, nrow(ests)), rep(sig, nrow(ests)),
+                            apply(grad, 1, function(x){all(x<1e-2)})))
+rm(nllk, alpha.0, k.0, scl.0)
+
+# ests$nllk <- round(ests$nllk, 2)
+ests$nllk <- as.character(formatC(ests$nllk, digits = 2, format = 'f'))
+ests$nllk = cell_spec(ests$nllk, bold = ifelse(rank(round(as.numeric(ests$nllk), 2), ties.method = "min") == 1, TRUE, FALSE))
+
+
+rownames(ests) <- c("$q_h=2$", "$q_h=3$", "$q_h=4$", "$q_h=5$", 
+                    "$q_e=1$", "$q_e=2$", "$q_e=3$", "$q_e=4$",
+                    "MVN")
+colnames(ests) <- c('nllk', 'k', 'alpha', 'sigma', 'k.true', 'alpha.true', 'sigma.true', 'Converge')
+
+kable(ests,
+      col.names = c("nllk", "$\\est{k}$", "$\\est{\\a}$", "$\\est{\\s}$", "$k_0$", "$\\a_0$", "$\\s_0$", "Converge"),
+      "latex", escape=F, digits=2, row.names=TRUE,
+      caption=c("\\label{Tab:ests-hypo}Negative log-likelihood and maximum likelihood estimates for trochoidal families fit to data simulated from hypotrochoidal family $q=3$. Lower negative log-likelihoods indicate a better fit. True parameter values are given in columns $k_0$, $\\a_0$ and $\\s_0$. The final column tells whether the optimization converged to a solution (TRUE) or a boundary (FALSE).")) %>% 
+  kable_styling(latex_options = c("hold_position", "striped"))
+
+## Cleanup
+# rm(mle.ht, mle.et)
+```
+
+Results are presented in Table \ref{Tab:ests-hypo} for the trochoidal and bivariate normal families. The true underlying trochoidal family, $q_h=3$, produces the best likelihood with family $q_e=3$ coming in second. Other families are misspecified and unable to model the underlying data structure. These families tend to use extremely low values for parameter $k$ leading to circular shape sets.
+
+Plots of the estimated shape set for each trochoidal family and the true shape set against a scatterplot of the data are presented in Figure \ref{Fig:D-ests-hypo-2}. We need not show the bivariate normal estimate as it is equivalent to the hypotrochoidal family $q=2$.
+
+```{r shape-set-plots-2, fig.height=6, fig.width=12, fig.cap="\\label{Fig:D-ests-hypo-2}Estimated and true shape sets scaled for visualization of candidate hypotrochoidal and epitrochoidal model families fit to data simulated from the hypotrochoid family $q=3$ using maximum likelihood estimation."}
+D.true <- data.frame(D.true$x, D.true$y); colnames(D.true) <- c('x1', 'x2')
+scl <- 2.5
+par(mfrow=c(2,4))
+## Hypotrochoid Family Shape Sets
+for (i in 1:(nrow(ests)-1)) {
+  ## MLE for trochoidal family
+  k.tmp <- ests[i, 2]
+  alpha.tmp <- ests[i, 3]
+  sig.tmp <- ests[i, 4]
+  
+  ## Hypotrochoid or Epitrochoid?
+  if (i < 5) {
+    q.tmp <- i+1
+    plt.title <- paste0("Hypotrochoid: q = ", q.tmp)
+    tro.tmp <- hypo.fnc(R=q.tmp/(q.tmp + abs(k.tmp) - 1),
+                     r=1/(q.tmp + abs(k.tmp) - 1),
+                     d=k.tmp/(q.tmp + abs(k.tmp) - 1),
+                     alpha=alpha.tmp)
+  } else {
+    q.tmp <- i-4
+    plt.title <- paste0("Epitrochoid: q = ", q.tmp)
+    tro.tmp <- epi.fnc(R=q.tmp/(q.tmp + abs(k.tmp) + 1), 
+                     r=1/(q.tmp + abs(k.tmp) + 1), 
+                     d=k.tmp/(q.tmp + abs(k.tmp) + 1),
+                     alpha=alpha.tmp)
+  }
+  
+  ## Plot of data
+  plot(dat$x1, dat$x2, pch=16, cex=0.5,
+       col=scales::alpha("grey", 0.75),
+       ylab='y', xlab='x', ylim=c(-7, 7), xlim=c(-7, 7),
+       main=plt.title)
+  
+  ## Estimated Shape Set
+  lines(tro.tmp$x*scl, tro.tmp$y*scl, col=scales::alpha("red", 0.75), lwd=1.25)
+  
+  ## Add True shape set
+  lines(D.true$x1*scl, D.true$x2*scl, lty=2, col=scales::alpha("black", 0.75), lwd=1.25)
+  
+  ## Legend
+  legend('topright', legend=c("Estimate", "True"), lty=c(1, 2), bty='n',
+         col=c(scales::alpha("red", 0.75), scales::alpha("black", 0.75)))
+  
+  ## Cleanup
+  rm(i, q.tmp, k.tmp, alpha.tmp, sig.tmp, tro.tmp, plt.title)
+}
+par(mfrow=c(1,1))
+```
+
+<!-- ![\label{Fig:D-ests-hypo2}Estimated and true shape sets scaled by one standard deviation when the hypotrochoid is estimated given number of cusps $q$](Trochoidal/Images/trochoidal-shape-set-plots-hypo-1.pdf){width=50%} -->
+
+<!-- ![\label{Fig:D-ests-epi2}Estimated and true shape sets scaled by 2 for epitrochoidal families $q \in \set{1, 2, 3, 4}$](Trochoidal/Images/trochoidal-shape-set-plots-epi-1.pdf){width=50%} -->

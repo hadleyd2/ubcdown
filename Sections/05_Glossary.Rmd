@@ -14,15 +14,24 @@ output:
 
 tibble(
    # Acronym list
-   Abr =  c("Acronym A",
-            "Acronym B",
-            "Acronym C"
+   Abr =  c(
+      "AIC",
+      "BIC",
+      "D-Class",
+      "LOOCV",
+      "ML",
+      "PDF",
+      "RJMCMC"
    ),
-   # Acronim definition
+   # Acronym definition
    Meaning = c(
-      "Deffinition of A",
-      "Deffinition of B",
-      "Deffinition of C"
+      "Akaike's Information Criterion",
+      "Bayesian Information Criterion",
+      "Directionally-Dispersed Class of Distributions",
+      "Leave-one-out-Cross-Validation",
+      "Maximum Likelihood",
+      "Probability Density Function",
+      "Reversible-Jump Markov Chain Monte Carlo"
    )
 ) %>% 
    dplyr::arrange(Abr) %>%

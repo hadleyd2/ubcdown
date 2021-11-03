@@ -14,7 +14,7 @@ output:
 
 \Huge
 
-\textbf{HERE GOES YOUR TITLE}
+\textbf{Densities with Homothetic Level Sets: Modelling, Estimation, and Applications}
 
 \Large
 
@@ -26,23 +26,23 @@ by
 
 \huge
 
-Here Goes Your Name
+Daniel P. Hadley
 
 \Large
 
 \vspace{8mm}
 
-Undergraduate degree
+BS Economics University of Scranton, 2005
 
-Master degree
+MSc Statistics University of British Columbia, 2018
 
 \vspace{10mm}
 
-A DISSERTATION SUBMITTED IN PARTIAL FULFILLMENT OF THE REQUIREMENTS FOR THE DEGREE OF
+A THESIS PROPOSAL SUBMITTED IN PARTIAL FULFILLMENT OF THE REQUIREMENTS FOR THE DEGREE OF
 
 \vspace{5mm}
 
-HERE GOES YOUR DEGREEE
+Doctor of Philosophy
 
 \vspace{5mm}
 in
@@ -53,7 +53,7 @@ THE FACULTY OF GRADUATE AND POSTDOCTORAL STUDIES
 
 \vspace{5mm}
 
-(Program)
+(Department of Statistics)
 
 \vspace{5mm}
 
@@ -65,9 +65,9 @@ THE UNIVERSITY OF BRITISH COLUMBIA
 
 \vspace{6mm}
 
-Month YYYY
+November 2021
 
-© Here Goes Your Name, YYYY
+© Daniel P. Hadley, 2021
 
 \end{center}
 \end{singlespace}

@@ -2,17 +2,17 @@
 
 The aim of this section is to review existing approaches for estimation of shape set $D$ under the assumption $\Xb_i \iid F$ for $i = 1, \dots, n$ with \ac{pdf} $f \in \HC{D}$ on $\R^p$. Our discussion focuses on the bivariate setting ($p=2$) with a future research goal to examine the performance of these methods in higher dimensions.
 
-We denote realizations of the random vectors by the sample $\XC = \xb_1, \dots, \xb_n$. In the bivariate setting, the components of each random vector in Cartesian and polar coordinates are, respectively, \eqq{
+We denote realizations of the random vectors by the sample $\XC = \set{\xb_1, \dots, \xb_n}$. In the bivariate setting, the components of each random vector in Cartesian and polar coordinates are, respectively, \eqq{
   \Xb_i = \bmat{X_{i1} \\ X_{i2}} \qquad \text{and} \qquad \Wb_i = \bmat{\Rho_i \\ \T_i},
 } for $\Rho_i \in R_{+}$ and $\T_i \in [0, 2\pi)$. Realizations of the components are given as \eqq{
   \xb_i = \bmat{x_{i1} \\ x_{i2}} \qquad \text{and} \qquad \wb_i = \bmat{\rho_i \\ \t_i}.
 } We refer to $\Rho_i$ as the radial variable and $\rho_i$ as the radial component. Similarly, $\T_i$ is the angular variable \mbox{and $\t_i$} is the angular component. In higher dimensions, $\Tbm_i$ and $\tbm_i$ are vectors on $\O = [0, \pi)^{p-2}\times[0, 2\pi)$.
 
-The techniques for estimating $D$ are motivated by the equivalent problem of estimating $\bdry{D}$. From \mbox{Equation \eqref{Eq:D-boundary}} and Equation \eqref{Eq:boundary}, the boundary of the shape set is \eeq[boundary-u]{
+The techniques for estimating $D$ are motivated by the equivalent problem of estimating boundary $\bdry{D}$. From \mbox{Equation \eqref{Eq:D-boundary}} and Equation \eqref{Eq:boundary}, the boundary of the shape set is \eeq[boundary-u]{
   \bdry{D} = \set{\fncD{r}{\tbm_{\ub}}\ub : \ub \in \S^{p-1}},
 } where $\fncD{r}{\tbm_{\ub}} = 1/\fncD{n}{\ub}$ is referred to as the "polar function", $\tbm_{\ub} \in \O$ is the angle associated with direction $\ub$, and $\ub = \xb/\twonorm{\xb}_2$ with $\S^{p-1} \coloneqq \set{\xb : \twonorm{\xb}_2 = 1}$. Hence, estimation of $D$ is reduced to estimation of $\fncD{r}{\cdot}$.
 
-We investigate 2 general approaches for estimating $\fncD{r}{\cdot}$ in the bivariate setting. The first, developed by \citet{Kamiya2019} and presented in Section \@ref(SSS:kde), derives an estimator of $\fncD{r}{\cdot}$ as a transformation of a kernel density estimator for the marginal density of direction. The second approach, presented in Section \@ref(SSS:regression), uses Equation \eqref{Eq:stargen} and the independence of $R$ and $\Tbm$ \citep{Kamiya2008} to estimate $\fncD{r}{\cdot}$ as a scalar multiple of the radial variable's conditional expectation. We use kernel regression \citep{Nadaraya1964, Watson1964}, smoothing splines \citep{Spath1988, Spath1995}, and free-knot splines \citep{DiMatteo2001} to estimate this functional and compare results.
+We investigate two general approaches for estimating $\fncD{r}{\cdot}$ in the bivariate setting. The first, developed by \citet{Kamiya2019} and presented in Section \@ref(SSS:kde), derives an estimator of $\fncD{r}{\cdot}$ as a transformation of a kernel density estimator for the marginal density of direction. The second approach, presented in Section \@ref(SSS:regression), uses Equation \eqref{Eq:stargen} and the independence of $R$ and $\Tbm$ \citep{Kamiya2008} to estimate $\fncD{r}{\cdot}$ as a scalar multiple of the radial variable's conditional expectation. We use kernel regression \citep{Nadaraya1964, Watson1964}, smoothing splines \citep{Spath1988, Spath1995}, and free-knot splines \citep{DiMatteo2001} to estimate this functional and compare results.
 
 Each approach is adopted to estimate the shape set from datasets simulated from respective densities in $\HC{D}$. The first dataset is simulated from a distribution with density \eeq[Simulation-1]{
   f_1(\xb) = \begin{cases} \frac{1}{2 + \pi}\expo{-\frac{1}{2}\paren{\abs{x_1} + \abs{x_2}}^2}, & \text{if $x_2 \geq 0$}; \\

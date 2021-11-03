@@ -38,11 +38,11 @@ showing the one-to-one relationship between $\fncD{n}{\cdot}$ and $\fncD{r}{\cdo
 
 For a continuous \ac{pdf} $f$ on $\R^p$, we define the *density level sets* as \eqq{
   \set{f > c} \coloneqq \set{\xb \in \R^p : \fnc{f}{\xb} > c}, \qquad 0 < c < c_0 \coloneqq \sup f.
-} Defining density level sets by $f$ is analogous to credible intervals from Bayesian analysis \citep{Robert2007}. 
+} 
 
-Let $D_p$ denote the class of all bounded open star-shaped sets $D \subset \R^p$ for which the open cone $D_{\nf} = \bigcup_nnD$ is convex and for which the gauge function $\fnc{n_D}{\cdot}$ is continuous. A distribution $F$ on $\R^p$ has a \ac{pdf} in the *class of densities with homothetic level sets*, denoted $f \in \fnc{\HC{D}}{\mathrm{\mub, \mathit{f}_0, \gbm}}$, if the density has the form: \eeq[homo-dens]{
+Let $\cal D\!_{\textit{p}}$ denote the class of all bounded open star-shaped sets $D \subset \R^p$ for which the open \mbox{cone $D_{\nf} = \bigcup_nnD$} is convex and for which the gauge function $\fnc{n_D}{\cdot}$ is continuous. A distribution $F$ on $\R^p$ has a \ac{pdf} in the *class of densities with homothetic level sets*, denoted $f \in \fnc{\HC{D}}{\mathrm{\mub, \mathit{f}_0, \gbm}}$, if the density has the form: \eeq[homo-dens]{
     \fnc{f}{\xb} = \fnc{f_0}{\fnc{n_D}{\xb - \mub}; \gbm}, \qquad \text{for } \xb \in \R^p,
-} where $D$ is the shape set with gauge function $n\!_D$, $\mub \in \R^p$ is the location parameter, $\gbm$ is the parameter vector for the density generator, $f_0:\paren{0,\nf}\to [0, \nf)$, that is decreasing, positive, and continuous. For convenience, we write $f \in \HC{D}$ and exclude $\mub$, $f_0$, and $\gbm$ when their specification is not needed.
+} where $D$ is the shape set with gauge function $n\!_D$, $\mub \in \R^p$ is the location parameter, $\gbm$ is the parameter vector for the density generator, $f_0:[0,\nf)\to \paren{0, \nf}$, that is decreasing, positive, and continuous. For convenience, we write $f \in \HC{D}$ and exclude $\mub$, $f_0$, and $\gbm$ when their specification is not needed.
 
 For a density function $f \in \HC{D}$, any density level set is a scaled copy of shape set $D$, and density level sets are defined as \eqq{
   \set{f > c} \coloneqq s_cD, \qquad 0 < c < c_0 \coloneqq \sup\!f, \ f \in \HC{D},
@@ -52,9 +52,7 @@ For a density function $f \in \HC{D}$, any density level set is a scaled copy of
 
 The *star-generalized radius variable* is a non-negative random variable defined as \eqq{
   R \coloneq \fncD{n}{\Xb - \mub}, \qquad \Xb \in \R^p,
-} for shape set $D$ with gauge function $\fncD{n}{\cdot}$ and center $\mub\in\R^p$. Then for a density $f \in \HC{D}$, \eqq{
-  \fnc{f}{\xb} = \fnc{f_0}{\fncD{n}{\xb - \mub}; \gbm} = \fnc{f_0}{r; \gbm}.
-} Since the value of $R$ depends on $\Xb$, we denote an observed star-generalized radius as $r_{\xb}$ or $r_i$ corresponding to observation $\xb$ or $\xb_i$, respectively.
+} for shape set $D$ with gauge function $\fncD{n}{\cdot}$ and center $\mub\in\R^p$. Since the star-generalized radius variable $R$ is a transformation of the random variable $\Xb$, we denote an observed star-generalized radius as $r_{\xb}$ or $r_i$ corresponding to observation $\xb$ or $\xb_i$, respectively.
 
 For a random vector $\Xb$ with density $f\in\HC{D}$ on $\R^p$, suppose we are given shape set $D\ss\R^p$ with gauge function $n\!_D$ and center $\mub\in\R^p$. Then, we can rewrite $\Xb$ as, \eqq{
   \Xb = \twonorm{\Xb - \mub}_2\dfrac{\Xb - \mub}{\twonorm{\Xb - \mub}_2} = \twonorm{\Xb - \mub}_2\Ub,

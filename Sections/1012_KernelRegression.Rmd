@@ -4,11 +4,11 @@ By a simple rearrangement of the terms in Equation \eqref{Eq:stargen}, the radia
   \Rho = R\cdot \fncD{r}{\Tbm}.
 } Taking the expectation of both sides given $\Tbm = \tbm$, \eeq[condition-mean]{
   \Exp{\Rho \mmid \Tbm = \tbm} = \Exp{R\mmid \Tbm=\tbm}\fncD{r}{\tbm} = \Exp{R}\fncD{r}{\tbm} = \ka\fncD{r}{\tbm}, \qquad \tbm \in \O, \ \ka = \Exp{R},
-} where we use the independence of $R$ and $\Tbm$ \citep[Theorem 3.1]{Kamiya2008} to write $\Exp{R}$ as a constant $\ka > 0$. As discussed in Section \@ref(estimation), the proportional constant can be accounted for by including a scaling parameter in the density generator and so we can treat estimation of $\fncD{r}{\cdot}$ as the estimation of a conditional expectation of the radial variable.
+} where we write $\Exp{R}$ as a constant $\ka > 0$ using the independence of $R$ and \mbox{$\Tbm$ \citep[Thm 3.1]{Kamiya2008}}. As discussed in Section \@ref(estimation), the constant of proportionality is accounted for through a scaling parameter in the density generator. We can thus treat estimation of $\fncD{r}{\cdot}$ as estimation of the conditional expectation of the radial variable.
 
 Estimation of a conditional expectation is well studied with many approaches. We look at nonparametric kernel regression and smoothing spline estimators and a semiparametric approach using free-knot splines to estimate the conditional expectation.
 
-The model for the conditional expectation of the radial variable for the nonparametric approaches is \eeq[cond-mean]{
+The nonparametric model for the conditional expectation of the radial variable is \eeq[cond-mean]{
   \fnc{m}{\tbm} = \ka\fncD{r}{\tbm},
 } where Equation \eqref{Eq:cond-mean} is well-defined when \eqq{
   \Exp{R} = \int_{0}^{\nf}p\abs{D}r^p\fnc{f_0}{r}dr < \nf.
