@@ -1,0 +1,81 @@
+## Multivariate Financial Risk Measures for Light-tailed Risks {#SS:intro-financial-risk}
+
+Systemic risk has been used to encompass separate ideas about risk and requires proper delineation. We adopt the second notion of \mbox{\citet{Hansen2014}} and define systemic risk as the vulnerability of a network or system in which adverse consequences of internal shocks can spread or even magnify within the network. While this definition can be applied to areas such as ecology, socio-economics, hydrology, and climatology \citep{Hochrainer2020, Godden2011, Hochrainer2020a}, this research is primarily concerned with systemic risk in financial markets.
+
+Some common examples of systems in finance include the banking system, a diversified portfolio, or a single company. Each system is comprised of components, factors, or risks; the banking system consists of financial institutions, a diversified portfolio is comprised of investments, and a company may have several different business lines and subsidiaries. 
+
+The effects of the 2007-2008 financial crisis spread beyond the financial system to the global economy, prompting a call by governments and regulators to measure and control systemic risk in the financial industry. In the United States in 2010, this culminated in the over 2000 page Dodd-Frank Wall Street Reform and Consumer Protection Act prompting practitioners and academics to devise data collection practices and meaningful measurements of systemic risk \citep{Acharya2013}. Regulations imposed on financial institutions to prevent or soften the impact of a financial crisis as well as to understand the sources of risk that lead to a crisis motivate the need for measuring and managing systemic risk.
+
+The review by \citet{Bisias2012} presents over 8 definitions of systemic risk endemic to financial markets and over 30 different systemic risk measures, suggesting that the notion of systemic risk is multifaceted and may require different measurements to assess the level of risk. Three important characteristics of systemic risk are contagion, universality, and negative externality \citep{Lin2018}. This report focuses on risk measures related to contagion. While contagion has a few definitions in the literature \mbox{\citep{Forbes2002}}, contagion as used in this report refers to the potential loss to the entire system when one or more components experience a large loss, the loss to one or more components when the system experiences a large loss, or the loss to one or more components when other components experience large losses.
+
+<!-- Contagion refers to the impact on a factor when the system is stressed or vise-versa; it may also refer to the impact on a factor when another factor is being stressed. Universality infers that systemic risk applies to many factors in the system simultaneously. Negative externality is the risk of an institution acting in its own interests on a stand-alone basis producing an external cost borne by other institutions in the system or by the system itself. -->
+
+<!-- There are numerous notions of what contagion implies. Some economists argue that contagion occurs whenever a shock to one country is transmitted to another. Others argue that contagion only occurs when shocks propogate through certain types of transmission mechanisms. Still another notion of contagion is a significant increase in linkages between components in a system after one or numerous components are stressed \mbox{\citep{Forbes2002}}. This last idea gives a good starting point for the history of the development of risk contagion measures. -->
+
+Formally, let $\Xb = \paren{X_1, \dots, X_p}\tr$ for $p \geq 2$ be a continuous random vector of non-negative losses for $p$ components and let $S = \sum_{i=1}^{p}X_i$ be the loss to the entire system. A risk measure $\vphi:[0, \nf)^p \to \R$ is a mapping from the non-negative reals in $p$-dimensions to the real line. Desirable measures of risk contagion should be able to summarize the level of risk quantitatively and be able to do one or more of the following: (a) assess when a network or system is potentially vulnerable; (b) identify the types of disruptions or shocks that may trigger a problem; (c) map potential paths within a network along which a shock to one entity may spread to other entities. A unified framework for the analysis, construction, and implementation of risk measures is presented by \citet{Artzner1999}.
+
+Early measures of contagion test for significant increases in correlations among components in a system during a time of stress compared to a time of stability \mbox{\citep{King1990}} and time-series models such as ARCH and GARCH showing the transmission of market volatility across components during times of stress \mbox{\citep{Hamao1990}}. Unfortunately, correlations are biased due to the heteroskedasticity of financial market returns and confuse the concepts of correlation with dependence \mbox{\citep{Forbes2002}}. The time-series models are not able to identify the mechanisms by which shocks are propogated.
+
+<!-- and defines a coherent risk measure as satisfying the following properties (interpretations provided by \citet{Landsman2003}): -->
+
+<!--   - Subadditivity: For any two risks $X_1, X_2$, we have $\fnc{\vphi}{X_1 + X_2} \leq \fnc{\vphi}{X_1} + \fnc{\vphi}{X_2}$. The subadditivity property implies benefits of risk reduction due to diversification.  -->
+<!--   - Monotonicity: For any two risks $X_1, X_2$ where $X_1 \leq X_2$ with probability 1, we have $\fnc{\vphi}{X_1} \leq \fnc{\vphi}{X_2}$. The monotonicity property requires that $\vphi$ assign higher values to riskier components. -->
+<!--   - Positive Homogeneity: For any risk $X$ and positive constant $\l$, we have $\fnc{\vphi}{\l X} = \l\fnc{\vphi}{X}$. Positive homogeneity of $\vphi$ implies that a proportional increase (decrease) of some risk is reflected by a proportional increase (decrease) of the risk measure. -->
+<!--   - Translation Invariance: For any risk $X$ and constant $\a$, we have $\fnc{\vphi}{X + \a} = \fnc{\vphi}{X} + \a$. This says that changing a risk by a constant should change the risk measure by an equal amount. -->
+
+
+The term \ac{var} was first used by J.P. Morgan in 1995 referencing their RiskMetrics database giving public access to data on the variances of and covariances across asset classes \citep{Sum2015} and became an industry-wide standard by 2000 \citep[Section 1.2]{McNeil2015}. As a risk measure, \ac{var} is the quantile function at probability level $p$ for some univariate risk $X$, \eqq{
+  \VaR{p}{X} = \inf\set{x \in \R : \prob{X > x} \leq 1-p} = \inf{\set{x\in\R : \prob{X \leq x} \geq p}}.
+} Risk to the system as measured by $\VaR{p}{S}$ requires specification of the probability distributions of the components and their dependencies. Since these are specified by the user, the risk modelling is somewhat arbitrary. For example, the assumption of a multivariate normal distribution for $\Xb$ can underestimate tail risk leading to excessive risk-taking and is believed to have contributed to the build-up of risk in the banking sector culminating in the 2007-2008 financial crisis \citep{Sum2015}.
+
+When $\Xb$ does not follow an elliptical distribution, \ac{var} can hide the risk reduction of diversification since it does not consider losses beyond $\ac{var}_p$. This led to the development of \ac{cvar} \mbox{\citep{Larsen2002}} and its adoption by regulators such as the Basel Committee \citep{Chen2014}. For a continuous univariate non-negative random loss $X$, \ac{cvar} is equivalent to \ac{es} and \ac{cte} and is defined as \eqq{
+  \fnc{\text{ES}_p}{X} = \Exp{X \mmid X > \VaR{p}{X}},
+} which can be interpreted as the expected loss in a worse-case scenario. From a risk management perspective, \ac{es} is more conservative than \ac{var} since \eqq{
+\fnc{\text{ES}_p}{X} = \Exp{X \mmid X > \VaR{p}{X}} = \VaR{p}{X} + \Exp{X - \VaR{p}{X} \mmid X > \VaR{p}{X}} \geq \VaR{p}{X}.
+}
+
+Motivated by the latest financial crisis where bank losses largely exceeded the \ac{var}-based capital requirements \mbox{\citep{Sum2015}}, stressed-\ac{var}, also called \ac{mes}, measures the firm-level contributions to systemic risk as their expected capital shortfalls during a systemic crisis \citep{Cai2015}, \eqq{
+  \fnc{\text{MES}_p}{X_i} = \Exp{X_i \mmid S > \VaR{p}{S}}.
+}
+
+Another popular risk measure is the \ac{mme}. Let $\Xb = \paren{X_1, X_2}\tr$ be a random vector for two risks in a system. \ac{mme} is defined as \eqq{
+  \fnc{\text{MME}_p}{X_1} = \Exp{\paren{X_1 - \VaR{p}{X_2}}_{+} \mmid X_2 > \VaR{p}{X_2}},
+} where $\paren{x}_{+} = \maxa{x, 0}$. Coherent risk measures such as \ac{es}, \ac{mes}, and \ac{mme} are considered superior to \ac{var}, and their popularity in the banking sector has increased since the 2007-2008 financial crisis \mbox{\citep{BCBS2011-messages}}.
+
+Using the generalization to higher dimensions presented by \citet{Ling2019}, let \eqq{
+  \Xb = \paren{X_1, \dots, X_p}\tr \qquad \text{and} \qquad \Yb = \paren{Y_1, \dots, Y_{p'}}\tr, \  \text{for} \ p, p' \geq 1,
+} be two random vectors pertaining to $p$ and $p'$ components in a system. The _marginal moment excess_ is defined as \eqq{
+  \fnc{E}{\ub, \vb; r} \coloneqq \Exp{\paren{\Yb - \vb}_{+}^{r} \mmid \Xb > \ub}, \qquad \ub \in \R^p, \ \vb \in \R^{p'}, \ r \in \set{0} \cup \N,
+} where $\N$ denotes the set of natural numbers. When $r=0$, the marginal moment excess is defined as \eqq{
+  \fnc{E}{\ub, \vb; 0} = \Exp{\Ibb{\Yb > \vb}\mmid \Xb > \ub},
+} for indicator function $\Ibb{\cdot}$ and is known as \ac{ctp}. Similarly, the _marginal moment shortfall_ is defined as \eqq{
+  \fnc{S}{\ub; r} \coloneqq \Exp{\Yb^{r} \mmid \Xb > \ub}, \qquad \ub \in \R^p, \ r \in \N.
+}
+
+<!-- For example, we may regard $\Xb$ and $\Yb$ as random vectors of potential losses from $p$ and $p'$ business lines of Bank A and Bank B, respectively, over a calendar year, or we may assume that $\Xb$ is a random vector of potential losses for $p$ financial institutions over a specified time and $\Yb$ is a random vector of potential losses from $p'$ additional financial institutions over the same time. Interpretations and applications as such are left to the user. -->
+
+We can derive many risk measures seen in the current literature from $\fnc{E}{\ub, \vb; r}$ and $\fnc{S}{\ub; r}$. For example, \ac{mme} is calculated as $\fnc{E}{\ub, \vb; 1}$, \ac{mes} is equivalent to $\fnc{S}{\ub; 1}$, and \ac{mctm} is the ratio of the marginal moment excess and the conditional tail probability, \eqq{
+  \Exp{\paren{\Yb - \vb}^r \mmid \paren{\Xb > \ub, \Yb > \vb}} = \dfrac{\fnc{E}{\ub, \vb; r}}{\fnc{E}{\ub, \vb; 0}}.
+} These risk measures use estimates of the conditional joint distributions for components to estimate risk, and common choices for $\ub$ and $\vb$ are derived from the marginal \ac{var}'s of the corresponding risk components.
+
+Empirical estimators for risk measures are only appropriate in the region where data exist. For example, the empirical distribution for a dataset with $n$ observations can estimate up to probability level $p = n/(n+1)$. Entities like banking regulators and insurance companies are often interested in estimating risk by stressing risk factors to their \ac{var} at probability $p$ as $p\uparrow1$, requiring extrapolation beyond the available data. Asymptotic approximations and bounds for risk measures allow for the estimation of risk at any probability level with little computational effort.
+
+<!-- Write about literature for asymptotic behaviors of risk measures -->
+
+The study of multivariate risk measures has been an active area of research over the past 20 years. As a measure of systemic risk for a system, \ac{es} is the sum of the risk of its components, \eqq{
+  \Exp{S \mmid S > \VaR{p}{S}} = \sumto{i=1}{p}\Exp{X_i \mmid S > \VaR{p}{S}},
+} which follows from the additivity property of the expectation. Thus, $\Exp{X_i \mmid S > \VaR{p}{S}}$ is the \ac{mes}. An analytic form for this measure is found in \citet{Panjer2002} when the risks are multivariate normal and a generalization to elliptically distributed risks is presented by \citet{Landsman2003}.
+
+Assuming $\Yb = \Xb$, the \ac{mcte} from \mbox{\citet{Landsman2016}} is \eqq{
+  \fnc{\text{MCTE}_p}{\Xb} = \Exp{\Xb \mmid \Xb > \VaR{p}{\Xb}} = \Exp{\Xb \mmid X_1 > \VaR{p}{X_1}, \dots, X_p > \VaR{p}{X_p}},
+} where $\ub$ is equal to the marginal \ac{var}'s at level $p$. A closed-form for this risk measure is given under the assumption of an elliptically distributed random vector $\Xb$ including the normal, $t$, logistic, and Laplace as special cases. These results have been recently extended to location-scale mixtures of elliptical distributions by \mbox{\citet{Zuo2021}}.
+
+The study of the asymptotic behavior of risk in the financial system is a relatively new field with most relevant literature appearing after the 2007-2008 financial crisis. Even so, results for light-tailed risks are sparse. The goal of this research objective is to derive asymptotic results that hold for $f \in \HC{D}$ assuming a light-tailed density generator. 
+
+Both \ac{mme} and \ac{mes} are analyzed under the assumption of marginal regular variation and asymptotic independence in \citet{Das2018}, who found that both measures converge to $\nf$ under general conditions; this reflects that the underlying weak dependence in the model is still significant.
+
+\citet{Cai2015} provides an estimator of \ac{mes} assuming component risk $X$ is in the \latexcode{Fr\'{e}chet} domain of attraction and no assumptions on the distribution of the risk of the system other than continuity. Their nonparametric estimator is calculated from the data at moderate probability levels and extrapolated using Theorem 2.4 from \mbox{\citet{Joe2011}} by relaxing the multivariate regular variation constraint. However, the asymptotic result degenerates to $0$ in the case of asymptotic independence motivating the recent paper \mbox{\citet{Cai2020}}.
+
+For light-tailed risks, \citet{Hashorva2018} derives asymptotic approximations for both \ac{mme} and \ac{mes} under the assumption that risks are multivariate Gaussian and highlights the importance of the quadratic programming problem in determing the asymptotic behaviors. These results are extended by \citet{Ling2019} to the more general marginal moment excess and marginal moment shortfall risk measures.
+
+Since systemic risk measures such as \ac{es} are calculated as linear combinations of the component \ac{mes}'s, the asymptotic behaviors of sums of multivariate risks are of interest. \mbox{\citet{Nolde2014}} measures the degree of risk reduction for a portfolio due to diversification through an asymptotic diversification index when the underlying distribution is light-tailed with asymptotic independence. The asymptotic behaviors of sums of independent and identically distributed light-tailed Weibull risks are studied by \mbox{\citet{Asmussen2017}}. While independence is not usually an applicable assumption of financial risks, their results provide a benchmark that may shed light on the effects of various degrees of dependencies among risks in a system.
