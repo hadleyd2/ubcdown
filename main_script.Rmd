@@ -17,7 +17,7 @@ output:
 
 ```{r setup, include=FALSE, eval = T}
 
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 options(knitr.duplicate.label = 'allow')
 
 
@@ -46,10 +46,10 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 
 <!-- # Committee form -->
 
-```{r Committee_form, child = './Sections/01_Committee_form.Rmd', eval = T}
-```
+<!-- ```{r Committee_form, child = './Sections/01_Committee_form.Rmd', eval = T} -->
+<!-- ``` -->
 
-\clearpage
+<!-- \clearpage -->
 
 <!-- Global page configuration -->
 
@@ -59,33 +59,33 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 
 <!-- # Abstract -->
 
-\section*{Abstract}
-\addcontentsline{toc}{section}{Abstract} 
+<!-- \section*{Abstract} -->
+<!-- \addcontentsline{toc}{section}{Abstract}  -->
 
-```{r Abstract, child = './Sections/02_Abstract.Rmd', eval = T}
-```
+<!-- ```{r Abstract, child = './Sections/02_Abstract.Rmd', eval = T} -->
+<!-- ``` -->
 
-\clearpage
+<!-- \clearpage -->
 
 <!-- # Lay Summary -->
 
-\section*{Lay Summary}
-\addcontentsline{toc}{section}{Lay Summary}
+<!-- \section*{Lay Summary} -->
+<!-- \addcontentsline{toc}{section}{Lay Summary} -->
 
-```{r Lay_abstract, child = './Sections/03_Lay_abstract.Rmd', eval = T}
-```
+<!-- ```{r Lay_abstract, child = './Sections/03_Lay_abstract.Rmd', eval = T} -->
+<!-- ``` -->
 
-\clearpage
+<!-- \clearpage -->
 
 <!-- # Preface -->
 
-\section*{Preface}
-\addcontentsline{toc}{section}{Preface}
+<!-- \section*{Preface} -->
+<!-- \addcontentsline{toc}{section}{Preface} -->
 
-```{r Preface, child = './Sections/04_Preface.Rmd', eval = T}
-```
+<!-- ```{r Preface, child = './Sections/04_Preface.Rmd', eval = T} -->
+<!-- ``` -->
 
-\clearpage
+<!-- \clearpage -->
 
 
 <!-- Include a table of contents (including list of figures and tables) without numbering and with dots -->
@@ -119,24 +119,24 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 
 
 <!-- # Acknowledgements -->
-\section*{Acknowledgements}
-\addcontentsline{toc}{section}{Acknowledgements}
+<!-- \section*{Acknowledgements} -->
+<!-- \addcontentsline{toc}{section}{Acknowledgements} -->
 
-```{r Acknowledgements, child = './Sections/06_Acknowledgements.Rmd', eval = T}
-```
+<!-- ```{r Acknowledgements, child = './Sections/06_Acknowledgements.Rmd', eval = T} -->
+<!-- ``` -->
 
-\clearpage
+<!-- \clearpage -->
 
 <!-- Dedication -->
-\section*{Dedication}
-\addcontentsline{toc}{section}{Dedication}
+<!-- \section*{Dedication} -->
+<!-- \addcontentsline{toc}{section}{Dedication} -->
 
-```{r Dedication, child = './Sections/07_Dedication.Rmd', eval = T}
+<!-- ```{r Dedication, child = './Sections/07_Dedication.Rmd', eval = T} -->
 
-```
+<!-- ``` -->
 
 
-\clearpage
+<!-- \clearpage -->
 
 # Introduction
 
@@ -266,6 +266,16 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 ```{r Trochoidal, child = './Sections/1100_TrochoidalDist.Rmd', eval = T}
 ```
 
+## Bivariate Normal Example {#SS:biv-norm-example}
+
+```{r Trochoidal2, child = './Sections/1110_BivNorm.Rmd', eval = T}
+```
+
+## Trochoidal Distribution Example
+
+```{r Trochoidal3, child = './Sections/1120_Trochoid.Rmd', eval = T}
+```
+
 \clearpage
 
 <!-- Modify me! -->
@@ -285,17 +295,17 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \clearpage
 
 <!-- # References -->
-\section*{Bibliography}
-\addcontentsline{toc}{section}{Bibliography}
+\section*{References}
+\addcontentsline{toc}{section}{References}
 
 <!-- Reset page config. For proper referencing  -->
 \noindent
 \leftskip=2em
 \parindent=-2em
-
+\begin{singlespace}
 \bibliographystyle{chicago} 
 \bibliography{`r as.name(here::here("References", "reference_list.bib"))`}
-
+\end{singlespace}
 <div id="refs"></div>
 
 \clearpage
@@ -307,61 +317,42 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 
 
 <!-- # Appendices -->
-\section*{Appendices}
-\addcontentsline{toc}{section}{Appendices} 
+<!-- \section*{Appendices} -->
+<!-- \addcontentsline{toc}{section}{Appendices}  -->
 
 <!-- ## Appendix A -->
 
-\section*{Appendix A - Supplementary information for "Name of Chapter Two"}
-\addcontentsline{toc}{section}{Appendix A}
+<!-- \section*{Appendix A - Supplementary information for "Name of Chapter Two"} -->
+<!-- \addcontentsline{toc}{section}{Appendix A} -->
 
 <!-- Set Figure, table and equations numbering according to the chapter -->
-\renewcommand{\thefigure}{A2.\arabic{figure}}
-\setcounter{figure}{0}
-\renewcommand{\thetable}{A2.\arabic{table}}
-\setcounter{table}{0}
-\renewcommand{\theequation}{A2.\arabic{equation}}
-\setcounter{equation}{0}
+<!-- \renewcommand{\thefigure}{A2.\arabic{figure}} -->
+<!-- \setcounter{figure}{0} -->
+<!-- \renewcommand{\thetable}{A2.\arabic{table}} -->
+<!-- \setcounter{table}{0} -->
+<!-- \renewcommand{\theequation}{A2.\arabic{equation}} -->
+<!-- \setcounter{equation}{0} -->
 
 
-```{r appendix_a, child = '~/GitHub/FishForVisa/Scripts/supplements.Rmd', eval = F}
-```
+<!-- ```{r appendix_a, child = '~/GitHub/FishForVisa/Scripts/supplements.Rmd', eval = F} -->
+<!-- ``` -->
 
 
 <!-- ## Appendix B  -->
 
-\section*{Appendix B - Supplementary information for "Name of Chapter Three"}
-\addcontentsline{toc}{section}{Appendix B}
+<!-- \section*{Appendix B - Supplementary information for "Name of Chapter Three"} -->
+<!-- \addcontentsline{toc}{section}{Appendix B} -->
 
 <!-- Set Figure, table and equations numbering according to the chapter -->
-\renewcommand{\thefigure}{A3.\arabic{figure}}
-\setcounter{figure}{0}
-\renewcommand{\thetable}{A3.\arabic{table}}
-\setcounter{table}{0}
-\renewcommand{\theequation}{A3.\arabic{equation}}
-\setcounter{equation}{0}
+<!-- \renewcommand{\thefigure}{A3.\arabic{figure}} -->
+<!-- \setcounter{figure}{0} -->
+<!-- \renewcommand{\thetable}{A3.\arabic{table}} -->
+<!-- \setcounter{table}{0} -->
+<!-- \renewcommand{\theequation}{A3.\arabic{equation}} -->
+<!-- \setcounter{equation}{0} -->
 
 
-```{r appendix_b, child = '~/GitHub/TransEmergence/Scripts/Supplements.Rmd', eval = F}
-```
-
-<!-- ## Appendix C -->
-
-\section*{Appendix C - Supplementary information for "Name of Chapter Four"}
-\addcontentsline{toc}{section}{Appendix C}
-
-
-<!-- Set Figure, table and equations numbering according to the chapter -->
-\renewcommand{\thefigure}{A4.\arabic{figure}}
-\setcounter{figure}{0}
-\renewcommand{\thetable}{A4.\arabic{table}}
-\setcounter{table}{0}
-\renewcommand{\theequation}{A4.\arabic{equation}}
-\setcounter{equation}{0}
-
-
-```{r appendix_c, child = '~/GitHub/OC_Transboundary/Ecol/Supplements.Rmd', eval = F}
-```
-
+<!-- ```{r appendix_b, child = '~/GitHub/TransEmergence/Scripts/Supplements.Rmd', eval = F} -->
+<!-- ``` -->
 
 <!-- END OF SCRIPT -->
