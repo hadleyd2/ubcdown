@@ -52,10 +52,10 @@ For a density function $f \in \HC{D}$, any density level set is a scaled copy of
 
 The *star-generalized radius variable* is a non-negative random variable defined as \eqq{
   R \coloneq \fncD{n}{\Xb - \mub}, \qquad \Xb \in \R^p,
-} for shape set $D$ with gauge function $\fncD{n}{\cdot}$ and center $\mub\in\R^p$. Since the star-generalized radius variable $R$ is a transformation of the random variable $\Xb$, we denote an observed star-generalized radius as $r_{\xb}$ or $r_i$ corresponding to observation $\xb$ or $\xb_i$, respectively.
+} for shape set $D$ with gauge function $\fncD{n}{\cdot}$ and center $\mub\in\R^p$. Since the star-generalized radius variable is a transformation of the random variable $\Xb$, we denote an observed star-generalized radius as $r_{\xb}$ or $r_i$ corresponding to observation $\xb$ or $\xb_i$, respectively.
 
 For a random vector $\Xb$ with density $f\in\HC{D}$ on $\R^p$, suppose we are given shape set $D\ss\R^p$ with gauge function $n\!_D$ and center $\mub\in\R^p$. Then, we can rewrite $\Xb$ as, \eqq{
   \Xb = \twonorm{\Xb - \mub}_2\dfrac{\Xb - \mub}{\twonorm{\Xb - \mub}_2} = \twonorm{\Xb - \mub}_2\Ub,
 } where $\Ub$ gives the direction of $\Xb$ as a point on $\S^{p-1}$. By the homogeneity property of the gauge function and Equation \eqref{Eq:boundary}, the star-generalized radius variable is \eeq[stargen]{
   R = \fncD{n}{\Xb - \mub} = \twonorm{\Xb - \mub}_2\fncD{n}{\Ub} = \dfrac{\Rho}{\fncD{r}{\Tbm}},
-} where $\Rho$ and $\Tbm$ are the radial variable and polar angle vector of $\Xb$. For $\Xb = \xb$, the star-generalized radius $r_{\xb}$ is the radial component of $\xb$ divided by the distance from $\mub$ to the boundary of $D$ in the direction of $\xb$.
+} where $\Rho$ and $\Tbm$ are the radial variable and polar angle vector of $\Xb$. For observation $\xb$, the star-generalized radius $r_{\xb}$ is the radial component of $\xb$ divided by the distance from $\mub$ to the boundary of $D$ in the direction of $\xb$.
