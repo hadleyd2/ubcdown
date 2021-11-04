@@ -281,12 +281,12 @@ for (i in 1:(nrow(ests)-1)) {
 par(mfrow=c(1,1))
 ```
 
-Since a hypotrochoid with index $q = 2$ is an ellipse \citep{Pedoe1975}, the trochoidal distribution used in this section is a reparameterization of the bivariate normal family with known $\mub$ and unknown covariance $\s_{12}$ and variances $\s_1^2, \s_2^2$. Using an eigendecomposition of the covariance matrix, \eqq{
+Since a hypotrochoid with index $q = 2$ is an ellipse \citep{Pedoe1975}, the trochoidal distribution family indexed by $q_h = 2$ is a reparameterization of the bivariate normal family with \mbox{known $\mub$}, unknown \mbox{covariance $\s_{12}$} and unknown \mbox{variances $\s_1^2, \s_2^2$}. Using an eigendecomposition of the covariance matrix, \eqq{
   \Sigma = V\Lambda V\tr
     = \smat{\vb_1 & \vb_2}\smat{\l_1 & 0 \\ 0 & \l_2}\smat{\vb_1 \\ \vb_2}
     = \l_1\smat{\vb_1 & \vb_2}\smat{1 & 0 \\ 0 & b^2}\smat{\vb_1 \\ \vb_2}
     = \l_1\smat{\vb_1 & \vb_2}\Sigma_0\smat{\vb_1 \\ \vb_2},
-} where $V$ is an orthonormal matrix with eigenvector columns $\vb_{j} = \paren{v_{1j},  v_{2j}}\tr$ for $j = 1, 2$, $\l_j$ is the corresponding eigenvalue, and $\Sigma_0$ is the stretching matrix that transforms the unit circle into an ellipse with major axis $1$ and minor axis $b = \sqrt{\l_2/\l_1}$. Under our constraints on the shape set, we can find parameter $k$ as \eqq{
+} where $V$ is an orthonormal matrix with eigenvector columns $\vb_{j} = \paren{v_{1j},  v_{2j}}\tr$ for $j = 1, 2$, $\l_j$ is the corresponding eigenvalue, and $\Sigma_0$ is the stretching matrix that transforms the unit circle into an ellipse with major axis $1$ and minor axis $b = \sqrt{\l_2/\l_1}$. Under our constraints on the shape set, we can find parameter $k$ as the value that satisfies the equation, \eqq{
   \sqrt{\frac{\l_2}{\l_1}} = \fncD[D_h]{r}{\frac{\pi}{2}; q=2, k, \a=0}
     = \frac{\sqrt{1 + k^2 - 2k}}{1 + k}
     = \frac{\abs{k-1}}{k+1}.
