@@ -30,7 +30,7 @@ The nonparametric model for the conditional expectation of the radial variable i
 
 #### Kernel Regression
 
-The intuition for nonparametric estimators is that if $\fnc{m}{\tbm}$ is believed to be smooth, then observations $(\rho_i, \tbm_i)$, where $\tbm_i$ is in a small neighborhood of $\tbm$, should contain information about $\fnc{m}{\tbm}$. Then, a reasonable estimator for $\fnc{m}{\tbm}$ is a function of the radial components of those observations. This idea motivates kernel regression which is a simple, intuitive, and flexible estimation technique that works well for many regression problems. See \citet{Eubank1999, Hardle1990, Hardle2004} for full treatments.
+If $\fnc{m}{\tbm}$ is believed to be smooth, then observations $(\rho_i, \tbm_i)$, where $\tbm_i$ is in a small neighborhood of $\tbm$, should contain information about $\fnc{m}{\tbm}$. Then, a reasonable estimator for $\fnc{m}{\tbm}$ is a function of the radial components of those observations. This idea motivates kernel regression which is a simple, intuitive, and flexible estimation technique that works well for many regression problems. See \citet{Eubank1999, Hardle1990, Hardle2004} for full treatments.
 
 <!-- A specific example is the bivariate normal distribution. The conditional expectation of $\Rho$ given $\T=\t$ for the bivariate normal distribution is a scalar multiple of $\fncD{r}{\t}$. See Appendix \@ref(App:conditional-expectation) for the derivation. This further motivates the kernel regression estimator as a viable shape set estimation technique.  -->
 
@@ -56,23 +56,29 @@ Kernel regression has been used previously to estimate the shape of sample cloud
 <!--     = \frac{1}{n}\sumto{i=1}{n}\fnc{W_{hi}}{\t}\Rho_i, -->
 <!-- } which acts like a weighted average with weight $W_{hi}$ assigned to observation $i$ and $h$ controls the smoothness of the estimator. -->
 
-In the bivariate setting, we can sort observations $\wb_1, \dots, \wb_n$ by the angular component and use the Nadaraya-Watson  estimator \citep{Nadaraya1964, Watson1964}, \eqq{
+In the bivariate setting, we can sort observations $\wb_1, \dots, \wb_n$ by the angular component and use the Nadaraya-Watson estimator \citep{Nadaraya1964, Watson1964}, \eqq{
   \fnc{\est{m}}{\t; h} = \dfrac{\int \rho \fnc{\est{f}_{\Rho,\T}}{\rho, \t}d\rho}{\fnc{\est{f}_{\T}}{\t}}
      = \frac{1}{n}\sumto{i=1}{n}\paren{\dfrac{\fnc{K_{h}}{\t - \t_i}}{\frac{1}{n}\sumto{j=1}{n}\fnc{K_h}{\t - \t_j}}}\rho_i 
      = \frac{1}{n}\sumto{i=1}{n}\fnc{\o_{hi}}{\t}\rho_i,
-} where $\fncD[h]{K}{\t - \t_i} = \fnc{K}{\frac{\t-\t_i}{h}}$ is a kernel function assigning weights to observations inversely related to their distances from $\t$. The Nadaraya-Watson estimator acts like a weighted average with weight $\o_{hi}$ assigned to observation $i$ and bandwidth $h$ controlling the smoothness of the estimator. Boundary points are handled by recycling observations using the periodicity of $2\pi$. This produces the estimator for the boundary of the shape set, \eeq[NW-est]{
+} where $\fncD[h]{K}{\t - \t_i} = \fnc{K}{\frac{\t-\t_i}{h}}$ is a kernel function assigning weights to observations inversely related to their distances from $\t$. The Nadaraya-Watson estimator acts like a weighted average with weight $\o_{hi}$ assigned to observation $i$ and bandwidth $h$ controlling the smoothness of the estimator. Boundary points are handled by recycling observations using a periodicity of $2\pi$. This produces the estimator for the boundary of the shape set, \eeq[NW-est]{
   \fncD{NW}{\t} = \frac{1}{\maxa[\t \in [0, 2\pi)]{\fnc{\est{m}}{\t; h}}}\fnc{\est{m}}{\t; h},
 } where we scale by the maximum so that the shape set is a subset of the interior of the unit circle.
 
-As $h\to0_{+}$, $\fnc{\o_{hi}}{\t}\to 1_{-}$ when $\t = \T_i$ and is $0$ otherwise. Thus, decreasing $h$ leads to an interpolating estimator that overfits the data, performing poorly in regions with no data. At the other extreme, if $h\to\nf$, then $\fnc{\o_{hi}}{\t}\to 1/n$ and the estimator converges to the sample mean. Bandwidth selection is thus a crucial problem where the challenge is to choose $h$ to balance the tradeoff between bias (increasing $h$ increases bias) and variance (decreasing $h$ increases variance).
+<!-- As $h\to0_{+}$, $\fnc{\o_{hi}}{\t}\to 1_{-}$ when $\t = \T_i$ and is $0$ otherwise. Thus, decreasing $h$ leads to an interpolating estimator that overfits the data, performing poorly in regions with no data. At the other extreme, if $h\to\nf$, then $\fnc{\o_{hi}}{\t}\to 1/n$ and the estimator converges to the sample mean. -->
 
-The choice of kernel is less important. One recommendation is to choose a kernel function that assigns a weight of zero outside of some finite interval to avoid numerical underflow in computation \citep[p.25]{Hardle1990}, though we found no significant differences in our simulation study between the Epanechnikov kernel and the Gaussian kernel when choosing $h$ using \ac{loocv}.
+Bandwidth selection is a crucial problem where the challenge is to choose $h$ to balance the tradeoff between bias (increasing $h$ increases bias) and variance (decreasing $h$ increases variance). The choice of kernel is less important. The nonparametric estimator in Equation \eqref{Eq:NW-est} requires little prior knowledge of the shape set other than  smoothness/differentiability of its boundary and no knowledge of the density generator other than $\Exp{R} < \nf$. This avoids the model misspecification problem of parametric methods.
 
-The nonparametric estimator in Equation \eqref{Eq:NW-est} requires no prior knowledge of the shape set other than assumptions regarding the smoothness/differentiability of its boundary. This avoids the model misspecification problem of parametric methods. Furthermore, the estimator requires no knowledge of the density generator other than the assumption that $\Exp{R} < \nf$.
+<!-- The choice of kernel is less important. One recommendation is to choose a kernel function that assigns a weight of zero outside of some finite interval to avoid numerical underflow in computation \citep[p.25]{Hardle1990}, though we found no significant differences in our simulation study between the Epanechnikov kernel and the Gaussian kernel when choosing $h$ using \ac{loocv}. -->
 
-Unfortunately, statistical precision of nonparametric regression estimators decreases as the dimensionality increases, called the curse of dimensionality. Generalizing the estimator in Equation \eqref{Eq:NW-est} to higher dimensions requires a multivariate kernel, such as the von Mises kernel used in Equation \eqref{Eq:estimator-Hall}.
 
-We compare the kernel regression estimate using the Gaussian and Epanechnikov kernels for the simulated datasets discussed in Section \@ref(S:shape-set). The Gaussian kernel has nice smoothness properties while the Epanechnikov kernel is known to have optimal asymptotic bias and variance. The kernel regression estimates for $D_1$ using the Gaussian and Epanechnikov kernels are presented in Figure \ref{Fig:sim-1-kreg-gau} and Figure \ref{Fig:sim-1-kreg-epa}, respectively. Bandwidths are chosen using \ac{loocv}. By comparing the estimates of $D_1$, we find the choice of kernel does not substantially affect the estimate and so only the Gaussian kernel is used to estimate $D_2$ which is presented in \mbox{Figure \ref{Fig:sim-2-kreg-gau}}. While the estimates are able to model the general shape of the boundaries, the estimated functions fluctuate too much indicating the method is overfitting the data. The following suggestions may improve the performance of the kernel regression estimator:
+
+<!-- The nonparametric estimator in Equation \eqref{Eq:NW-est} requires no prior knowledge of the shape set other than assumptions regarding the smoothness/differentiability of its boundary. This avoids the model misspecification problem of parametric methods. Furthermore, the estimator requires no knowledge of the density generator other than the assumption that $\Exp{R} < \nf$. -->
+
+Unfortunately, statistical precision of nonparametric regression estimators decreases as the dimensionality increases, called the curse of dimensionality. Generalizing the estimator in Equation \eqref{Eq:NW-est} to higher dimensions requires a multivariate kernel, such as the von Mises kernel.
+
+For the simulated datasets in Section \@ref(S:shape-set), we use a Gaussian kernel and select the bandwidth by \ac{loocv} for our estimator in Equation \eqref{Eq:NW-est} and compare the estimates for $D_1$ and $D_2$ to the true shape sets in Figure \ref{Fig:sim-1-kreg-gau} and \mbox{Figure \ref{Fig:sim-2-kreg-gau}}, respectively. The amount of fluctuation in the resulting estimates indicate an overfitting of data, and the following suggestions may improve the estimator:
+
+<!-- We compare the kernel regression estimate using the Gaussian and Epanechnikov kernels for the simulated datasets discussed in Section \@ref(S:shape-set). The Gaussian kernel has nice smoothness properties while the Epanechnikov kernel is known to have optimal asymptotic bias and variance. The kernel regression estimates for $D_1$ using the Gaussian and Epanechnikov kernels are presented in Figure \ref{Fig:sim-1-kreg-gau} and Figure \ref{Fig:sim-1-kreg-epa}, respectively. Bandwidths are chosen using \ac{loocv}. By comparing the estimates of $D_1$, we find the choice of kernel does not substantially affect the estimate and so only the Gaussian kernel is used to estimate $D_2$ which is presented in \mbox{Figure \ref{Fig:sim-2-kreg-gau}}. While the estimates are able to model the general shape of the boundaries, the estimated functions fluctuate too much indicating the method is overfitting the data. The following suggestions may improve the performance of the kernel regression estimator: -->
 
   (i) use a periodic kernel function;
   (i) use a bandwidth selection criteria that may be more appropriate for the shape set estimation problem;
@@ -80,7 +86,7 @@ We compare the kernel regression estimate using the Gaussian and Epanechnikov ke
 
 ![\label{Fig:sim-1-kreg-gau}Kernel regression estimate of $D_1$ when using a Gaussian kernel](../Thesis/images/kreg.gau.1.norm.png){width=85%}
 
-![\label{Fig:sim-1-kreg-epa}Kernel regression estimate of $D_1$ when using a Epanechnikov kernel](../Thesis/images/kreg.epa.1.norm.png){width=85%}
+<!-- ![\label{Fig:sim-1-kreg-epa}Kernel regression estimate of $D_1$ when using a Epanechnikov kernel](../Thesis/images/kreg.epa.1.norm.png){width=85%} -->
 
 ![\label{Fig:sim-2-kreg-gau}Kernel regression estimate of $D_2$ when using a Gaussian kernel](../Thesis/images/kreg.gau.2.log.png){width=85%}
 

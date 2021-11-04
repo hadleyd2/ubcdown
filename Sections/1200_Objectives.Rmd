@@ -1,46 +1,48 @@
 
 
-This section summarizes the anticipated work to be done in completion of this research proposal. The objectives are categorized into primary objectives and secondary objectives. Primary objectives are the state research goals or large components of those goals. Secondary objectives are open questions encountered while performing the research and compiling the results for this proposal. Preliminary ideas and references are included for the objectives to give the research direction.
+This section summarizes the anticipated work needed to complete this research proposal. The objectives are categorized into primary objectives and secondary objectives. Primary objectives are the stated research goals and large components of those goals. Secondary objectives are open questions encountered while performing research and compiling results for this proposal. Preliminary ideas and references are included for the objectives to give the research direction.
 
 ## Primary Objectives
 
+The primary research objectives are to devise an estimation approach for densities with homothetic level sets, to derive asymptotic bounds and/or approximations for multivariate financial risk measures when risks follow a light-tailed distribution whose density has homothetic level sets, and to estimate high risk regions for light-tailed random vectors. We review each of these in turn, discussing work that has been completed, anticipated future work, and open questions encountered while writing this proposal.
+
 ### Estimation of Densities with Homothetic Level Sets
 
-#### Estimation of Density Generator
+Most of the work has been completed for this primary objective and many of the results have been presented. An iterative estimation approach is devised in Section \@ref(S:estimation-dg) that shows promise. Future work for this objective includes studying the properties of the estimation procedure, applying the method to real datasets, using a nonparametric model to estimate the density generator, estimation of the center of the shape set, and generalizing the approach to higher dimensions. 
 
-Research has not yet been performed on the various methods for estimating $f_0$. Regardless of the dimensionality, the density generator remains a univariate function and nonparametric estimators do not suffer from the curse of dimensionality. Since we assume $f_0$ is monotonically decreasing, we are interested in nonparametric estimators of monotone functions. An extensive review and comparative study can be found at \citet{Dette2006-monotone} and \citet{Dette2006-comparative}.
+We can numerically analyze the properties of the iterative approach by applying this approach to multiple random samples generated from the same underlying model. We can then estimate variability in both estimators for the shape set and density generator on each iteration with the desired result that the variability decreases with each iteration.
 
-There are many candidate parametric models that are appropriate for strictly decreasing, light-tailed densities. For example, the Weibull distribution is a flexible parametric family that can model light-tailed and heavy-tailed behavior. Under the assumption of a light-tailed density generator, \citet{Abdous2008} derives admissible forms of the survival function for the distribution of the star-generalized radius variable. Alternatively, we can assume various heavy-tailed and light-tailed density generators, estimate via \ac{ml} and perform model selection.
+A nonparametric estimator for the density generator is possible since $f_0$ is directly related to the univariate density for the star-generalizezd radius (see Equation \eqref{Eq:scale-r}) and thus avoids the curse of dimensionality. Since we assume $f_0$ is monotonically decreasing, we are interested in nonparametric estimators of monotone functions. An extensive review and comparative study can be found at \citet{Dette2006-monotone} and \citet{Dette2006-comparative}.
 
-#### Iterative Approach {#SSS:iterative-approach}
+Estimation of the location parameter is equivalent to estimation of the center of the shape set for densities $f \in \HC{D}$. Little space in the literature has been devoted to his problem which has the potential to be a major obstacle in the estimation procedure. If we can assume the shape set is symmetric about the center with finite first moment, then the sample mean is a reasonable estimator. Since a density $f \in \HC{D}$ is unimodal, another option is to estimate the mode using a multivariate kernel estimator \citep{Kamiya2019}. A broader review of possible solution to this problem is needed.
 
-The general estimation approach presented in Section \@ref(estimation) might be improved by updating estimates of $D$ and $f_0$ until convergence as discussed in Section \@ref(S:estimation-dg). Work is currently being performed on this approach.
+This proposal performs shape set estimation in the bivariate setting, but a goal of our research is estimation in higher dimensions. Kamiya's estimator \citep{Kamiya2019} and free-knot splines \citet{Ferreira2005} are said to generalize to higher dimensions, but a thorough simulation study has not yet been presented in the literature.
 
-<!-- For example, suppose we estimate $D$ with Kamiya's estimator in Equation \eqref{Eq:K-standard} to produce the estimate $\est{D}^{(1)}$ and use $\est{D}^{(1)}$ to find the estimate $\est{f}_0^{(1)}$ for the density estimator. Now, we can incorporate $\est{f}_0^{(1)}$ into any other estimator for the shape set to produce $\est{D}^{(2)}$. For example, we can use kernel regression where we choose the bandwidth to maximize the likelihood given $\est{f}_0^{(1)}$. -->
+### Asymptotic Approximations for Measures of Light-Tailed Financial Risks
 
-<!-- When using the free-knot spline shape set estimator of \citet{Ferreira2005} with an assumed parametric family for the density generator, the iterative approach is similar to the EM-algorithm \citep{Dempster1977} since the \ac{rjmcmc} algorithm produces a sample from the posterior distribution of the shape set. We can thus perform an expectation step on the shape set and maximize with respect to the parameters of the density generator.  -->
+Systemic risk has been used to encompass separate ideas and requires proper delineation. We define systemic risk as the vulnerability of a network or system in which adverse consequences of internal shocks can spread or even magnify within the network \mbox{\citet{Hansen2014}}. Our focus is on system risk in the financial markets, but this definition has been applied in ecology, socio-economics, hydrology, and climatology \citep{Hochrainer2020, Godden2011, Hochrainer2020a}.
 
-<!-- Using polar coordinates, the EM-algorithm itself may provide an algorithm to estimate $f\in\HC{D}$, and references such as \citet{Liu1995, McLachlan2007} should be consulted to aid in deriving the complete log-likelihood function and the conditional distribution required for the $E$-step. -->
+Common examples of systems in finance include the banking system, a company, or a portfolio of assets. Each system is comprised of components, factors, or risks; the banking system consists of financial institutions, a company may have several business lines or subsidiaries, and a portfolio is comprised of investments. 
 
-<!-- There are no guidelines in the literature to recommend estimation of $f_0$ or $D$ first. While Kamiya's estimator provides a good starting point for estimating $D$ first, since it is unaffected by the density generator, the estimation approach needs to be examined to see if there are certain scenarios where estimating either the density generator or shape set first is advantageous.  -->
+The effects of the 2007-2008 financial crisis spread beyond the financial system to the global economy, prompting a call by governments and regulators to measure and control systemic risk in the financial industry. In the United States, this culminated in the over 2000 page Dodd-Frank Wall Street Reform and Consumer Protection Act prompting practitioners and academics to devise data collection practices and meaningful measurements of systemic risk \citep{Acharya2013}. Regulations imposed on financial institutions to prevent or soften the impact of a financial crisis as well as to understand the sources of risk that lead to a crisis motivate the need for measuring and managing systemic risk.
 
-<!-- When estimating the shape set first, any of the approaches in Section \@ref(S:shape-set) can be used to estimate $D$ as $\est{D}$. The star-generalized radii are then estimated as the proportion of the Euclidean distance from $\mub$ to each observation divided by the Euclidean distance from $\mub$ to $\est{D}$ in the same direction as the observation. Assuming $\mub$ is known, the star-generalized radius estimates for observations $\xb_i$ for $i = 1, \dots, n$ are calculated as \eqq{ -->
-<!--   \est{r}_i = \frac{\twonorm{\xb_i - \mub}_2}{\fncDtest[\est{d}]{r}{\ub_i}}, -->
-<!-- } where $\ub_i = \dfrac{\xb_i - \mub}{\twonorm{\xb_i - \mub}_2}$ and $\fncDtest[\est{D}]{r}{\cdot}$ is the polar function of the estimated boundary $\pd\est{D}$. The density generator can then be estimated using the estimates $\est{r}_i$ for $i = 1, \dots, n$. -->
+The review by \citet{Bisias2012} presents 8 definitions of systemic risk and over 30 systemic risk measures, suggesting systemic risk is multifaceted and requires multiple measures. Three important characteristics of systemic risk are contagion, universality, and negative externality \citep{Lin2018}. This research focuses on contagion, which refers to the potential loss to the entire system when one or more components experience a large loss, the loss to one or more components when the system experiences a large loss, or the loss to one or more components when other components experience large losses.
 
-<!-- Starting the iterative approach with the density generator is also possible. For example, when the star-generalized radius variables are equal to the Euclidean distance, we have a spherical distribution. Under this assumption, we set $\est{r}_i = \twonorm{\xb_i - \mub}_2$. The estimated star-generalized radii can then be used to estimate either their density, $\fnc{f_R}{r}$, or the density generator, $\fnc{f_0}{r}$, using Equation \eqref{Eq:scale-r}. Once we have the density generator, we can then utilize free-knot splines to estimate $D$ or kernel regression and smoothing splines where we can now select the bandwidth or penalty parameter, respectively, that maximizes the likelihood function. This produces the estimate $\est{D}$ which may be used to update the estimate of the density generator. -->
+Formally, a risk measure $\vphi:[0, \nf)^n \to \R$ is a mapping from $\R^n$ to $\R$ for $n \geq 2$. Adopting the notation of \citet{Ling2019}, let $\Xb = \paren{X_1, \dots, X_p}$ and $\Yb = \paren{Y_1, \dots, Y_{p'}}$ for $p, p' \geq 1$ be two random vectors pertaining to $p$ and $p'$ components in a system. The _marginal moment excess_ is defined as \eqq{
+  \fnc{E}{\ub, \vb; r} \coloneqq \Exp{\paren{\Yb - \vb}_{+}^{r} \mmid \Xb > \ub}, \qquad \ub \in \R^p, \ \vb \in \R^{p'}, \ r \in \set{0} \cup \N,
+} where $\N$ denotes the set of natural numbers. For $r=0$ and indicator function $\Ibb{\cdot}$, \eqq{
+  \fnc{E}{\ub, \vb; 0} = \Exp{\Ibb{\Yb > \vb}\mmid \Xb > \ub}
+} is known as \ac{ctp}. Similarly, the _marginal moment shortfall_ is defined as \eqq{
+  \fnc{S}{\ub; r} \coloneqq \Exp{\Yb^{r} \mmid \Xb > \ub}, \qquad \ub \in \R^p, \ r \in \N.
+}
 
-#### Generalizing Estimation to Higher Dimensions
+As shown by \citet{Ling2019}, popular risk measures such as \ac{mme}, \ac{mes}, and \ac{mctm} can be derived from $\fnc{E}{\ub, \vb; r}$ and $\fnc{S}{\ub; r}$. For example, \ac{mme} is calculated as $\fnc{E}{\ub, \vb; 1}$, \ac{mes} is equivalent to $\fnc{S}{\ub; 1}$, and \ac{mctm} is the ratio of the marginal moment excess and the conditional tail probability, \eqq{
+  \Exp{\paren{\Yb - \vb}^r \mmid \paren{\Xb > \ub, \Yb > \vb}} = \dfrac{\fnc{E}{\ub, \vb; r}}{\fnc{E}{\ub, \vb; 0}}.
+} These risk measures use estimates of the conditional joint distributions of the components to estimate systemic risk, and common choices for the components of $\ub$ and $\vb$ are the marginal \ac{var}'s of the corresponding risks.
 
-So far we have performed shape set estimation in the bivariate setting, but a goal of our research is estimation in higher dimensions such as $\R^3$. Some techniques such as kernel regression and splines are known to suffer from the curse of dimensionality, although splines on the sphere \citep{Wahba1981} should generalize. Other techniques, such as Kamiya's estimator and the free-knot splines of \citet{Ferreira2005}, are said to generalize to higher dimensions by the authors, but a thorough simulation study has not yet been performed in the literature.
+Empirical estimators for risk measures are only appropriate in the region where data exist. For example, the empirical distribution for a dataset with $n$ observations can estimate up to probability level $p = n/(n+1)$. Entities like banking regulators and insurance companies are often interested in estimating risk by stressing risk factors to their \ac{var} at probability $p$ as $p\uparrow1$, requiring extrapolation beyond the available data. Asymptotic approximations and bounds for risk measures allow for the estimation of risk at any probability level with little computational effort.
 
-#### Estimation of Location
-
-In our simulation study, we have assumed that $\mub$ is the origin. We lose generality through this assumption when the star-shaped set $D$ has a center that is not the mean. Examples include the trochoidal distribution family $q = 1_e$ or a distribution with elliptical density level sets where $\mub$ could be any point in $D$. To handle such possibilities, estimation of $\mub$ is an important component of the estimation of a density $f \in \HC{D}$.
-
-### Asymptotic Behavior and Approximations for Measures of Light-Tailed Financial Risks
-
-The literature review is complete and presented in Section \@ref(SS:intro-financial-risk). The next phase towards completion of this objective is to attempt to generalize the work of \citet{Hashorva2019} and \citet{Ling2019} for the bivariate case to the class of distributions with densities $f \in \HC{D}$ and then trying to generalize the results to higher dimensions.
+The study of the asymptotic behavior of risk in the financial system is a relatively new field with most relevant literature appearing after the 2007-2008 financial crisis. Even so, results for light-tailed risks are sparse. \citet{Hashorva2018} derives asymptotic approximations for both \ac{mme} and \ac{mes} under the assumption that risks are multivariate Gaussian and highlights the importance of the quadratic programming problem in determing asymptotic behavior. These results are extended by \citet{Ling2019} to the more general marginal moment excess and marginal moment shortfall. The goal of this research objective is to extend these results to multivariate risks following a density $f \in \HC{D}$ assuming a light-tailed density generator. 
 
 ### Estimation of Risk Regions
 
@@ -62,26 +64,26 @@ The third primary objective is the estimation of high-risk regions for light-tai
 
 ### Free-Knot Splines
 
-Free-knot splines presented in Section \@ref(SSS:free-knot-splines) provide a shape set estimator that performs well under the right assumptions, but work is needed to understand the consequences for misspecifying the density generator. Misspecification can be avoided altogether if the \ac{rjmcmc} algorithm is fully Bayesian, meaning that the density generator or its parameters are treated as additional random variables to be sampled. However, this adds complexity to the estimator in the form of:
+Free-knot splines presented in Section \@ref(SSS:free-knot-splines) provide a shape set estimator that performs well under the right assumptions, but work is needed to understand the consequences for misspecifying the density generator. One way to address misspecification is to for proposals to change the density generator. However, this adds complexity to the estimator in the form of:
 
   (i) computational intensity - the algorithm already takes a long time to run, so adding more variables is likely to increase the computational load multiplicatively;
   (i) complex calculations - acceptance probabilities are relatively simple in the \ac{rjmcmc} algorithm of \citet{Ferreira2005}, but adding prior and proposal densities for the density generator might make the calculations intractable, particularly if we allow the class of density generators to change. A major complication arises if classes of density generators have different numbers of parameters. The Jacobian for inter-dimensional moves is $1$ for the current version of the \ac{rjmcmc} algorithm \citep{Lindstrom2002}, but this is likely to change as the inputs grow and the Jacobian may need derivation.
 
-Another possibility to improve free-knot splines is to incorporate informed priors and proposal densities into the algorithm. For example, the shape set estimator of \citet{Kamiya2019} is relatively simple, shows promise in our simulation study for producing reasonable estimates, and does not consider the density generator. Thus, it is desirable to incorporate this estimate into the prior distribution for knot locations. For example, we may require new knots to be sampled uniformly from a confidence region produced by this estimator. The feasibility of implementing such a strategy needs investigation.
+To speed up the convergence of the \ac{rjmcmc} algorithm to the posterior distribution, we can incorporate informed priors and proposal densities for the knot values based on Kamiya's estimator.
 
-Other changes to investigate the improvement of the \ac{rjmcmc} algorithm for free-knot splines is a Dirichlet prior on knot directions to prevent knots that are too close and implementing a locality heuristic \citep{Zhou2001} for the proposal distribution of new knots. The locality heuristic states that newly accepted knots are likely to occur in regions where the curve is fluctuating and so additional knots should have higher probabilities of being proposed in these regions.
+Other changes to investigate the improvement of the \ac{rjmcmc} algorithm for free-knot splines is a Dirichlet prior on knot directions to prevent knots that are too close while implementing a locality heuristic \citep{Zhou2001} for the proposal of new knots. The Dirichlet prior should help avoid knots that are too close together in regions with little data. The locality heuristic states that newly accepted knots are likely to occur in regions where the curve is fluctuating and additional knots should have higher probabilities of being proposed in these regions.
   
 ### Trochoidal Distributions
 
 There are a few questions to investigate in an attempt to further generalize trochoidal distributions:
 
-  - Trochoids are in the domain of glissettes and roulettes, which generalize curves beyond epitrochoids and hypotrochoids previously discussed. Rigorous studies of such curves are given in \citet{Putnam2012, Yates1947}. The idea for generalizing the family of curves is to relax the constraint that the fixed and rolling objects are circles. For example, one may trace a point on an ellipse as one ellipse rolls around the inside of some fixed ellipse.
+  - Trochoids are in the domain of glissettes and roulettes, which generalize curves beyond epitrochoids and hypotrochoids. Rigorous studies of such curves are given in \citet{Putnam2012, Yates1947}. The idea for generalizing the family of curves is to relax the constraint that the fixed and rolling objects are circles. For example, one may trace a point on an ellipse as one ellipse rolls around the inside of some fixed ellipse. However, this generalization may not have parametric equations requiring only a few, interpretable inputs.
   
-  - Generalizing to higher dimensions beyond $\R^2$: While it is relatively simple to rotate a trochoid to create a surface, I have yet to find a construction of surfaces similar to the construction of trochoids. There is work available on trochoidal curves in 3-dimensions, but not surfaces.
+  - Generalizing to higher dimensions beyond $\R^2$: While it is relatively simple to rotate a trochoid to create a surface, I have yet to find a construction of surfaces similar to the construction of trochoids. Construction of trochoidal curves in 3-dimensions is well founded, but not surfaces.
   
-  - Estimation of the trochoid using the EM-Algorithm: The difficulty in finding an EM-Algorithm for trochoidal distributions is in the mapping of parametric equation argument $t$ and the resulting point's polar angle, $\t$. I believe this would be necessary to calculate the partial derivatives with respect to the shape set's parameters. There may be other representations of trochoids that are more convenient and the above references need a thorough review.
+  - Estimation of the trochoid using the EM-Algorithm: The difficulty in finding an EM-Algorithm for trochoidal distributions is in the mapping of parametric equation argument $t$ and the resulting point's polar angle, $\t$. I believe this would be necessary to calculate the partial derivatives with respect to the shape set's parameters. There may be other representations of trochoids that are more convenient and a thorough review of the relevant literature is required.
 
-### Assessing Estimation Performance {#SSS:assessing-performance}
+### Assessing Estimation Performance and Model Selection {#SSS:assessing-performance}
 
 For shape set estimation, the symmetric difference has been used by \citet{Cai2011}.
 
@@ -89,6 +91,6 @@ The modified Anderson-Darling test \citep{Sinclair1990} and the Kolmogorov-Smirn
 
 For parametric models, \ac{aic} \citep{Akaike1974} and \ac{bic} \citep{Schwarz1978} are commonly used for model selection and the appropriateness of these measures under $f \in \HC{D}$ is to be analyzed.
 
-Criteria to select among nonparametric and parametric estimators should be compiled in order to select among estimates of the density where the shape set is both nonparametrically and parametrically estimated.
+If we include nonparametric estimators for the density generator, criteria to select among nonparametric and parametric estimators should be compiled.
   
   

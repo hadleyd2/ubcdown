@@ -17,21 +17,31 @@ tibble(
    Abr =  c(
       "AIC",
       "BIC",
+      "CTP",
       "D-Class",
       "LOOCV",
+      "MCTM",
+      "MES",
       "ML",
+      "MME",
       "PDF",
-      "RJMCMC"
+      "RJMCMC",
+      "VaR"
    ),
    # Acronym definition
    Meaning = c(
       "Akaike's Information Criterion",
       "Bayesian Information Criterion",
+      "Conditional Tail Probability",
       "Directionally-Dispersed Class of Distributions",
       "Leave-one-out-Cross-Validation",
+      "Marginal Conditional Tail Moment",
+      "Marginal Expected Shortfall",
       "Maximum Likelihood",
+      "Marginal Mean Excess",
       "Probability Density Function",
-      "Reversible-Jump Markov Chain Monte Carlo"
+      "Reversible-Jump Markov Chain Monte Carlo",
+      "Value-at-Risk"
    )
 ) %>% 
    dplyr::arrange(Abr) %>%

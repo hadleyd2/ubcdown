@@ -1,25 +1,27 @@
 
 
-In this section, we combine the shape set estimators of Section \@ref(S:shape-set) with estimators of the density generator to develop approaches for estimating a \ac{pdf} $f \in \HC{D}$. The density generator can be estimated parametrically by assuming a parametric form for modelling light-tailed behavior, such as the normal density generator, heavy-tailed behavior, such as the $t$ density generator, or both, such as the Weibull. Since the star-generalized radius variable is a transformation of a random vector from $\R^p$ to $R$, the density generator can also be estimated nonparametrically for any $p$ without encountering the curse of dimensionality.
+In this section, we develop an iterative approach for estimating a \ac{pdf} $f \in \HC{D}$ on $\R^2$ from data $\xb_1, \dots, \xb_n$ by combining shape set estimators in Equations \eqref{Eq:estimator-Kamiya} and \eqref{Eq:free-knot-estimator} with \ac{ml} estimation for the density generator. Given known location parameter $\mub = \zerob$, the iterative approach is as follows:
 
-The iterative approach used to estimate a density $f \in \HC{D}$ on $\R^2$ given known location parameter $\mub = \zerob$ is as follows:
-
-  - Use Kamiya's estimator in Equation \eqref{Eq:K-standard} to produce the first estimate of the shape set, $\est{D}^{(1)}$, and its corresponding gauge function, $\fncD[\est{D}^{(1)}]{n}{\xb}$;
-  - The first estimates of the star-generalized radii are attained through the gauge function for the estimated shape set, \eqq{
-  \est{r}_i^{(1)} = \fncD[\est{D}^{(1)}]{n}{\xb};
+  - Use Kamiya's estimator in Equation \eqref{Eq:K-standard} to produce a first estimate of the shape set, $\est{D}^{(1)}$, and its corresponding gauge function, $\fncD[\est{D}^{(1)}]{n}{\xb}$.
+  - Estimate the star-generalized radii to produce the psuedo-sample, \eqq{
+  \est{r}_i^{(1)} = \fncD[\est{D}^{(1)}]{n}{\xb_i}, \qquad i = 1, \dots, n.
   }
-  - By assuming a Weibull-type density generator, \eqq{
-    \fnc{f_0}{r} \ \propto \ \expo{-\paren{\frac{r}{\s}}^{\xi}}, \qquad r > 0,
-    } with scale parameter $\s > 0$ and shape parameter $\xi > 0$, we are assuming that the data follow a distribution with density \eqq{
-    \fnc{f}{\xb} = \fnc{f_0}{\fncD{n}{\xb}} = \frac{1}{\abs{D}\s^2\fnc{\Gamma}{\frac{2+\xi}{\xi}}}\expo{-\paren{\frac{\fncD{n}{\xb}}{\s}}^{\xi}}, \qquad \xb \in \R^2,
-    } with shape set $D$. The density for the star-generalized radius variable follows from Equation \eqref{Eq:scale-r}, \eqq{
+  - By assuming a Weibull-type density generator $\fnc{f_0}{r} \ \propto \ \expo{-\paren{\frac{r}{\s}}^{\xi}}$ for $r > 0$ with scale parameter $\s > 0$ and shape parameter $\xi > 0$, we are assuming the data follow a distribution with density \eqq{
+    \fnc{f}{\xb} = \fnc{f_0}{\fncD{n}{\xb}} = \frac{1}{\abs{D}\s^2\fnc{\Gamma}{\frac{2+\xi}{\xi}}}\expo{-\paren{\frac{\fncD{n}{\xb}}{\s}}^{\xi}}, \qquad \xb \in \R^2.
+    } The density for the star-generalized radius variable follows from Equation \eqref{Eq:scale-r}, \eqq{
     \fnc{f_R}{r} = \frac{2}{\s^2\fnc{\Gamma}{\frac{2+\xi}{\xi}}}r\expo{-\paren{\frac{r}{\s}}^{\xi}}, \qquad r > 0.
-    } Thus, we can estimate the parameters of $f_0$ using \ac{ml} by maximizing the log-likelihood function for the star-generalized radii. The log-likelihood function is \eqq{
-    \fnc{\ell}{\s, \xi; r_1, \dots, r_n} = n\fnc{\log}{2} - 2n\fnc{\log}{\s} - n\fnc{\log}{\fnc{\Gamma}{\frac{2+\xi}{\xi}}} + \sumto{i=1}{n}\fnc{\log}{r_i} - \sumto{i=1}{n}\paren{\frac{r_i}{\s}}^{\xi}.
+    } Estimate the parameters of $f_0$ using \ac{ml} by maximizing the log-likelihood function, \eqq{
+    \fnc{\ell}{\s, \xi; \est{r}_1^{(1)}, \dots, \est{r}_n^{(1)}} = n\fnc{\log}{2} - 2n\fnc{\log}{\s} - n\fnc{\log}{\fnc{\Gamma}{\frac{2+\xi}{\xi}}} + \sumto{i=1}{n}\fnc{\log}{\est{r}_i^{(1)}} - \sumto{i=1}{n}\paren{\frac{\est{r}_i^{(1)}}{\s}}^{\xi}.
   }
-  - We can now use the \ac{ml} estimates $\paren{\est{\s}, \est{\xi}}$ to specify the density generator and update our estimate of the shape set using free-knot splines with estimator Equation \eqref{Eq:free-knot-estimator} to produce $\est{D}^{(2)}$.
+  - Use the \ac{ml} estimates $\paren{\est{\s}^{(1)}, \est{\xi}^{(1)}}$ to specify the density generator and update the shape set estimate using the free-knot spline estimator in Equation \eqref{Eq:free-knot-estimator} to produce $\est{D}^{(2)}$ and its corresponding gauge function, $\fncD[\est{D}^{(2)}]{n}{\xb}$.
+  - Update the estimates of the star-generalized radii to produce the psuedo-sample, \eqq{
+  \est{r}_i^{(2)} = \fncD[\est{D}^{(2)}]{n}{\xb_i}, \qquad i = 1, \dots, n.
+  }
+  - Update the density generator parameter estimates to $\paren{\est{\s}^{(2)}, \est{\xi}^{(2)}}$ by maximizing the log-likelihood function, \eqq{
+    \fnc{\ell}{\s, \xi; \est{r}_1^{(2)}, \dots, \est{r}_n^{(2)}} = n\fnc{\log}{2} - 2n\fnc{\log}{\s} - n\fnc{\log}{\fnc{\Gamma}{\frac{2+\xi}{\xi}}} + \sumto{i=1}{n}\fnc{\log}{\est{r}_i^{(2)}} - \sumto{i=1}{n}\paren{\frac{\est{r}_i^{(2)}}{\s}}^{\xi}.
+  }
   
-In the next section, we apply the iterative method as outlined above to estimate the densities for the simulated datasets outlined in Section \@ref(S:shape-set). While we do not go beyond the above steps, it should noted that the iterative method can be extended. The parameter estimates for the density generator can be updated using the data, $\est{r}_i^{(2)} = \fncD[\est{D}^{(2)}]{n}{\xb}$. Then, the updated density generator can be plugged back into the free-knot spline estimator to update the shape set estimate. This process can be repeated until convergence. 
+<!-- In the next section, we apply the iterative method as outlined above to estimate the densities for the simulated datasets outlined in Section \@ref(S:shape-set). While we do not go beyond the above steps, it should noted that the iterative method can be extended. The parameter estimates for the density generator can be updated using the data, $\est{r}_i^{(2)} = \fncD[\est{D}^{(2)}]{n}{\xb}$. Then, the updated density generator can be plugged back into the free-knot spline estimator to update the shape set estimate. This process can be repeated until convergence.  -->
 
 <!-- Regardless of the approach to estimating the density generator, we employ the iterative approach of Section \@ref(estimation). In particular, we use Kamiya's estimator in Equation \eqref{Eq:K-standard} to estimate the gauge function for $D$ as $\fncD[\est{D}^{(1)}]{n}{\xb}$, assuming $\mub = \zerob$. We then calculate the estimates of the star-generalized radii for each observation as $\fncD[\est{D}^{(1)}]{n}{\xb} = r_i^{(1)}$. Further assuming a parametric form for the density generator, we use \ac{ml} estimation and denote the estimate of the density generator as $\est{f}_0^{(1)}$. -->
 
@@ -52,12 +54,6 @@ In the next section, we apply the iterative method as outlined above to estimate
 <!-- } for standard bivariate normal vector $\zb$. -->
 
 <!-- A goal of this research is to confirm that this conclusion holds in general for densities $f\in\HC{D}$. In particular, show that estimation is unaffected by whether a scaling parameter is included in the density generator or the shape set, and be sure that the identifiability property for distributions is not violated \citep[p. 11]{Liebscher2016}. -->
-
-### Simulation Example 1
-
-Using the simulated dataset from Section \@ref(S:shape-set) with density given by Equation \eqref{Eq:Simulation-1}, we apply the iterative method to estimate $f$. Under the true density generator, the density for the star-generalized radius variable is \eqq{
-  \fnc{f_{R1}}{r} = r\expo{-\frac{r^2}{2}},
-} and so the distribution function is $\fnc{F_{R1}}{r} = 1-\expo{-r^2/2}$.
 
 ```{r dg-estimate-one, echo=FALSE}
 ## Load Simulated data
@@ -112,12 +108,14 @@ nllk.wbl.r <- function(pms, r) {
   return(ans)
 }
 
-fullmle.1 <- nlm(nllk.wbl.r, p=c(strt.1$scale, strt.1$shape), r=rstar.1)
+fullmle.1 <- nlm(nllk.wbl.r, p=c(strt.1$scale, strt.1$shape), r=rstar.1, hessian=TRUE)
 if (all(abs(fullmle.1$gradient) < 1e-2)) {
   mle.1 <- list('scale'=fullmle.1$estimate[1], 'shape'=fullmle.1$estimate[2])
 } else {
   mle.1 <- strt.1
 }
+se.1 <- list('scale.se'=sqrt(diag(solve(fullmle.1$hessian))[1]), 
+             'shape.se'=sqrt(diag(solve(fullmle.1$hessian))[2]))
 # fullmle.2 <- nlm(nllk.wbl.r, p=c(strt.2$scale, strt.2$shape), r=rstar.2)
 # if (all(abs(fullmle.2$gradient) < 1e-2)) {
 #   mle.2 <- list('scale'=fullmle.2$estimate[1], 'shape'=fullmle.2$estimate[2])
@@ -126,11 +124,11 @@ if (all(abs(fullmle.1$gradient) < 1e-2)) {
 # }
 ```
 
-```{r plots-sim-1, fig.height=7, fig.width=8, fig.cap="\\label{Fig:diag-sim-1}Comparing estimates to true values for Simulation 1", cache=TRUE, echo=FALSE}
+```{r plots-sim-1, fig.height=7, fig.width=8, fig.cap="\\label{Fig:iterative-1}Iterative approach to estimating the density in Equation \\ref{Eq:Simulation-1} from data simulated from the density: Plot (a) presents the shape set estimate $\\est{D}^{(1)}$; Plot (b) presents a QQ-plot of the estimated star-generalized radius density with parameter estimates $\\paren{\\est{\\s}^{(1)}, \\est{\\xi}^{(1)}}$; Plot (c) presents the shape set estimate $\\est{D}^{(2)}$; Plot (d) presents the QQ-plot of the estimated star-generalized radius density with parameter estimates $\\paren{\\est{\\s}^{(2)}, \\est{\\xi}^{(2)}}$.", cache=TRUE, echo=FALSE}
 bdry.1 <- readRDS(gsub("ubcdown", "", here::here("Thesis", "data", "bdry.1.norm.RDS")))
 par(mfrow=c(2,2))
 ## Kamiya's Shape Set Estimate
-plot(bdry.1$x1, bdry.1$x2, type='l', main="Kamiya's Shape Set",
+plot(bdry.1$x1, bdry.1$x2, type='l', main="Kamiya's Shape Set", sub="(a)",
      xlim=c(-1.1, 1.1), ylim=c(-1.1, 1.1), xlab=expression(x[1]), ylab=expression(x[2]),
      lty=1, col=scales::alpha("black", 0.75))
 lines(kde.1$df.grid$Dhat.x1, kde.1$df.grid$Dhat.x2, lty=2,
@@ -166,16 +164,17 @@ p <- seq_along(rstar.1)/(length(rstar.1) + 1)
 # emp.q <- sort(rstar.1)
 est.q <- qwbl.r(p=p, sigma=mle.1$scale, xi=mle.1$shape)
 true.q <- sort(sim.1$stargen)
+p.lims <- c(0, max(est.q, true.q))
 plot(est.q, true.q, xlab="Weibull Model", ylab="True",
-     main="QQ-Plot for Radius", cex=0.6,
-     col=scales::alpha("darkgrey", 0.75))
+     main="QQ-Plot for Radius", sub="(b)", cex=0.6,
+     col=scales::alpha("darkgrey", 0.75), xlim=p.lims, ylim=p.lims)
 abline(a=0, b=1)
 legend('topleft', legend=c(paste0('scale = ', round(mle.1$scale, 2)), paste0('shape = ', round(mle.1$shape, 2))),
        bty="n", horiz=TRUE, cex=0.75)
 
 ## Free-Knot Spline using Weibull MLE
 fks.1 <- readRDS(gsub("ubcdown", "", here::here("Thesis", "data", "rjmcmc.sim1.wbl.RDS")))
-plot(bdry.1$x1, bdry.1$x2, type='l', main="Free-Knot Spline Estimate",
+plot(bdry.1$x1, bdry.1$x2, type='l', main="Free-Knot Spline Estimate", sub="(c)",
      xlim=c(-1.1, 1.1), ylim=c(-1.1, 1.1), xlab=expression(x[1]), ylab=expression(x[2]),
      lty=1, col=scales::alpha("black", 0.75))
 lines(fks.1$Dhat.grid*cos(fks.1$theta.grid), fks.1$Dhat.grid*sin(fks.1$theta.grid), lty=2,
@@ -190,18 +189,21 @@ rstar.1v2 <- (fks.1$r.obs/fks.1$Dhat.obs)
 xi.tmp <- uniroot(fnd.shape, interval=c(0.1, 3), sigma=sd(rstar.1v2), mu=mean(rstar.1v2))$root
 strt.1 <- list('scale'=(mean(rstar.1v2)/gamma(1 + 1/xi.tmp))^xi.tmp, 'shape'=xi.tmp)
 rm(xi.tmp)
-fullmle.1v2 <- nlm(nllk.wbl.r, p=c(strt.1$scale, strt.1$shape), r=rstar.1v2)
+fullmle.1v2 <- nlm(nllk.wbl.r, p=c(strt.1$scale, strt.1$shape), r=rstar.1v2, hessian=TRUE)
 if (all(abs(fullmle.1v2$gradient) < 1e-2)) {
   mle.1v2 <- list('scale'=fullmle.1v2$estimate[1], 'shape'=fullmle.1v2$estimate[2])
 } else {
   mle.1v2 <- strt.1
 }
+se.1v2 <- list('scale.se'=sqrt(diag(solve(fullmle.1v2$hessian))[1]), 
+             'shape.se'=sqrt(diag(solve(fullmle.1v2$hessian))[2]))
 p <- seq_along(rstar.1v2)/(length(rstar.1v2) + 1)
 est.q <- qwbl.r(p=p, sigma=mle.1v2$scale, xi=mle.1v2$shape)
 true.q <- sort(sim.1$stargen)
+p.lims <- c(0, max(est.q, true.q))
 plot(est.q, true.q, xlab="Weibull Model", ylab="True",
-     main="QQ-Plot for Radius", cex=0.6,
-     col=scales::alpha("darkgrey", 0.75))
+     main="QQ-Plot for Radius", sub="(d)", cex=0.6,
+     col=scales::alpha("darkgrey", 0.75), xlim=p.lims, ylim=p.lims)
 abline(a=0, b=1)
 legend('topleft', legend=c(paste0('scale = ', round(mle.1v2$scale, 2)), paste0('shape = ', round(mle.1v2$shape, 2))),
        bty="n", horiz=TRUE, cex=0.75)
@@ -222,6 +224,8 @@ legend('topleft', legend=c(paste0('scale = ', round(mle.1v2$scale, 2)), paste0('
 #      col=scales::alpha("darkgrey", 0.75))
 # abline(a=0, b=1)
 ```
+
+Using the simulated dataset from Section \@ref(S:shape-set) with density given by Equation \eqref{Eq:Simulation-1}, we apply the iterative method outlined above to estimate $f$. Assuming a Weibull-type density generator, the true parameters are $\s_0 = \sqrt{2}$ and $\xi_0 = 2$. Results for each step are given in Figure \ref{Fig:iterative-1}. Plot (a) shows the shape set estimate $\est{D}^{(1)}$ against the true shape set. Plot (b) presents a QQ-plot of the star-generalized radius variables for the estimated Weibull-type density generator with estimated scale parameter, $\est{\s}^{(1)} = `r round(mle.1$scale, 2)`$, with standard error $\fnc{\text{SE}}{\est{\s}^{(1)}} = `r round(se.1$scale.se, 2)`$ and estimated shape parameter, $\est{\xi}^{(1)} = `r round(mle.1$shape, 2)`$, with standard error $\fnc{\text{SE}}{\est{\xi}^{(1)}} = `r round(se.1$shape.se, 2)`$ against the true star-generalized radii. Plot (c) presents the updated shape set estimate $\est{D}^{(2)}$ from the free-knot spline estimator. Plot (d) is analogous to Plot (b), but uses the estimated scale parameter, $\est{\s}^{(2)} = `r round(mle.1v2$scale, 2)`$, with standard error $\fnc{\text{SE}}{\est{\s}^{(1)}} = `r round(se.1v2$scale.se, 2)`$ and estimated shape parameter, $\est{\xi}^{(2)} = `r round(mle.1v2$shape, 2)`$, with standard error $\fnc{\text{SE}}{\est{\xi}^{(1)}} = `r round(se.1v2$shape.se, 2)`$. These preliminary results are promising in that the shape set estimates and the density generator parameter estimates better fit the data in the subsequent iteration.
 
 <!-- ### Simulation Example 2 -->
 
