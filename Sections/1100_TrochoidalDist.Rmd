@@ -8,7 +8,7 @@ Trochoids have been studied for centuries by mathematicians such as Galileo, Pas
 
 We focus on centered trochoids which are roulettes in $\R^2$ formed by tracing a point $P$ that is a distance $d$ from the center of a circle as it rolls around either the inside or outside of a fixed circle. The rolling circle has radius $r>0$ and the fixed circle has radius $R>0$. The distance $d \in \R$ is given with respect to the center of the rolling circle.
 
-Without loss of generality, the center of the fixed circle is assumed to be the origin in $\R^2$. Parametric equations for trochoids in $\R^2$ take argument $t$ for the radian angle measured counter-clockwise from the positive horizontal axis to the line passing through the centers of the fixed and rolling circles. See Figure \ref{Fig:trochoid-construct} for a geometric interpretation and Figure \ref{Fig:distances-pos} and Figure \ref{Fig:distances-epi} for construction of 2 trochoids as $t$ traverses $[0, 2\pi]$.
+Throughout this section, we assume that the center of the fixed circle is assumed to be the origin in $\R^2$. Parametric equations for trochoids in $\R^2$ take argument $t$ for the radian angle measured counter-clockwise from the positive horizontal axis to the line passing through the centers of the fixed and rolling circles. See Figure \ref{Fig:trochoid-construct} for a geometric interpretation and Figure \ref{Fig:distances-pos} and Figure \ref{Fig:distances-epi} for construction of 2 trochoids as $t$ traverses $[0, 2\pi]$.
 
 The most common form of parametric equations for trochoids are based on its construction and have parameters $R$, $r$, and $d$ in addition to argument $t$. To avoid confusion as we start talking about the parameterization of trochoids, we refer to $t$ strictly as the argument so that the point $\paren{\fnc{x}{t; R, r, d}, \fnc{y}{t; R, r, d}}$ is the point evaluated at argument $t$ for the trochoid with parameters $R$, $r$, and $d$.
 
@@ -22,14 +22,14 @@ As with any curve represented by parametric equations, we need to know the inter
 
 ### Hypotrochoids {#SSS:hypotrochoids}
 
-Hypotrochoids are roulettes formed by tracing a point $P$ that is a distance $d$ from the center of a circle as it rolls counter-clockwise around the inside of a fixed circle. Plot (a) of Figure \ref{Fig:trochoid-construct} shows the roles of argument $t$ and parameters $R$, $r$, $d$ in the construction of a hypotrochoid. When the argument $t=0$, point $P(0)$ is on the positive horizontal axis. As the rolling circle rolls counter-clockwise, $t$ is the angle in radians between the positive horizontal axis and a line between the centers of the fixed and rolling circles.
+Hypotrochoids are roulettes formed by tracing a point $P$ that is a distance $d$ from the center of a circle as it rolls counter-clockwise around the inside of a fixed circle. Plot (a) of Figure \ref{Fig:trochoid-construct} shows the roles of \mbox{argument $t$} and parameters $R$, $r$, $d$ in the construction of a hypotrochoid. When the argument $t=0$, point $P(0)$ is on the positive horizontal axis. As the rolling circle rolls counter-clockwise, $t$ is the angle in radians between the positive horizontal axis and a line between the centers of the fixed and rolling circles.
 
 Hypotrochoids in $\R^2$ have parametric equations \eeq[hypo1]{
   \fnc{x}{t} = (R - r)\cos(t) + d\fnc{\cos}{\frac{R-r}{r}t} \qquad \text{and} \qquad
   \fnc{y}{t} = (R - r)\sin(t) - d\fnc{\sin}{\frac{R-r}{r}t}.
 } 
 
-Some examples of hypotrochoids are presented in Figure \ref{Fig:hypo-examples}. Plots (a) and (b) make one full trace of the trochoid for $t \in [0, 2\pi]$ while plots (c) and (d) require $t \in [0, 4\pi]$. Plots (a) and (c) are examples of curtate hypotrochoids which are formed when $\abs{d} < r$ so that the point $P$ is inside the rolling circle. Plots (b) and (d) are examples of prolate hypotrochoids where $\abs{d} > r$ and $P$ lies outside of the rolling circle. When $d = r$, $P$ lies on the rolling circle and the curve is called a hypocycloid.
+Some examples of hypotrochoids are presented in Figure \ref{Fig:hypo-examples}. Plots (a) and (b) make one full trace of the trochoid for $t \in [0, 2\pi]$ while plots (c) and (d) require $t \in [0, 4\pi]$. Plots (a) and (c) are examples of curtate hypotrochoids which are formed when $\abs{d} < r$ so that the point $P$ is inside the rolling circle. \mbox{Plots (b)} and (d) are examples of prolate hypotrochoids where $\abs{d} > r$ and $P$ lies outside of the rolling circle. \mbox{When $d = r$}, the point $P$ lies on the rolling circle and the curve is called a hypocycloid.
 
 ![\label{Fig:hypo-examples}Examples of curtate hypotrochoids $\paren{\abs{d} \leq r}$ are given in plots (a) and (c) and examples of prolate hypotrochoids $\paren{\abs{d} > r}$ are given in plots (b) and (d). Plots (a) and (b) complete one full trace for $t \in \brac{0, 2\pi}$ while plots (c) and (d) require $t \in \brac{0, 4\pi}$.](../Thesis/Trochoidal/Images/hypotrochoid-examples-1.pdf){width=50%}
 
@@ -39,14 +39,14 @@ The distance $d$ can be positive or negative, but we are only concerned with $d 
 
 ### Epitrochoids
 
-Epitrochoids are roulettes formed by tracing a point $P$ that is a distance $d$ from the center of a circle that rolls counter-clockwise around the outside of a fixed circle. Plot (b) of Figure \ref{Fig:trochoid-construct} shows the role of argument $t$ and parameters $R$, $r$, $d$ in the construction of an epitrochoid with the same interpretation as explained in Section \@ref(SSS:hypotrochoids).
+Epitrochoids are roulettes formed by tracing a point $P$ that is a distance $d$ from the center of a circle that rolls counter-clockwise around the outside of a fixed circle. Plot (b) of Figure \ref{Fig:trochoid-construct} shows the role of \mbox{argument $t$} and parameters $R$, $r$, $d$ in the construction of an epitrochoid with the same interpretation as explained in Section \@ref(SSS:hypotrochoids).
 
 Epitrochoids in $\R^2$ have parametric equations \eeq[epi1]{
   \fnc{x}{t} = (R + r)\cos(t) + d\fnc{\cos}{\frac{R+r}{r}t} \qquad \text{and} \qquad
   \fnc{y}{t} = (R + r)\sin(t) + d\fnc{\sin}{\frac{R+r}{r}t}.
 }
 
-Some examples of epitrochoids are presented in Figure \ref{Fig:epi-examples}. Plots (a) and (b) make one full trace of the trochoid for $t \in [0, 2\pi]$ while plots (c) and (d) require $t \in [0, 4\pi]$. Plots (a) and (c) are examples of curtate epitrochoids which are formed when $\abs{d} < r$ so that the point $P$ is inside the rolling circle. Plots (b) and (d) are examples of prolate epitrochoids where $\abs{d} > r$ so that $P$ lies outside of the rolling circle. When $d = r$, point $P$ is on the rolling circle, and the curve is called an epicycloid.
+Some examples of epitrochoids are presented in Figure \ref{Fig:epi-examples}. Plots (a) and (b) make one full trace of the trochoid for $t \in [0, 2\pi]$ while plots (c) and (d) require $t \in [0, 4\pi]$. Plots (a) and (c) are examples of curtate epitrochoids which are formed when $\abs{d} < r$ so that the point $P$ is inside the rolling circle. \mbox{Plots (b)} and (d) are examples of prolate epitrochoids where $\abs{d} > r$ so that $P$ lies outside of the rolling circle. \mbox{When $d = r$}, point $P$ is on the rolling circle, and the curve is called an epicycloid.
 
 ![\label{Fig:epi-examples}Curtate epitrochoids $\paren{\abs{d} \leq r}$ are given in plots (a) and (c) and prolate epitrochoids $\paren{\abs{d} > r}$ are given in plots (b) and (d). Plots (a) and (b) complete one full trace for $t \in \brac{0, 2\pi}$ while plots (c) and (d) require $t \in \brac{0, 4\pi}$.](../Thesis/Trochoidal/Images/epitrochoid-examples-1.pdf){width=50%}
 
@@ -58,12 +58,12 @@ We show the tracing of an epitrochoid as $t$ traverses the interval $\brac{0, 2\
 
 To guarantee we generate trochoidal curves that are suitable density contours for densities $f \in \HC{D}$, the curve needs to form the boundary of a bounded star-shaped set and be continuous. The simultaneous generation of trochoids \citep{Morley1894} means that a trochoid need not have a unique parameterization, so we must constrain the parameters to ensure identifiability of the associated trochoidal distribution. In addition, we define a shape set as the largest density level set contained inside the unit circle. This additional constraint eliminates the need to specify $R$ and reduces the number of parameters needed.
 
-Constraining the parameters from Equations \eqref{Eq:hypo1} or Equations \eqref{Eq:epi1} is difficult since it is not always obvious how changes to $R$, $r$, and $d$ affect the resulting curve. We adopt the parameterization of \citet{Ferreol2017} since it is intuitive and interpretable. The parameters, interpretations, constraints, and domains are given below:
+Constraining the parameters from Equations \eqref{Eq:hypo1} or Equations \eqref{Eq:epi1} is difficult since it is not always obvious how changes to $R$, $r$, and $d$ affect the resulting curve. We adopt the parameterization of \mbox{\citet{Ferreol2017}} since it is intuitive and interpretable. The parameters, interpretations, constraints, and domains are given below:
 
   - $q_h \in \set{2, 3, 4, \dots}$ for hypotrochoids and $q_e \in \set{1, 2, 3, \dots}$ for epitrochoids determines the number of rotations the rolling circle completes as it makes one revolution around the fixed circle. For ease of notation, the subscript on $q$ is eliminated when the type of trochoid is understood or inconsequential. The radius of the rolling circle is thus constrained so that $r = R/q$ is a positive integer. When point $P$ lies on the rolling circle, then $P$ touches the fixed circle $q$ times forming $q$ cusps. We use the term cusps generically when referring to $q$.
   - $k \in [0, 1)$ is the distance to point $P$ from the center of the rolling circle expressed as a proportion of the rolling circle's radius. Parameter $k$ is related to the distance parameter through $d = kr$. Constraining $k$ in this way ensures that we have a curtate trochoid. Parameter $k$ determines how sharp the curve turns at a cusp. As $k\to0^{+}$, the trochoid converges to a circle and as $k\to1^{-}$, the trochoid converges to a cycloid that are not differentiable at the cusps.
 
-Constraining the shape set to the unit circle allows us to calculate $R$ as a function of $q$ and $k$. By construction, $P$ is furthest from the origin when $t=0$. For hypotrochoids, this distance is calculated as $R - r + d$ while for epitrochoids the distance is $R + r + d$. Constraining this distance to $1$ yields $R = q/(q + k -1)$ for hypotrochoids and $R = q/(q+k+1)$ for epitrochoids. The standard parameterization is related to our parameterization by \eqq{
+Constraining the shape set to the unit circle allows us to calculate $R$ as a function of $q$ and $k$. By construction, $P$ is furthest from the origin when $t=0$. For hypotrochoids, this distance is $R - r + d$ while for epitrochoids the distance is $R + r + d$. Constraining this distance to $1$ yields $R = q/(q + k -1)$ for hypotrochoids and $R = q/(q+k+1)$ for epitrochoids. The standard parameterization is related to our parameterization by \eqq{
   R = \frac{q}{q+k\pm1}; \qquad r = \frac{1}{q+k\pm1}; \qquad d = \frac{k}{q+k\pm1},
 } where we subtract 1 in the denominator for hypotrochoids and add 1 for epitrochoids.
   
@@ -112,14 +112,14 @@ Restricting the rotation parameter to $\a \in [0, 2\pi/q)$ preserves identifiabi
 
 The trochoidal distribution families are indexed by $q$ with parameters $k$ and $\a$. Together, these families form a subclass of $\HC{D}$ characterized by a gauge function that describes a curtate trochoid. Using the parametric equations for a hypotrochoid and an epitrochoid, respectively, we first derive the polar functions for the boundaries of trochoidal shape sets. Using the parametric equations for hypotrochoids in Equation \eqref{Eq:hypo-angle}, the polar function for the boundary of a hypotrochoidal shape set is \eqq{
   \fncD[D_h]{r}{\t; q, k, \a} = \frac{1}{q + k - 1}\sqrt{\paren{q-1}^2 + k^2 + 2k\paren{q-1}\fnc{\cos}{qt_{\t}}},
-} where $D_h$ denotes a hypotrochoidal shape set $D$, and $t_{\t}$ is the argument $t$ that produces a point with a polar angle of $\t$. Similarly, denoting an epitrochoidal shape set $D$ as $D_e$, the parametric equations in Equation \eqref{Eq:epi-angle} give us the polar function for the boundary of an epitrochoidal shape set, \eqq{
+} where $D_h$ denotes a hypotrochoidal shape set $D$, and $t_{\t}$ is the argument $t$ that produces a point with a polar angle of $\t$. Similarly, denoting an epitrochoidal shape set $D$ as $D_e$, the parametric equations in \mbox{Equation \eqref{Eq:epi-angle}} give us the polar function for the boundary of an epitrochoidal shape set, \eqq{
   \fncD[D_e]{r}{\t; q, k, \a} = \frac{1}{q + k + 1}\sqrt{\paren{q+1}^2 + k^2 + 2k\paren{q+1}\fnc{\cos}{qt_{\t}}}.
 }
 
-For a trochoid with $q$ cusps and parameters $k, \a$, the corresponding parametric equations in Equation \eqref{Eq:hypo-angle} or Equation \eqref{Eq:epi-angle} produce the point $\paren{x_t, y_t}$ for argument $t \in [0, 2\pi)$. The mapping from argument $t$ to the polar angle of $\paren{x_t, y_t}$ is given by \eqq{
+For a trochoid with $q$ cusps and parameters $k, \a$, the corresponding parametric equations in Equation \eqref{Eq:hypo-angle} or Equation \eqref{Eq:epi-angle} produce the point $\paren{x_t, y_t}$ for argument $t \in [0, 2\pi)$. The mapping from \mbox{argument $t$} to the polar angle of $\paren{x_t, y_t}$ is given by \eqq{
   \t_t = \pi - \frac{\pi\paren{2 + \sgn{x_t}}\sgn{y_t}}{4} - \sgn{x_ty_t}\finv{\tan}{\frac{\abs{x_t} - \abs{y_t}}{\abs{x_t} + \abs{y_t}}} - \frac{\pi\paren{1 + \sgn{x_t}}\paren{1 - \sgn{y_t^2}}}{2},
-} where $\sgn{x} = 1$ when $x > 0$, $\sgn{x} = -1$ when $x < 0$ or $\sgn{x} = 0$ when $x=0$. To find the argument $t$ that produces a point with the desired polar angle $\t$, denoted $t_{\t}$, we find the value of argument $t$ that satisfies the equation \eqq{
-  \fnc{\sin}{\t} - \fnc{\sin}{\t_t} = 0.
+} where $\sgn{x} = 1$ when $x > 0$, $\sgn{x} = -1$ when $x < 0$ or $\sgn{x} = 0$ when $x=0$. To find the \mbox{argument $t$} that produces a point with the desired polar angle $\t$, denoted $t_{\t}$, we find the value of argument $t$ that satisfies the equation \eqq{
+  \t - \t_t = 0.
 }
 
 As per Equation \eqref{Eq:stargen}, the gauge function for hypotrochoidal and epitrochoidal shape set boundaries with respect to the origin are, respectively, \eqq{
