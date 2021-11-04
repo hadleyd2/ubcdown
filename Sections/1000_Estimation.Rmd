@@ -2,7 +2,7 @@
 
 As mentioned in Section \@ref(definitions), a density $f\in\HC{D}$ on $\R^p$ has the representation \eqq{
   \fnc{f}{\xb} = \fnc{f_0}{\fnc{n_D}{\xb - \mub}; \gbm},
-} where $n_D(\cdot)$ is the gauge function analytically describing the shape set $D \ss \R^p$, $\mub \in \R^p$ is the location parameter, and $f_0$ is the density generator with finite parameter vector $\gbm$. Estimation of a homothetic density can be accomplished by estimating $\mub$, $D$, and $f_0$. In this section, we focus on the estimation of only $D$ and $f_0$ and assume $\mub = \zerob$. A goal of future research is to incorporate estimation of $\mub$.
+} where $n_D(\cdot)$ is the gauge function analytically describing the shape set $D \ss \R^p$, $\mub \in \R^p$ is the location parameter, and $f_0$ is the density generator with finite parameter vector $\gbm$. Estimation of a homothetic density can be accomplished by estimating $\mub$, $D$, and $f_0$. In this section, we focus on the estimation of \mbox{only $D$ and $f_0$} and assume $\mub = \zerob$. A goal of future research is to incorporate estimation of $\mub$.
 
 Given a sample of independent and identically distributed random vectors from a distribution with density $f \in \HC{D}$ on $\R^p$, a primary goal of our research is to devise a general approach for estimating $f$ when a parametric family is unknown. An outline of the proposed approach is as follows:
 
