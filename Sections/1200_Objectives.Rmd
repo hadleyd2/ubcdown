@@ -40,13 +40,13 @@ As shown by \citet{Ling2019}, popular risk measures such as \ac{mme}, \ac{mes}, 
   \Exp{\paren{\Yb - \vb}^r \mmid \paren{\Xb > \ub, \Yb > \vb}} = \dfrac{\fnc{E}{\ub, \vb; r}}{\fnc{E}{\ub, \vb; 0}}.
 } These risk measures use estimates of the conditional joint distributions of the components to estimate systemic risk, and common choices for the components of $\ub$ and $\vb$ are the marginal \ac{var}'s of the corresponding risks.
 
-Empirical estimators for risk measures are only appropriate in the region where data exist. For example, the empirical distribution for a dataset with $n$ observations can estimate up to probability level $p = n/(n+1)$. Entities like banking regulators and insurance companies are often interested in estimating risk by stressing risk factors to their \ac{var} at probability $p$ as $p\uparrow1$, requiring extrapolation beyond the available data. Asymptotic approximations and bounds for risk measures allow for the estimation of risk at any probability level with little computational effort.
+Empirical estimators for risk measures are only appropriate in the region where data exist. For example, the empirical distribution for a dataset with $n$ observations can estimate up to probability \mbox{level $p = n/(n+1)$}. Entities like banking regulators and insurance companies are often interested in estimating risk by stressing risk factors to their \ac{var} at probability $p$ as $p\uparrow1$, requiring extrapolation beyond the available data. Asymptotic approximations and bounds for risk measures allow for the estimation of risk at any probability level with little computational effort.
 
 The study of the asymptotic behavior of risk in the financial system is a relatively new field with most relevant literature appearing after the 2007-2008 financial crisis. Even so, results for light-tailed risks are sparse. \citet{Hashorva2018} derives asymptotic approximations for both \ac{mme} and \ac{mes} under the assumption that risks are multivariate Gaussian and highlights the importance of the quadratic programming problem in determing asymptotic behavior. These results are extended by \citet{Ling2019} to the more general marginal moment excess and marginal moment shortfall. The goal of this research objective is to extend these results to multivariate risks following a density $f \in \HC{D}$ assuming a light-tailed density generator. 
 
 ### Estimation of Risk Regions
 
-The third primary objective is the estimation of high-risk regions for light-tailed random vectors with \ac{pdf} $f\in\HC{D}$. After estimation of $f$, the challenge of risk region estimation is to determine the quantile of the star-generalized radius distribution at probability level $p$. As we let $p\to1$ beyond the available data, such as when $p > n/(n+1)$ for some dataset of size $n$, this becomes a univariate extreme value problem. The estimator of \citet{Asimit2010} provides a reasonable starting point for this research.
+The third primary objective is the estimation of high-risk regions for light-tailed random vectors with \mbox{\ac{pdf} $f\in\HC{D}$}. After estimation of $f$, the challenge of risk region estimation is to determine the quantile of the star-generalized radius distribution at probability level $p$. As we let $p\to1$ beyond the available data, such as when $p > n/(n+1)$ for some dataset of size $n$, this becomes a univariate extreme value problem. The estimator of \citet{Asimit2010} provides a reasonable starting point for this research.
 
 ## Secondary Objectives
 
@@ -75,22 +75,16 @@ Other changes to investigate the improvement of the \ac{rjmcmc} algorithm for fr
   
 ### Trochoidal Distributions
 
-There are a few questions to investigate in an attempt to further generalize trochoidal distributions:
-
-  - Trochoids are in the domain of glissettes and roulettes, which generalize curves beyond epitrochoids and hypotrochoids. Rigorous studies of such curves are given in \citet{Putnam2012, Yates1947}. The idea for generalizing the family of curves is to relax the constraint that the fixed and rolling objects are circles. For example, one may trace a point on an ellipse as one ellipse rolls around the inside of some fixed ellipse. However, this generalization may not have parametric equations requiring only a few, interpretable inputs.
+Trochoids are in the domain of glissettes and roulettes, which generalize curves beyond epitrochoids and hypotrochoids. Rigorous studies of such curves are given in \citet{Putnam2012, Yates1947}. The generalization relaxes the constraint that the fixed and/or rolling objects are circles. For example, one may trace a point on an ellipse as one ellipse rolls around the inside of some fixed ellipse. However, the resulting curves may not have parametric equations with only a few, interpretable inputs.
   
-  - Generalizing to higher dimensions beyond $\R^2$: While it is relatively simple to rotate a trochoid to create a surface, I have yet to find a construction of surfaces similar to the construction of trochoids. Construction of trochoidal curves in 3-dimensions is well founded, but not surfaces.
+While it is relatively simple to rotate a trochoid to create a surface, I have yet to find a construction of surfaces similar to the construction of trochoids. Thus, trochoidal distributions may not generalize to higher dimensions.
   
-  - Estimation of the trochoid using the EM-Algorithm: The difficulty in finding an EM-Algorithm for trochoidal distributions is in the mapping of parametric equation argument $t$ and the resulting point's polar angle, $\t$. I believe this would be necessary to calculate the partial derivatives with respect to the shape set's parameters. There may be other representations of trochoids that are more convenient and a thorough review of the relevant literature is required.
+  <!-- - Estimation of the trochoid using the EM-Algorithm: The difficulty in finding an EM-Algorithm for trochoidal distributions is in the mapping of parametric equation argument $t$ and the resulting point's polar angle, $\t$. I believe this would be necessary to calculate the partial derivatives with respect to the shape set's parameters. There may be other representations of trochoids that are more convenient and a thorough review of the relevant literature is required. -->
 
 ### Assessing Estimation Performance and Model Selection {#SSS:assessing-performance}
 
-For shape set estimation, the symmetric difference has been used by \citet{Cai2011}.
+For estimates of the shape set, the symmetric difference has been used by \citet{Cai2011}.
 
-The modified Anderson-Darling test \citep{Sinclair1990} and the Kolmogorov-Smirnov test can be used to assess the fit of the tail for the distribution of the star-generalized radius variable.
-
-For parametric models, \ac{aic} \citep{Akaike1974} and \ac{bic} \citep{Schwarz1978} are commonly used for model selection and the appropriateness of these measures under $f \in \HC{D}$ is to be analyzed.
-
-If we include nonparametric estimators for the density generator, criteria to select among nonparametric and parametric estimators should be compiled.
+For selection of the density generator, we can use the modified Anderson-Darling test \citep{Sinclair1990} or the Kolmogorov-Smirnov test to assess the fit of the tail for the distribution of the star-generalized radius variable. For parametric forms, \ac{aic} \citep{Akaike1974} and \ac{bic} \citep{Schwarz1978} are commonly used. If we include nonparametric estimators for the density generator, criteria to select among nonparametric and parametric estimators should be compiled.
   
   
