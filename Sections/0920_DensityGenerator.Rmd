@@ -26,7 +26,7 @@ Using integration by parts and $\abs{s_cD} = \paren{s_c}^p\abs{D}$, the probabil
 <!--   \dfrac{\fnc{f_0}{r + vc(r))}}{\fnc{f_0}{r}} \to e^{-v}, \qquad \text{as } r \to \nf, \text{ and } v \in \R^p. -->
 <!-- } -->
 
-The density generator determines tail behavior. For heavy-tailed data, it is typical to assume that $f_0$ is regularly varying, \eqq{
+The density generator determines tail behavior. For heavy-tailed data, it is typical to assume $f_0$ is regularly varying, \eqq{
   \lim_{t\to\nf}\dfrac{\fnc{f_0}{tx}}{\fnc{f_0}{t}} = x^{\rho}, \qquad x > 0, \ \rho \in \R.
 } When $\rho = 0$, $f_0$ is called slowly varying. For light-tailed data, $f_0$ is assumed to be rapidly varying, \eqq{
   \lim_{t\to\nf}\dfrac{\fnc{f_0}{tx}}{\fnc{f_0}{t}} = \begin{cases} 0 & t > 1, \\ \nf & 0 < t < 1. \end{cases}
