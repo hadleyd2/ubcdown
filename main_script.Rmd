@@ -232,13 +232,18 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 
 ### Conditional Mean of the Radial Variable {#SSS:regression}
 
-```{r ShapeSet3, child = './Sections/1012_KernelRegression.Rmd', eval = T}
+```{r ShapeSet2, child = './Sections/1012_ConditionalMean.Rmd', eval = T}
 ```
 
-#### Smoothing Splines
+<!-- #### Kernel Regression -->
 
-```{r ShapeSet4, child = './Sections/1013_SmoothingSplines.Rmd', eval = T}
-```
+<!-- ```{r ShapeSet3, child = './Sections/1012_KernelRegression.Rmd', eval = T} -->
+<!-- ``` -->
+
+<!-- #### Smoothing Splines -->
+
+<!-- ```{r ShapeSet4, child = './Sections/1013_SmoothingSplines.Rmd', eval = T} -->
+<!-- ``` -->
 
 #### Free-Knot Splines {#SSS:free-knot-splines}
 
@@ -318,14 +323,14 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 
 <!-- # Appendices -->
 <!-- \section*{Appendices} -->
-<!-- \addcontentsline{toc}{section}{Appendices}  -->
+<!-- \addcontentsline{toc}{section}{Appendices} -->
 
-<!-- ## Appendix A -->
+<!-- ## Appendix A {#S:App-splines} -->
 
-<!-- \section*{Appendix A - Supplementary information for "Name of Chapter Two"} -->
+<!-- \section*{Appendix A - Supplementary Information for Smoothing Cubic Splines} -->
 <!-- \addcontentsline{toc}{section}{Appendix A} -->
 
-<!-- Set Figure, table and equations numbering according to the chapter -->
+<!-- <!-- Set Figure, table and equations numbering according to the chapter -->
 <!-- \renewcommand{\thefigure}{A2.\arabic{figure}} -->
 <!-- \setcounter{figure}{0} -->
 <!-- \renewcommand{\thetable}{A2.\arabic{table}} -->
@@ -334,7 +339,7 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 <!-- \setcounter{equation}{0} -->
 
 
-<!-- ```{r appendix_a, child = '~/GitHub/FishForVisa/Scripts/supplements.Rmd', eval = F} -->
+<!-- ```{r AppendixA, child = './Sections/9999_Appendix-Splines.Rmd', eval = T} -->
 <!-- ``` -->
 
 
