@@ -52,9 +52,18 @@ We adopt Kamiya's estimator from Equation \eqref{Eq:estimator-Kamiya} to estimat
 
 Unfortunately, \citet{Kamiya2019} does not discuss the estimation of the location parameter in detail and suggests using the sample mean when the distribution may be assumed to be centrally symmetric with finite first moment or the estimated mode using a multivariate kernel estimator. In addition, the kernel function and bandwidth selection problems are not addressed. The kernel function problem is less important due to the work of \citet{Hall1987} and \citet{Bai1988}, who show that the von Mises kernel gives the estimator optimal asymptotic properties. Bandwidth selection for a von Mises kernel is still an ongoing problem with recent work by \citet{Taylor2008} and \citet{Portugues2013}. Since the observations are scaled to unit vectors, cross-validation can be used to select the bandwidth without overweighting directions where observations are furthest from the origin.
 
-Using the estimator in Equation \eqref{Eq:K-standard}, we present the estimates for shape sets $D_1$ and $D_2$ using a rule-of-thumb bandwidth \citep{Taylor2008} in Figure \ref{Fig:sim-1-kde} and Figure \ref{Fig:sim-2-kde}, respectively. Despite the simplicity of Kamiya's estimator, the estimates are quite close to the true shape sets.
+Using the estimator in Equation \eqref{Eq:K-standard}, we present the estimates for shape sets $D_1$ and $D_2$ using a rule-of-thumb bandwidth \citep{Taylor2008} in Figure \ref{Fig:kde-plots}. Plot (a) shows a scatterplot of the data simulated according to density $f_1$ in Equation \eqref{Eq:Simulation-1} with scaled copies of the true shape set, $D_1$, with gauge function as in Equation \eqref{Eq:simulation-1} and the estimate $\fncD[D_1]{K}{\ub}$ using Kamiya's estimator in Equation \eqref{Eq:K-standard}. Similarly, plot (b) of Figure \ref{Fig:kde-plots} shows a scatterplot of data simulated according to density $f_2$ in Equation \eqref{Eq:Simulation-2} with scaled copies of the true shape set, $D_2$, with gauge function in Equation \eqref{Eq:simulation-2} and estimated shape set $\fncD[D_2]{K}{\ub}$ using Kamiya's estimator in Equation \eqref{Eq:K-standard}. Despite the simplicity of Kamiya's estimator, the estimates resemble the true shape sets.
 
-![\label{Fig:sim-1-kde}Kamiya's estimate for $D_1$](../Thesis/images/kde.1.norm.png){width=80%}
+\begin{figure}[h]
+\begin{subfigure}{.5\textwidth}
+\includegraphics[]{../Thesis/images/Sim01/kde.1.png}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\includegraphics[]{../Thesis/images/Sim03/kde.3.png}
+\end{subfigure}
+\caption{Kamiya's estimate for simulated datasets: Plot (a) shows a scatterplot of data simulated from $f_1$ in Equation \eqref{Eq:Simulation-1} with true shape set $D_1$ having gauge function in Equation \eqref{Eq:simulation-1} and Kamiya's estimate in Equation \eqref{Eq:K-standard}; Plot (b) shows a scatterplot of data simulated from $f_2$ in Equation \eqref{Eq:Simulation-2} with true shape set $D_2$ having gauge function in Equation \eqref{Eq:simulation-2} and Kamiya's estimate}
+\label{Fig:kde-plots}
+\end{figure}
 
-![\label{Fig:sim-2-kde}Kamiya's estimate for $D_2$](../Thesis/images/kde.2.log.png){width=80%}
+<!-- ![\label{Fig:sim-1-kde}Scatterplot of data simulated from density in Equation \eqref{Eq:Simulation-1} with scaled copies of the true shape set with gauge function in Equation \eqref{Eq:simulation-1} and Kamiya's estimator in Equation \eqref{Eq:K-standard}](../Thesis/images/Sim01/kde.1.png){width=50%}![\label{Fig:sim-2-kde}Scatterplot of data simulated from density in Equation \eqref{Eq:Simulation-2} with scaled copies of the true shape set with gauge function in Equation \eqref{Eq:simulation-2} and Kamiya's estimator in Equation \eqref{Eq:K-standard}](../Thesis/images/Sim03/kde.3.png){width=50%} -->
 

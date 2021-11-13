@@ -16,9 +16,9 @@ Adapting the estimation approach of \citet{Ferreira2005} to a density $f \in \HC
 
 Taking a Bayesian perspective, free-knot splines consider $K$ to be a discrete random variable and each knot as a jointly continuous random vector of direction and value. The effect is that $\fnc{h}{\tbm; K, \xbm}$ for \mbox{each $\tbm \in \O$} is a random variable, and the estimator $\fnc{\est{h}}{\cdot}$ is the mean of the posterior distribution of $\fnc{h}{\cdot}$ for \mbox{each $\tbm \in \O$}. The posterior distribution is approximated by simulation, where samples are generated using the \ac{rjmcmc} algorithm \citep{Green1995}.
 
-Free-knot splines have been fit to data using \ac{rjmcmc} by \citet{Denison1998} and \mbox{\citet{DiMatteo2001}}. By combining free-knot splines with hyperspherical log-splines, \citet{Ferreira2005} construct a highly flexible framework for modelling the shape of density level sets for densities \mbox{in $\HC{D}$}. Unfortunately, specification of the density generator is required a priori and methods for \mbox{estimating $\mub$} are not discussed leaving a gap in the literature that we aim to fill. 
+Free-knot splines have been fit to data using \ac{rjmcmc} by \citet{Denison1998} and \mbox{\citet{DiMatteo2001}}. By combining free-knot splines with hyperspherical log-splines, \citet{Ferreira2005} construct a highly flexible framework for modelling the shape of density level sets for densities \mbox{in $\HC{D}$}. Unfortunately, specification of the density generator is required a priori, and \citet{Ferreira2005} assumes various density generators and selects among them using Bayes factors \citep{Kass1995}. In addition, estimation of \mbox{estimating $\mub$} is done through random-walk Metropolis-Hastings moves to sample each component of $\mub$ independently of the free-knot spline. 
 
-We now provide an outline for the estimation approach of \citet{Ferreira2005} in the bivariate setting. Assume data $\xb_i\in\R^2$ for $i=1, \dots, n$ are transformed to polar coordinates $\paren{\t_i, \rho_i}$ with respect to known $\mub = \zerob$. We model the log-transform of the conditional expectation of the radial variable in \mbox{Equation \eqref{Eq:log-spline}}.
+We now provide an outline for the estimation approach of \citet{Ferreira2005} for the shape of density contours in the bivariate setting under the assumption $\mub = \zerob$ is known. Given data $\xb_i\in\R^2$ for $i=1, \dots, n$, let the polar coordinates be $\wb_i = \paren{\t_i, \rho_i}$ with respect to known $\mub$. We model the log-transform of the conditional expectation of the radial variable in \mbox{Equation \eqref{Eq:log-spline}}.
 
 <!-- In $\R^2$, the $K$ knot directions are ordered so that $0 \leq \t_1 < \cdots < \t_K < 2\pi$, and the reproducing kernel is \eqq{ -->
 <!--   R_{2}^{\ell}\paren{\t | \t_k} = \begin{cases} \dfrac{(-1)^{\ell/2}(2\pi)^{\ell+1}}{(\ell+2)!}\fnc{B_{\ell_2}}{\frac{\t-\t_k}{2\pi}} & \t \geq \t_k \\ -->
@@ -83,17 +83,39 @@ The free-knot spline estimator for $\fncD{r}{\tbm}$ in the bivariate setting is 
 
 Since the estimator in Equation \eqref{Eq:free-knot-estimator} requires specification of the density generator, we are interested in the sensitivity of the estimator when the density generator is misspecified. As a result, we estimate each of $D_1$ and $D_2$ using the correct density generator and a misspecified density generator.
 
-The estimate of $D_1$ using free-knot splines with the correct, normal-type density generator $f_{01}$ in Equation \eqref{Eq:simulation-1} is presented in Figure \ref{Fig:sim-1-freeknot-correct}, and the estimate assuming misspecified logistic-type density generator $f_{02}$ in Equation \eqref{Eq:simulation-2} is presented in Figure \ref{Fig:sim-1-freeknot-mis}. We see that the estimate for $D_1$ is significantly affected by the choice of density generator.
+The estimate of $D_1$ using free-knot splines with the correct, normal-type density generator $f_{01}$ in Equation \eqref{Eq:simulation-1} is presented in the left plot of Figure \ref{Fig:fks-plots-1}, and the estimate assuming a misspecified logistic-type density generator, $f_{02}$ in Equation \eqref{Eq:simulation-2}, is presented in the right plot of Figure \ref{Fig:fks-plots-1}. We see that the estimate for $D_1$ is significantly affected by the choice of density generator.
 
-![\label{Fig:sim-1-freeknot-correct} Free-knot spline estimate of $D_1$ with the 95% confidence region under the assumption of the correct, normal-type density generator](../Thesis/images/Sim01/rjmcmc.1.norm.png){width=80%}
+\begin{figure}
+\begin{subfigure}{.5\textwidth}
+\includegraphics[]{../Thesis/images/Sim01/rjmcmc.1.norm.png}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\includegraphics[]{../Thesis/images/Sim01/rjmcmc.1.log.png}
+\end{subfigure}
+\caption{Free-knot spline estimate (in blue) of shape set $D_1$ (in grey) having gauge function in Equation \eqref{Eq:simulation-1} and 95\% credible intervals (in red) for the dataset simulated according to density $f_1$ in Equation \eqref{Eq:Simulation-1} when assuming a density generator of normal-type (left plot), $f_0 \propto e^{-r^2/2\s^2}$, and of logistic-type (right plot), $f_0 \propto e^{-r/\s}/(1 + e^{-r/\s})^2$; the true density generator is of normal-type}
+\label{Fig:fks-plots-1}
+\end{figure}
 
-![\label{Fig:sim-1-freeknot-mis} Free-knot spline estimate of $D_1$ with the 95% confidence region when the true density generator is normal-type, but is misspecified as logistic-type](../Thesis/images/Sim01/rjmcmc.1.log.png){width=80%}
+<!-- ![\label{Fig:sim-1-freeknot-correct} Free-knot spline estimate of $D_1$ with the 95% confidence region under the assumption of the correct, normal-type density generator](../Thesis/images/Sim01/rjmcmc.1.norm.png){width=80%} -->
 
-We estimate $D_2$ similarly. Here, the misspecified generator is the normal-type density generator given by $f_{01}$ in \mbox{Equation \eqref{Eq:simulation-1}}, and the correct density generator is the logistic-type given \mbox{by $f_{02}$} in \mbox{Equation \eqref{Eq:simulation-2}}. The estimates under misspecification and correct specification are presented in \mbox{Figure \ref{Fig:sim-2-freeknot-mis}} and \mbox{Figure \ref{Fig:sim-2-freeknot-correct}}, respectively. For this dataset, the choice of density generator does not have a significant effect, suggesting that density generator misspecification may not always be a primary concern. The conditions under which misspecification may not be a problem are yet to be discovered.
+<!-- ![\label{Fig:sim-1-freeknot-mis} Free-knot spline estimate of $D_1$ with the 95% confidence region when the true density generator is normal-type, but is misspecified as logistic-type](../Thesis/images/Sim01/rjmcmc.1.log.png){width=80%} -->
 
-![\label{Fig:sim-2-freeknot-mis} Free-knot spline estimate of $D_2$ with the 95% confidence region when the true density generator is logistic, but is misspecified as normal](../Thesis/images/rjmcmc.2.norm.png){width=80%}
+We estimate $D_2$ similarly. Here, the misspecified generator is the normal-type density generator given by $f_{01}$ in \mbox{Equation \eqref{Eq:simulation-1}}, and the correct density generator is the logistic-type given \mbox{by $f_{02}$} in \mbox{Equation \eqref{Eq:simulation-2}}. The estimates under misspecification and correct specification are presented in the left and right plots of \mbox{Figure \ref{Fig:fks-plots-2}}, respectively. For this dataset, the choice of density generator does not have a significant effect, suggesting that density generator misspecification may not always be a primary concern. The conditions under which misspecification may not be a problem are yet to be discovered.
 
-![\label{Fig:sim-2-freeknot-correct} Free-knot spline estimate of $D_2$ with the 95% confidence region under the assumption of the correct, logistic density generator](../Thesis/images/rjmcmc.2.log.png){width=80%}
+\begin{figure}
+\begin{subfigure}{.5\textwidth}
+\includegraphics[]{../Thesis/images/Sim03/rjmcmc.3.norm.png}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\includegraphics[]{../Thesis/images/Sim03/rjmcmc.3.log.png}
+\end{subfigure}
+\caption{Free-knot spline estimate (in blue) of shape set $D_2$ (in grey) having gauge function in Equation \eqref{Eq:simulation-2} and 95\% credible intervals (in red) for the dataset simulated according to density $f_2$ in Equation \eqref{Eq:Simulation-2} when assuming a density generator of normal-type (left plot), $f_0 \propto e^{-r^2/2\s^2}$, and of logistic-type (right plot), $f_0 \propto e^{-r/\s}/(1 + e^{-r/\s})^2$; the true density generator is of logistic-type}
+\label{Fig:fks-plots-2}
+\end{figure}
+
+<!-- ![\label{Fig:sim-2-freeknot-mis} Free-knot spline estimate of $D_2$ with the 95% confidence region when the true density generator is logistic, but is misspecified as normal](../Thesis/images/rjmcmc.2.norm.png){width=80%} -->
+
+<!-- ![\label{Fig:sim-2-freeknot-correct} Free-knot spline estimate of $D_2$ with the 95% confidence region under the assumption of the correct, logistic density generator](../Thesis/images/rjmcmc.2.log.png){width=80%} -->
 
 
 

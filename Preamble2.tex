@@ -23,6 +23,7 @@
 \usepackage{mathrsfs} %Let's us use \mathscr{} to produce script letters
 \usepackage{graphicx} %% Allows specification of a directory
 %\graphicspath{ {"/Users/danielhadley/Documents/SUMMER 2019/Research/Hadley/R Files/Images/"} }
+\usepackage{subcaption} %% To allow for side-by-side images
 
 
 % \usepackage{xypic} %% For drawing vines
@@ -240,7 +241,7 @@
 \newcommand{\Q}{\mathbb{Q}} %% Rational numbers
 \newcommand{\Qb}{\vecl{Q}} %% Bold Q for probability transition matrix (MCMC) when creating sets of states
 \newcommand{\qb}{\vecl{q}} %% Bold Q for probability transition matrix (MCMC) when creating sets of states
-\newcommand{\QC}{\mcal{Q}}
+\newcommand{\QC}[1]{\cal Q\!_{\textit{#1}}} %% Used to denote the class of homothetic densities
 \newcommand{\R}{\mathbb{R}} %% Real numbers
 \newcommand{\Rho}{\mathrm{P}} %% Capital rho
 \newcommand{\rhobm}{\symbf{\rho}} %% Bold lowercase rho

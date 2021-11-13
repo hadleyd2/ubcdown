@@ -310,6 +310,7 @@ NOTE: Remove normal markdown chapters before rendering to PDF  -->
 \begin{singlespace}
 \bibliographystyle{chicago} 
 \bibliography{`r as.name(here::here("References", "reference_list.bib"))`}
+
 \end{singlespace}
 <div id="refs"></div>
 

@@ -10,25 +10,25 @@ The primary research objectives are to devise an estimation approach for densiti
 
 Most of the work has been completed for this primary objective and many of the results have been presented. An iterative estimation approach is devised in Section \@ref(S:estimation-dg) that shows promise. Future work for this objective includes studying the properties of the estimation procedure, applying the method to real datasets, using a nonparametric model to estimate the density generator, estimation of the center of the shape set, and generalizing the approach to higher dimensions. 
 
-We can numerically analyze the properties of the iterative approach by applying this approach to multiple random samples generated from the same underlying model. We can then estimate variability in both estimators for the shape set and density generator on each iteration with the desired result that the variability decreases with each iteration.
+We can numerically analyze the properties of the iterative approach by applying this approach to multiple random samples generated from the same underlying model. We can then estimate variability in both estimators for the shape set and density generator on each iteration with the desired result that the variability decreases with each iteration. We suspect that the rate of convergence of Kamiya's estimator is affected by the tail behavior of the density generator and that heavy-tailed data reduce the efficiency of the estimator. The standard errors of the \ac{ml} estimates for the density generator parameters should account for the uncertainty in the shape set estimator that produces the pseudo-sample from which the \ac{ml} estimates are attained.
 
 A nonparametric estimator for the density generator is possible since $f_0$ is directly related to the univariate density for the star-generalizezd radius (see Equation \eqref{Eq:scale-r}) and thus avoids the curse of dimensionality. Since we assume $f_0$ is monotonically decreasing, we are interested in nonparametric estimators of monotone functions. An extensive review and comparative study can be found at \citet{Dette2006-monotone} and \citet{Dette2006-comparative}.
 
-Estimation of the location parameter is equivalent to estimation of the center of the shape set for densities $f \in \HC{D}$. Little space in the literature has been devoted to his problem which has the potential to be a major obstacle in the estimation procedure. If we can assume the shape set is symmetric about the center with finite first moment, then the sample mean is a reasonable estimator. Since a density $f \in \HC{D}$ is unimodal, another option is to estimate the mode using a multivariate kernel estimator \citep{Kamiya2019}. A broader review of possible solution to this problem is needed.
+Estimation of the location parameter is equivalent to estimation of the center of the shape set for densities $f \in \HC{D}$. Little space in the literature has been devoted to his problem which has the potential to be a major obstacle in the estimation procedure. If we can assume the shape set is symmetric about the center with finite first moment, then the sample mean is a reasonable estimator. Since a density $f \in \HC{D}$ is unimodal, another option is to estimate the mode using a multivariate kernel estimator \citep{Kamiya2019}. In the method presented by \citet{Ferreira2005}, $\mub$ and $D$ are estimated simultaneously using \ac{rjmcmc}. A broader review of possible solutions to this problem is needed.
 
 This proposal performs shape set estimation in the bivariate setting, but a goal of our research is estimation in higher dimensions. Kamiya's estimator \citep{Kamiya2019} and free-knot splines \citet{Ferreira2005} are said to generalize to higher dimensions, but a thorough simulation study has not yet been presented in the literature.
 
-### Asymptotic Approximations for Measures of Light-Tailed Financial Risks
+### Asymptotic Approximations of Multivariate Risk Measures for Light-Tailed Risk Factors {#SSS:second-objective}
 
-Systemic risk has been used to encompass separate ideas and requires proper delineation. We define systemic risk as the vulnerability of a network or system in which adverse consequences of internal shocks can spread or even magnify within the network \mbox{\citet{Hansen2014}}. Our focus is on system risk in the financial markets, but this definition has been applied in ecology, socio-economics, hydrology, and climatology \citep{Hochrainer2020, Godden2011, Hochrainer2020a}.
+Systemic risk has been used to encompass separate ideas and requires proper delineation. We define systemic risk as the vulnerability of a network or system in which adverse consequences of internal shocks can spread or even magnify within the network \mbox{\citep{Hansen2014}}. Our focus is on systemic risk in the financial markets, but this definition has been applied in ecology, socio-economics, hydrology, and climatology \citep{Hochrainer2020, Godden2011, Hochrainer2020a}.
 
-Common examples of systems in finance include the banking system, a company, or a portfolio of assets. Each system is comprised of components, factors, or risks; the banking system consists of financial institutions, a company may have several business lines or subsidiaries, and a portfolio is comprised of investments. 
+Common examples of systems in finance include the banking system, a company, or a portfolio of assets. Each system is comprised of components or risk factors; the banking system consists of financial institutions, a company may have several business lines or subsidiaries, and a portfolio is comprised of investments. 
 
 The effects of the 2007-2008 financial crisis spread beyond the financial system to the global economy, prompting a call by governments and regulators to measure and control systemic risk in the financial industry. In the United States, this culminated in the over 2000 page Dodd-Frank Wall Street Reform and Consumer Protection Act prompting practitioners and academics to devise data collection practices and meaningful measurements of systemic risk \citep{Acharya2013}. Regulations imposed on financial institutions to prevent or soften the impact of a financial crisis as well as to understand the sources of risk that lead to a crisis motivate the need for measuring and managing systemic risk.
 
 The review by \citet{Bisias2012} presents 8 definitions of systemic risk and over 30 systemic risk measures, suggesting systemic risk is multifaceted and requires multiple measures. Three important characteristics of systemic risk are contagion, universality, and negative externality \citep{Lin2018}. This research focuses on contagion, which refers to the potential loss to the entire system when one or more components experience a large loss, the loss to one or more components when the system experiences a large loss, or the loss to one or more components when other components experience large losses.
 
-Formally, a risk measure $\vphi:[0, \nf)^n \to \R$ is a mapping from $\R^n$ to $\R$ for $n \geq 2$. Adopting the notation of \citet{Ling2019}, let $\Xb = \paren{X_1, \dots, X_p}$ and $\Yb = \paren{Y_1, \dots, Y_{p'}}$ for $p, p' \geq 1$ be two random vectors pertaining to $p$ and $p'$ components in a system. The _marginal moment excess_ is defined as \eqq{
+Formally, a multivariate risk measure is a function $\vphi:\R^n \to \R$ for $n \geq 2$. Adopting the notation of \citet{Ling2019}, let $\Xb = \paren{X_1, \dots, X_p}$ and $\Yb = \paren{Y_1, \dots, Y_{p'}}$ for $p, p' \geq 1$ be two random vectors pertaining to $p$ and $p'$ different components in a system. The _marginal moment excess_ is defined as \eqq{
   \fnc{E}{\ub, \vb; r} \coloneqq \Exp{\paren{\Yb - \vb}_{+}^{r} \mmid \Xb > \ub}, \qquad \ub \in \R^p, \ \vb \in \R^{p'}, \ r \in \set{0} \cup \N,
 } where $\N$ denotes the set of natural numbers. For $r=0$ and indicator function $\Ibb{\cdot}$, \eqq{
   \fnc{E}{\ub, \vb; 0} = \Exp{\Ibb{\Yb > \vb}\mmid \Xb > \ub}
@@ -38,15 +38,130 @@ Formally, a risk measure $\vphi:[0, \nf)^n \to \R$ is a mapping from $\R^n$ to $
 
 As shown by \citet{Ling2019}, popular risk measures such as \ac{mme}, \ac{mes}, and \ac{mctm} can be derived from $\fnc{E}{\ub, \vb; r}$ and $\fnc{S}{\ub; r}$. For example, \ac{mme} is calculated as $\fnc{E}{\ub, \vb; 1}$, \ac{mes} is equivalent to $\fnc{S}{\ub; 1}$, and \ac{mctm} is the ratio of the marginal moment excess and the conditional tail probability, \eqq{
   \Exp{\paren{\Yb - \vb}^r \mmid \paren{\Xb > \ub, \Yb > \vb}} = \dfrac{\fnc{E}{\ub, \vb; r}}{\fnc{E}{\ub, \vb; 0}}.
-} These risk measures use estimates of the conditional joint distributions of the components to estimate systemic risk, and common choices for the components of $\ub$ and $\vb$ are the marginal \ac{var}'s of the corresponding risks.
+} These risk measures use estimates of the conditional joint distributions of the components to estimate systemic risk, and common choices for the components of $\ub$ and $\vb$ are large quantiles of the corresponding risk factors' marginal distribution.
 
-Empirical estimators for risk measures are only appropriate in the region where data exist. For example, the empirical distribution for a dataset with $n$ observations can estimate up to probability \mbox{level $p = n/(n+1)$}. Entities like banking regulators and insurance companies are often interested in estimating risk by stressing risk factors to their \ac{var} at probability $p$ as $p\uparrow1$, requiring extrapolation beyond the available data. Asymptotic approximations and bounds for risk measures allow for the estimation of risk at any probability level with little computational effort.
+Empirical estimators for risk measures are only appropriate in the region where data exist. For example, the empirical distribution for a dataset with $n$ observations can estimate up to the $n/(n+1)$ quantile. In the financial risk literature, the quantile function is synonymous with \ac{var} and is defined for some univariate risk $X$ as \eqq{
+  \VaR{p_{\ell}}{X} \coloneqq \inf\set{x \in \R : \prob{X > x} \leq 1-p_{\ell}} = \inf{\set{x\in\R : \prob{X \leq x} \geq p_{\ell}}},
+} where $p_{\ell} \in (0, 1)$ is called the probability level. Entities like banks and insurance companies are often interested in estimating risk by stressing risk factors to $\VaR{p_{\ell}}{X}$ as $p_{\ell}\uparrow1$, requiring extrapolation beyond the available data. Asymptotic approximations and bounds for risk measures allow for the estimation of risk at $p_{\ell}$ large with little computational effort.
 
-The study of the asymptotic behavior of risk in the financial system is a relatively new field with most relevant literature appearing after the 2007-2008 financial crisis. Even so, results for light-tailed risks are sparse. \citet{Hashorva2018} derives asymptotic approximations for both \ac{mme} and \ac{mes} under the assumption that risks are multivariate Gaussian and highlights the importance of the quadratic programming problem in determing asymptotic behavior. These results are extended by \citet{Ling2019} to the more general marginal moment excess and marginal moment shortfall. The goal of this research objective is to extend these results to multivariate risks following a density $f \in \HC{D}$ assuming a light-tailed density generator. 
+The study of the asymptotic behavior of multivariate risk measures is a relatively new field with most of the literature appearing after the 2007-2008 financial crisis. In the bivariate setting with random \mbox{vector $(X,Y) \sim F$} and \mbox{marginals $X\sim F_X$} \mbox{and $Y\sim F_Y$}, we \mbox{treat $X$} as the conditioning variable for consistency with \citet{Ling2019}. For the bivariate case, \citet{Cai2015} devises an estimator of \ac{mes} that is asymptotically normal for a large class of bivariate distributions under the assumptions that the limit \eqq{
+  \limnf{t}t\prob{1 - F_X(x) \leq \frac{x}{t}, 1 - F_Y(y) \leq \frac{y}{t}}
+} exists (determining the stable tail dependence function), $1 - F_Y(y)$ is regularly varying, and $F_X(x)$ is continuous.  However, the asymptotic result degenerates to $0$ in the case of asymptotic independence motivating the recent paper \mbox{\citet{Cai2020}} to handle this scenario.
 
-### Estimation of Risk Regions
+Both \ac{mme} and \ac{mes} in the bivariate setting are analyzed under the assumption of marginal regular variation and asymptotic independence in the upper tails in \citet{Das2018}, who found that both measures converge to $\nf$ under general conditions which reflects that the underlying weak dependence in the model is still significant. These results are extended in \citet{Das2019} under the assumption of multivariate regular variation without the specific requirement on asymptotic independence or hidden regular variation.
 
-The third primary objective is the estimation of high-risk regions for light-tailed random vectors with \mbox{\ac{pdf} $f\in\HC{D}$}. After estimation of $f$, the challenge of risk region estimation is to determine the quantile of the star-generalized radius distribution at probability level $p$. As we let $p\to1$ beyond the available data, such as when $p > n/(n+1)$ for some dataset of size $n$, this becomes a univariate extreme value problem. The estimator of \citet{Asimit2010} provides a reasonable starting point for this research.
+While it is common to assume that financial risk factors are heavy-tailed and can be modelled assuming multviariate regular variation, there is empirical evidence that some time series are light-tailed \citep{Levy2004} with exponential-like tail decay. The literature on the asymptotic behavior of multivariate risk measures for light-tailed risk factors is sparse. \citet{Hashorva2018} derives asymptotic approximations for both \ac{mme} and \ac{mes} under the assumption that risk factors are multivariate Gaussian and highlights the importance of the quadratic programming problem in determing asymptotic behavior. These results are extended by \citet{Ling2019} to the more general marginal moment excess and marginal moment shortfall. The goal of this research objective is to extend these results further to multivariate risk factors following a \mbox{density $f \in \HC{D}$} with a light-tailed density generator. 
+
+### Estimation of Extreme Risk Regions {#SSS:third-objective}
+
+Analysis of univariate samples often uses quantiles to detect extreme observations and analyze their \mbox{behavior \citep{deHaan2006}}. For example, if $X\sim F$ is a random variable, we may be interested in a *risk region*, \eqq{
+  Q_{p_{\ell}} = \set{x : \fnc{F}{x} \leq p_{\ell} \ \text{or} \ \fnc{F}{x} \geq 1-p_{\ell}}
+} for small $p_{\ell} > 0$. Similar to the definition of density level sets in Section \@ref(definitions), defining a risk region by the \ac{pdf} is sometimes more convenient, \eqq{
+  Q_{p_{\ell}} \coloneqq \set{ x \in \R \cond \fnc{f}{x} < c_{p_{\ell}} },
+} where $c_{p_{\ell}} \in \R$ is chosen such \mbox{that $\prob{X \in Q_{p_{\ell}}} = p_{\ell}$}.
+
+<!-- In the univariate setting, risk regions for a unimodal symmetric distribution defined by the \ac{cdf} and a multi-modal distribution defined by the \ac{pdf} are shown in Figure \ref{Fig:riskregions} plots (a) and (b), respectively. -->
+
+```{r risk-regions, messages=FALSE, fig.width=8, fig.height=3.5, eval=FALSE, fig.cap="\\label{Fig:riskregions} Risk regions for unimodal and multimodal univariate densities are (a) highlights the risk region, $Q_{0.02}$ defined by the \\ac{cdf}; (b) highlights the risk region, $Q_{0.02}$, defined by the \\ac{pdf} with $c_{p_{\\ell}}$ = 0.021$"}
+#### Create plots for Introduction ####
+## Plots of a unimodal symmetric density with risk regions highlighted
+## and a multimodal density with risk regions highlighted
+par(mfrow=c(1, 2))
+x <- seq(-3.5, 3.5, len=2500); y <- dnorm(x, mean=0, sd=1)
+
+## Define risk region
+p <- 0.02
+set.seed(100)
+q1 <- qnorm(1-p, mean=0, sd=1); q2 <- qnorm(p, mean=0, sd=1)
+
+## Plot risk region
+plot(x, y, type='l',
+     ylab=expression(f(x)), xlab='x', 
+     main="(a) Standard Normal")
+x.reg1 <- c(x[x >= q1], rev(x[x >= q1]))
+x.reg2 <- c(x[x <= q2], rev(x[x <= q2]))
+y.reg1 <- c(y[x >= q1], rep(0, length(x[x >= q1])))
+y.reg2 <- c(y[x <= q2], rep(0, length(x[x <= q2])))
+polygon(x.reg1, y.reg1, col='gray80')
+polygon(x.reg2, y.reg2, col='gray80')
+
+## Multi-modal model
+mu1 <- 0; sig1 <- 7/8; mu2 <- 4.5; sig2 <- 1/2
+mm.dens <- function(x, mu1, mu2, sig1, sig2) {
+  t.1 <- (1/sig1)*exp(-(x - mu1)^2/2/sig1^2)
+  t.2 <- (1/sig2)*exp(-(x - mu2)^2/2/sig2^2)
+  return(1/(2*sqrt(2*pi)) * (t.1 + t.2))
+}
+
+x <- seq(-3, 6.5, len=5000); y <- mm.dens(x=x, mu1=mu1, mu2=mu2, sig1=sig1, sig2=sig2)
+
+## Define risk region of multi-modal model
+p <- 0.02; idx <- which(y <= p); sep <- which(diff(idx) != 1)
+
+x.reg1 <- c(x[idx[1:sep[1]]], rev(x[idx[1:sep[1]]]))
+x.reg2 <- c(x[idx[(sep[1]+1):sep[2]]], rev(x[idx[(sep[1]+1):sep[2]]]))
+x.reg3 <- c(x[idx[(sep[2]+1):length(idx)]], rev(x[idx[(sep[2]+1):length(idx)]]))
+y.reg1 <- c(y[1:sep[1]], rep(0, sep[1]))
+y.reg2 <- c(y[idx[(sep[1]+1):sep[2]]], rep(0, idx[sep[2]]+1 - idx[sep[1]+1]))
+y.reg3 <- c(y[idx[(sep[2]+1):length(idx)]], rep(0, max(idx)+1-idx[sep[2]+1]))
+
+## Plot
+plot(x, y, type='l',
+     ylab=expression(f(x)), xlab='x', 
+     main='(b) Gaussian Mixture')
+polygon(x.reg1, y.reg1, col='gray80')
+polygon(x.reg2, y.reg2, col='gray80')
+polygon(x.reg3, y.reg3, col='gray80')
+par(mfrow=c(1,1))
+
+## Find roots when c.p = 0.02
+test <- function(x, c.p=0.02) { mm.dens(x, 0, 4.5, 7/8, 1/2) - c.p}
+rt <- c(uniroot(test, c(-2, -1))$root, uniroot(test, c(1.5, 2))$root,
+        uniroot(test, c(2.5, 4))$root, uniroot(test, c(5, 6))$root)
+
+## Numerically integrate to find probability level p when c.p=0.02
+x <- seq(-3, rt[1], len=2500)
+dx <- mean(diff(x))
+x.bar <- (x[-length(x)] + x[-1])/2
+S1 <- 0
+for (i in x.bar) {
+  S1 <- S1 + mm.dens(i, mu1, mu2, sig1, sig2)*dx
+}
+
+x <- seq(rt[2], rt[3], len=2500)
+dx <- mean(diff(x))
+x.bar <- (x[-length(x)] + x[-1])/2
+S2 <- 0
+for (i in x.bar) {
+  S2 <- S2 + mm.dens(i, mu1, mu2, sig1, sig2)*dx
+}
+
+x <- seq(rt[4], 7, len=2500)
+dx <- mean(diff(x))
+x.bar <- (x[-length(x)] + x[-1])/2
+S3 <- 0
+for (i in x.bar) {
+  S3 <- S3 + mm.dens(i, mu1, mu2, sig1, sig2)*dx
+}
+
+p <- sum(S1, S2, S3, x, dx, x.bar, i, rt, x.reg1, x.reg2, x.reg3, y.reg1, y.reg2, y.reg3)
+```
+
+In the multivariate setting, however, there is a choice in the ordering of vectors giving rise to different definitions of quantiles. By defining risk regions by the joint \ac{pdf}, we can avoid these complications in the multivariate setting. Assuming the data can be described by a continuous multivariate \ac{pdf} $f$, we define multivariate risk regions as \eqq{
+  Q_{p_{\ell}} \coloneqq \set{\xb \in \R^p \ | \ \fnc{f}{\xb} < c_{p_{\ell}}},
+} where $c_{p_{\ell}}$ is chosen such \mbox{that $\prob{\Xb \in Q_{p_{\ell}}} = p_{\ell}$}. As $p_{\ell} \downarrow 0$, we refer to the quantile region as an extreme risk region.
+
+The goal of this research objective is to estimate extreme risk regions assuming random vector $\Xb$ has \ac{pdf} $f \in \HC{D}$ on $\R^p$ with a light-tailed density generator. Estimating multivariate risk regions can be difficult since $p_{\ell}$ might be so small that there are no data in $Q_{p_{\ell}}$, and $Q_{p_{\ell}}$ is a set instead of a real number as in the univariate setting. However, estimating multivariate extreme risk regions is important in applications such as financial risk management \citep{McNeil2015, Cai2015} and thus motivates the development of estimation approaches. Under the assumption of multivariate regular variation, \citep{Cai2011} proposes an estimator for $Q_{p_{\ell}}$ that shows good performance through a simulation study, but is not applicable when \ac{pdf} $f$ has light tails.
+
+To estimate extreme risk regions when the density generator is light-tailed, we first note that defining multivariate risk regions by the density is especially convenient \mbox{when $f \in \HC{D}$} since each risk region is the complement of a corresponding density level set. Given the desired probability \mbox{level $p_{\ell}$}, \eqq{
+  \prob{\Xb \in Q_{p_{\ell}}} = \prob{\Xb \in \set{f > c_{p_{\ell}}}^c} = \prob{\Xb \in \set{s_{c_{p_{\ell}}}D}^c} = p_{\ell},
+} where $c_{p_{\ell}}$ and $s_{c_{p_{\ell}}}$ are chosen so that the above probabilities are $p_{\ell}$. The probability that $\Xb$ lies outside of a density level set is related to the star-generalized radius variable. By applying the gauge function transformation, \eqq{
+  \prob{\Xb \in \set{s_{c_{p_{\ell}}}D}^c} = \prob{R > s_{c_{p_{\ell}}}},
+} and the problem of estimating a multivariate region reduces to the problem of estimating a univariate quantile.
+
+We propose an approach to estimating $Q_{p_{\ell}}$ for small $p_{\ell} > 0$ that first uses the iterative approach of Section \@ref(S:estimation-dg) to estimate $f\in \HC{D}$ assuming a Weibull-type density generator. Then, the estimated density for the star-generalized radius variable is given in Equation \eqref{Eq:weibull-star}. Estimation of extreme risk regions beyond available data becomes a univariate problem that can be addressed using methods from extreme value theory on the estimated distribution of the star-generalized radius variable.
+
+<!-- After estimation of $f$, the challenge of risk region estimation is to determine the quantile of the star-generalized radius distribution at probability level $p$. As we let $p\to1$ beyond the available data, such as when $p > n/(n+1)$ for some dataset of size $n$, this becomes a univariate extreme value problem. The estimator of \citet{Asimit2010} provides a reasonable starting point for this research. -->
 
 ## Secondary Objectives
 
@@ -78,6 +193,8 @@ Other changes to investigate the improvement of the \ac{rjmcmc} algorithm for fr
 Trochoids are in the domain of glissettes and roulettes, which generalize curves beyond epitrochoids and hypotrochoids. Rigorous studies of such curves are given in \citet{Putnam2012, Yates1947}. The generalization relaxes the constraint that the fixed and/or rolling objects are circles. For example, one may trace a point on an ellipse as one ellipse rolls around the inside of some fixed ellipse. However, the resulting curves may not have parametric equations with only a few, interpretable inputs.
   
 While it is relatively simple to rotate a trochoid to create a surface, I have yet to find a construction of surfaces similar to the construction of trochoids. Thus, trochoidal distributions may not generalize to higher dimensions.
+
+The class of densities with homothetic level sets is invariant under linear transformations. Thus, we should be able to incorporate stretching parameters. It should be noted that the stretching parameters are not applicable to the trochoidal distribution family $q_h = 2$, since stretching an ellipse leads to another ellipse. The stretching parameters, $\s_1, \s_2 > 0$, lead to a total of 4 parameters for each family with $q_h = 2$ being the exception.
   
   <!-- - Estimation of the trochoid using the EM-Algorithm: The difficulty in finding an EM-Algorithm for trochoidal distributions is in the mapping of parametric equation argument $t$ and the resulting point's polar angle, $\t$. I believe this would be necessary to calculate the partial derivatives with respect to the shape set's parameters. There may be other representations of trochoids that are more convenient and a thorough review of the relevant literature is required. -->
 

@@ -18,20 +18,20 @@ Each approach is adopted to estimate the shape set from datasets simulated from 
   f_1(\xb) = \begin{cases} \frac{1}{2 + \pi}\expo{-\frac{1}{2}\paren{\abs{x_1} + \abs{x_2}}^2}, & \text{if $x_2 \geq 0$}; \\
       \frac{1}{2 + \pi}\expo{-\frac{1}{2}\paren{x_1^2 + x_2^2}}, & \text{otherwise,}
       \end{cases}
-} having gauge function and normal density generator, respectively, \eeq[simulation-1]{
+} having gauge function and normal-type density generator, respectively, \eeq[simulation-1]{
   \fncD[D_1]{n}{\xb} = \begin{cases} \abs{x_1} + \abs{x_2} & \text{for $x_2 > 0$}, \\
                                \sqrt{x_1^2 + x_2^2} & \text{for $x_2 \leq 0$}
                  \end{cases} \qquad \text{and} \qquad 
-  \fnc{f_{01}}{r} = \frac{1}{2\abs{D_1}}\expo{-\frac{r^2}{2}}.
-}
+  \fnc{f_{01}}{r} = \frac{1}{2\abs{D_1}}\expo{-\frac{r^2}{2}},
+} where $\abs{D_1} = (2+\pi)/2$.
 
-The second dataset is simulated from a distribution with density \eqq{
-  f_2(\xb; k) = \frac{1}{2\abs{D_2}\sqrt{x_1^2 + x_2^2}\paren{1 + k\frac{x_2^2}{x_1^2 + x_2^2}}}\expo{-\sqrt{x_1^2 + x_2^2}\paren{1 + k\frac{x_2^2}{x_1^2 + x_2^2}}},
-} where $k > -1$ is a parameter for the shape set \citep{Liebscher2016}. The corresponding gauge function and logistic density generator are, respectively, \eeq[simulation-2]{
-  \fncD[D_2]{n}{\xb} = \sqrt{x_1^2 + x_2^2}\paren{1 + k\frac{x_2^2}{x_1^2 + x_2^2}},
+The second dataset is simulated from a distribution with density \eeq[Simulation-2]{
+  f_2(\xb; k) = \dfrac{\expo{-\frac{\sqrt{x_1^2 + x_2^2} + \b\frac{x_2^2}{\sqrt{x_1^2 + x_2^2}}}{\s}}}{\s^2\abs{D_2}\fnc{\log}{4}\paren{1 + \expo{-\frac{\sqrt{x_1^2 + x_2^2} + \b\frac{x_2^2}{\sqrt{x_1^2 + x_2^2}}}{\s}}}^2},
+} where $\b = 4$ is the parameter for the sine-squared star body \citep{Liebscher2016} and $\s=1$ is the scaling parameter. The corresponding gauge function and logistic-type density generator are, respectively, \eeq[simulation-2]{
+  \fncD[D_2]{n}{\xb} = \sqrt{x_1^2 + x_2^2}\paren{1 + \b\frac{x_2^2}{x_1^2 + x_2^2}},
   \qquad \text{and} \qquad
-  \fnc{f_{02}}{r} = \frac{1}{2\abs{D_2}r}e^{-r}.
-}
+  \fnc{f_{02}}{r} = \frac{e^{-r/\s}}{\s^2\abs{D_2}\fnc{\log}{4}\paren{1 + e^{-r/\s}}^2},
+} where $\abs{D_2} = \pi(2 + \b)/(2(1 + \b)^{3/2})$.
 
 <!-- Finally, by assuming $\fncD{r}{\cdot}$ traces a curtate trochoid, we introduce the parametric trochoidal distribution families as candidate models for bivariate data in Section \@ref(SS:trochoidal-dist) and estimate the distribution and perform model selection using \ac{ml} estimation. -->
 
