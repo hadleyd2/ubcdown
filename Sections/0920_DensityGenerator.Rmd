@@ -1,6 +1,6 @@
 
 
-We assume that the density generator is a positive, continuous, and strictly decreasing function with \mbox{domain $(0, \nf)$}. This implies that for $f \in \HC{D}$, the corresponding \mbox{density $\fnc{f}{\xb} = \fnc{f_0}{\fnc{n_D}{\xb - \mub}}$} is unimodal with mode $\mub$. We now consider conditions on the density generator that ensure $\fnc{f_0}{\fnc{n_D}{\xb - \mub}; \gbm}$ is a proper \ac{pdf} in $\R^p$.
+We assume that the density generator is a positive, continuous, and strictly decreasing function \mbox{on $[0, \nf)$}. This implies that \mbox{for $f \in \HC{D}$}, the corresponding \mbox{density $\fnc{f}{\xb} = \fnc{f_0}{\fnc{n_D}{\xb - \mub}}$} is unimodal with mode $\mub$. We now consider conditions on the density generator that \mbox{ensure $\fnc{f_0}{\fnc{n_D}{\xb - \mub}; \gbm}$} is a proper \ac{pdf} \mbox{on $\R^p$}.
 
 The density generator takes the star-generalized radius variable as its argument. The probability that random vector $\Xb \in \R^p$ with density $f \in \HC{D}$ is in the set $s_cD$ can be calculated as \eqq{
   \prob{\Xb \in s_cD} = \int_{s_cD}f(\xb)d\xb 
@@ -14,7 +14,7 @@ Using integration by parts and $\abs{s_cD} = \paren{s_c}^p\abs{D}$, the probabil
   1 = \prob{\Xb \in \R^p} = \lim_{s_c\to \nf}\prob{\paren{\Xb - \mub} \in s_cD} = \lim_{s_c\to \nf}p\abs{D}\int_{0}^{s_c}r^{p-1}f_0(r)dr = p\abs{D}\int_{0}^{\nf}r^{p-1}f_0(r)dr.
 } As a result, for a given shape set $D$, the density generator must satisfy the following condition \eeq[normalizing-constant]{
   p\abs{D}\int_{0}^{\nf}r^{p-1}f_0(r)dr = 1.
-} This is equivalent to the condition in \citet[Equation (5)]{Fernandez1995} for the $\nu$-spherical distributions.
+} This is equivalent to Equation (5) in \citet{Fernandez1995} for the $\nu$-spherical distributions.
 
 <!-- We illustrate this condition on the density generator $f_0$ for the bivariate normal \ac{pdf} in Appendix \@ref(App:normal-constant). -->
 
