@@ -1,6 +1,6 @@
 
 
-The stochastic representation of \citet[Proposition 1]{Hou2017} is \eeq[Hou]{
+The stochastic representation from Proposition 1 in \citet{Hou2017} is \eeq[Hou]{
   \Xb = \mub + S\Ub,
 } where $\Ub$ is simulated uniformly over $D$ and scaling variable $S$ is independent of $\Ub$ with density \eeq[scale-s]{
   \fnc{f_S}{s} = s^p\abs{D}\abs{\fnc{f_0^{'}}{s}}.
@@ -8,15 +8,15 @@ The stochastic representation of \citet[Proposition 1]{Hou2017} is \eeq[Hou]{
 
 <!-- A proof of this representation using the density $f_S$ is provided in Appendix \@ref(sim-shape-set). -->
 
-In the bivariate setting, we can simulate from $f \in \HC{D}$ using the simulation over the shape set by following Algorithm \ref{Alg:sim-shapeset}. The efficiency of this algorithm is affected by the ratio of the area of the shape set to the area of the unit circle.
+In the bivariate setting, we can simulate from $f \in \HC{D}$ using the simulation over the shape set by following Algorithm \ref{Alg:sim-shapeset}. The efficiency of this algorithm is affected by the ratio of the area of the shape set to the area of the smallest circle that covers the shape set. 
 
 \begin{algorithm}[H] \label{Alg:sim-shapeset}
   \SetAlgoLined
   \LinesNumbered
   \KwResult{Sample of $n$ independent and identically distributed random vectors from density $f \in \HC{D}$ on $\R^2$}
-  Find the maximum distance from $\mub$ to $\pd D$, $\rho^{(\text{mx})} = \maxa[\t \in \S^1]{\fncD{r}{\t}}$, with $r\!_D$ in Equation \eqref{Eq:D-boundary}\;
+  Find the maximum distance from $\mub$ to $\pd D$, $\rho^{(\text{mx})} = \maxa[\t \in [0, 2\pi)]{\fncD{r}{\t}}$, with $r\!_D$ in Equation \eqref{Eq:D-boundary}\;
   $i = 1$\;
-  \For{$i = 1, \dots, n$}{
+  \While{$i \leq n$}{
     Simulate $\t$ uniformly from $[0, 2\pi)$ and $\rho$ uniformly from $\brac{0, \rho^{(\text{mx})}}$\;
     \If{$\sqrt{\rho} < \fncD{r}{\t}$}{
       $\ub_i = \paren{\sqrt{\rho}\fnc{\cos}{\t}, \sqrt{\rho}\fnc{\sin}{\t}}$\;
