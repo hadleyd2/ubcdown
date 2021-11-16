@@ -144,9 +144,9 @@ se.1v2 <- list('scale.se'=sqrt(diag(solve(fullmle.1v2$hessian))[1]),
 # }
 ```
 
-Using the simulated dataset from Section \@ref(S:shape-set) with density given by Equation \eqref{Eq:Simulation-1}, we apply the iterative method outlined above to estimate $f$. Assuming a Weibull-type density generator, the true parameters are $\s_0 = \sqrt{2}$ and $\xi_0 = 2$. Results for each step are given in Figure \ref{Fig:iterative-1}. Plot (a) shows the shape set \mbox{estimate $\est{D}^{(1)}$} against the true shape set. Plot (b) presents a QQ-plot of the star-generalized radius variables for the estimated Weibull-type density generator with estimated scale \mbox{parameter, $\est{\s}^{(1)} = `r round(mle.1$scale, 2)`$}, with standard \mbox{error $\fnc{\text{SE}}{\est{\s}^{(1)}} = `r round(se.1$scale.se, 2)`$} and estimated shape \mbox{parameter, $\est{\xi}^{(1)} = `r round(mle.1$shape, 2)`$}, with standard \mbox{error $\fnc{\text{SE}}{\est{\xi}^{(1)}} = `r round(se.1$shape.se, 2)`$} against the true star-generalized radii. Plot (c) presents the updated shape set \mbox{estimate $\est{D}^{(2)}$} from the free-knot spline estimator. Plot (d) is analogous to Plot (b), but uses the estimated scale \mbox{parameter, $\est{\s}^{(2)} = `r round(mle.1v2$scale, 2)`$}, with standard \mbox{error $\fnc{\text{SE}}{\est{\s}^{(1)}} = `r round(se.1v2$scale.se, 2)`$} and estimated shape \mbox{parameter, $\est{\xi}^{(2)} = `r round(mle.1v2$shape, 2)`$}, with standard \mbox{error $\fnc{\text{SE}}{\est{\xi}^{(1)}} = `r round(se.1v2$shape.se, 2)`$}. These preliminary results are promising in that the shape set estimates and the density generator parameter estimates better fit the data in the subsequent iteration.
+Using the simulated dataset from Section \@ref(S:shape-set) with density given by Equation \eqref{Eq:Simulation-1}, we apply the iterative method outlined above to estimate $f$. Assuming a Weibull-type density generator, the true parameters are $\s_0 = \sqrt{2}$ and $\xi_0 = 2$. Results for each step are given in Figure \ref{Fig:iterative-1}. Plot (a) shows the shape set \mbox{estimate $\est{D}^{(1)}$} against the true shape set. Plot (b) presents a QQ-plot of the star-generalized radius variables for the estimated Weibull-type density generator with estimated scale \mbox{parameter, $\est{\s}^{(1)} = `r round(mle.1$scale, 2)`$}, with standard \mbox{error $\fnc{\text{SE}}{\est{\s}^{(1)}} = `r round(se.1$scale.se, 2)`$} and estimated shape \mbox{parameter, $\est{\xi}^{(1)} = `r round(mle.1$shape, 2)`$}, with standard \mbox{error $\fnc{\text{SE}}{\est{\xi}^{(1)}} = `r round(se.1$shape.se, 2)`$} against the true star-generalized radii. Plot (c) presents the updated shape set \mbox{estimate $\est{D}^{(2)}$} from the free-knot spline estimator. Plot (d) is analogous to Plot (b), but uses the estimated scale \mbox{parameter, $\est{\s}^{(2)} = `r round(mle.1v2$scale, 2)`$}, with standard \mbox{error $\fnc{\text{SE}}{\est{\s}^{(2)}} = `r round(se.1v2$scale.se, 2)`$} and estimated shape \mbox{parameter, $\est{\xi}^{(2)} = `r round(mle.1v2$shape, 2)`$}, with standard \mbox{error $\fnc{\text{SE}}{\est{\xi}^{(2)}} = `r round(se.1v2$shape.se, 2)`$}. These preliminary results are promising in that the shape set estimates and the density generator parameter estimates better fit the data in the subsequent iteration.
 
-```{r plots-sim-1, fig.height=7, fig.width=8, fig.cap="\\label{Fig:iterative-1}Iterative approach to estimating the density in Equation \\ref{Eq:Simulation-1} from data simulated from the density: Plot (a) presents the shape set estimate $\\est{D}^{(1)}$; Plot (b) presents a QQ-plot of the estimated star-generalized radius density with parameter estimates $\\paren{\\est{\\s}^{(1)}, \\est{\\xi}^{(1)}}$; Plot (c) presents the shape set estimate $\\est{D}^{(2)}$; Plot (d) presents the QQ-plot of the estimated star-generalized radius density with parameter estimates $\\paren{\\est{\\s}^{(2)}, \\est{\\xi}^{(2)}}$.", cache=TRUE, echo=FALSE}
+```{r plots-sim-1, fig.height=6.5, fig.width=8, fig.cap="\\label{Fig:iterative-1}Iterative approach to estimating the density in Equation \\ref{Eq:Simulation-1} from data simulated from the density: Plot (a) presents the shape set estimate $\\est{D}^{(1)}$; Plot (b) presents a QQ-plot of the estimated star-generalized radius density with parameter estimates $\\paren{\\est{\\s}^{(1)}, \\est{\\xi}^{(1)}}$; Plot (c) presents the shape set estimate $\\est{D}^{(2)}$; Plot (d) presents the QQ-plot of the estimated star-generalized radius density with parameter estimates $\\paren{\\est{\\s}^{(2)}, \\est{\\xi}^{(2)}}$.", cache=TRUE, echo=FALSE}
 bdry.1 <- readRDS(gsub("ubcdown", "", here::here("Thesis", "data", "Sim01", "bdry.1.RDS")))
 par(mfrow=c(2,2))
 ## Kamiya's Shape Set Estimate
@@ -276,11 +276,28 @@ if (all(abs(fullmle.3v2$gradient) < 1e-2)) {
 }
 se.3v2 <- list('scale.se'=sqrt(diag(solve(fullmle.3v2$hessian))[1]), 
              'shape.se'=sqrt(diag(solve(fullmle.3v2$hessian))[2]))
+
+## Free-Knot Spline estimate second time
+fks.3v2 <- readRDS(gsub("ubcdown", "", here::here("Thesis", "data", "Sim03", "rjmcmc.sim3.wbl.v2.RDS")))
+## Re-estimate star-generalized radii
+rstar.3v3 <- (fks.3v2$r.obs/fks.3v2$Dhat.obs)
+## Re-run ML with Weibull-type Generator using updated star-generalized radii
+xi.tmp <- uniroot(fnd.shape, interval=c(0.1, 3), sigma=sd(rstar.3v3), mu=mean(rstar.3v3))$root
+strt.3 <- list('scale'=(mean(rstar.3v3)/gamma(1 + 1/xi.tmp))^xi.tmp, 'shape'=xi.tmp)
+# rm(xi.tmp)
+fullmle.3v3 <- nlm(nllk.wbl.r, p=c(strt.3$scale, strt.3$shape), r=rstar.3v3, hessian=TRUE)
+if (all(abs(fullmle.3v3$gradient) < 1e-2)) {
+  mle.3v3 <- list('scale'=fullmle.3v3$estimate[1], 'shape'=fullmle.3v3$estimate[2])
+} else {
+  mle.3v3 <- strt.3
+}
+se.3v3 <- list('scale.se'=sqrt(diag(solve(fullmle.3v3$hessian))[1]), 
+             'shape.se'=sqrt(diag(solve(fullmle.3v3$hessian))[2]))
 ```
 
 ```{r plots-sim-3, eval=FALSE, fig.height=7, fig.width=8, fig.cap="\\label{Fig:iterative-2}Iterative approach to estimating the density in Equation \\ref{Eq:Simulation-2} from data simulated from the density: Plot (a) presents the shape set estimate $\\est{D}_2^{(1)}$; Plot (b) presents a QQ-plot of the estimated star-generalized radius density with parameter estimates $\\paren{\\est{\\s}^{(1)}, \\est{\\xi}^{(1)}}$; Plot (c) presents the shape set estimate $\\est{D}_2^{(2)}$; Plot (d) presents the QQ-plot of the estimated star-generalized radius density with parameter estimates $\\paren{\\est{\\s}^{(2)}, \\est{\\xi}^{(2)}}$.", cache=TRUE, echo=FALSE}
 bdry.3 <- readRDS(gsub("ubcdown", "", here::here("Thesis", "data", "Sim03", "bdry.3.RDS")))
-par(mfrow=c(2,2))
+par(mfrow=c(3,2))
 ## Kamiya's Shape Set Estimate
 plot(bdry.3$x1, bdry.3$x2, type='l', main=quote("Kamiya's Estimate" ~ widehat("D")["2"]^"(1)"), sub="(a)",
      xlim=c(-1.1, 1.1), ylim=c(-1.1, 1.1), xlab=expression(x[1]), ylab=expression(x[2]),
@@ -321,6 +338,27 @@ plot(est.q, true.q, xlab="Weibull-Type: Iteration 2", ylab="True",
      col=scales::alpha("darkgrey", 0.75), xlim=p.lims, ylim=p.lims)
 abline(a=0, b=1)
 legend('topleft', legend=c(paste0('scale = ', round(mle.3v2$scale, 2)), paste0('shape = ', round(mle.3v2$shape, 2))),
+       bty="n", horiz=TRUE, cex=0.75)
+
+## Second Free-Knot Spline using Weibull MLE
+plot(bdry.3$x1, bdry.3$x2, type='l', main=quote("Free-Knot Spline Estimate" ~ widehat("D")["2"]^"(3)"), sub="(c)",
+     xlim=c(-1.1, 1.1), ylim=c(-1.1, 1.1), xlab=expression(x[1]), ylab=expression(x[2]),
+     lty=1, col=scales::alpha("black", 0.75))
+lines(fks.3v2$Dhat.grid*cos(fks.3v2$theta.grid), fks.3v2$Dhat.grid*sin(fks.3v2$theta.grid), lty=2,
+      col="red")
+legend('topright', legend=c("True", "Estimate"), bty="n", cex=0.75,
+       lty=c(1, 2), col=c(scales::alpha("black", 0.75), "red"))
+
+## 2nd QQ-Plot of Star-Generalized Radius - Free-Knot Spline ML Estimate vs. True
+p <- seq_along(rstar.3v3)/(length(rstar.3v3) + 1)
+est.q <- qwbl.r(p=p, sigma=mle.3v3$scale, xi=mle.3v3$shape)
+true.q <- sort(sim.3$stargen)
+p.lims <- c(0, max(est.q, true.q))
+plot(est.q, true.q, xlab="Weibull-Type: Iteration 3", ylab="True",
+     main=quote("QQ Plot for" ~ widehat("r")["i"]^"(3)"), sub="(d)", cex=0.6,
+     col=scales::alpha("darkgrey", 0.75), xlim=p.lims, ylim=p.lims)
+abline(a=0, b=1)
+legend('topleft', legend=c(paste0('scale = ', round(mle.3v3$scale, 2)), paste0('shape = ', round(mle.3v3$shape, 2))),
        bty="n", horiz=TRUE, cex=0.75)
 ```
 
