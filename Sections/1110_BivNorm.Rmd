@@ -10,7 +10,7 @@ To compare performance of the trochoidal distributions to the bivariate normal, 
   \fnc{f_0}{r; \s^2} = \frac{1}{2\abs{D}\s^2}\expo{-\frac{r^2}{2\s^2}},
 } with unknown scale parameter $\s > 0$ and unknown shape set $D$. The resulting log-likelihood function is \eqq{
   \fnc{\ell_0}{\tbm_{D}, \s^2; \xb_1, \dots, \xb_n, q} = -n\fnc{\log}{2\abs{D}\s^2} - \frac{1}{2\s^2}\sumto{i=1}{n}\paren{r_i}^2,
-} where $\tbm_{D} = \paren{k, \a}$ is the parameter vector associated with shape set $D$ whose boundary is a trochoid curve indexed by $q$, and the $r_i$'s are the star-generalized radii. Each trochoidal family has the same parameters as the bivariate normal, so model selection chooses the family with the minimum negative log-likelihood.
+} where $\tbm_{D} = \paren{k, \a}$ is the parameter vector associated with shape set $D$ whose boundary is a trochoid curve indexed by $q$, and the $r_i$'s are the star-generalized radii. Each trochoidal family has the same number of parameters as the bivariate normal, so model selection chooses the family with the minimum negative log-likelihood.
 
 ```{r sim-bivnorm, cache=TRUE, echo=FALSE}
 source(file=gsub("ubcdown", "", here::here("Thesis", "Trochoidal", "Hypotrochoid-Fncs.R")))
