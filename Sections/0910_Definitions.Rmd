@@ -46,7 +46,7 @@ Let $\cal D\!_{\textit{p}}$ denote the class of all bounded open star-shaped set
 
 For a density function $f \in \HC{D}$, any density level set is a scaled copy of shape set $D$, and density level sets are defined as \eqq{
   \set{f > c} \coloneqq s_cD, \qquad 0 < c < c_0 \coloneqq \sup\!f, \ f \in \HC{D},
-} for constant $s_c > 0$ corresponding to the choice of level $c$. We can find $c$ such that $\set{f > c}$ corresponds to probability level $p \in (0, 1)$ by finding the value of $s_c$ for which $\int_{s_cD}\fnc{f}{\xb}d\xb = p$. The boundary of a level set is defined as \eqq{
+} for constant $s_c > 0$ corresponding to the choice of level $c$. We can find $c$ such that $\set{f > c}$ corresponds to probability level $\a \in (0, 1)$ by finding the value of $s_c$ for which $\int_{s_cD}\fnc{f}{\xb}d\xb = \a$. The boundary of a level set is defined as \eqq{
   \bdry{\set{f > c}} \coloneqq \set{\xb \in \R^p : \fnc{f}{\xb} = c},
 } implying that for a density $f \in \HC{D}$, $\fnc{f}{\xb}$ is constant for any $\xb$ on the boundary of level set $\set{f > c}$.
 
