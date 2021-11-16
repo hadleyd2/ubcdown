@@ -19,7 +19,7 @@ As an illustration, consider an elliptical distribution in $\R^p$. The gauge fun
   
 The *boundary* of shape set $D$ with respect to center $\mub$ can be written as \eeq[D-boundary]{
   \bdry{D} = \set{\xb \in \R^p : \fnc{n_D}{\xb - \mub} = 1} = \set{\fncD{r}{\tbm; \mub} : \tbm \in \O},
-} where $\O = [0, \pi)^{p-2} \times [0, 2\pi)$ and $\fncD{r}{\cdot; \mub}$ is a polar function on the unit sphere with respect to pole $\mub$. We exclude writing $\mub$ when it is convenient and understood from context. Since we assume $D$ is star-shaped and bounded with a continuous boundary, it follows that $\fncD{r}{\cdot}$ is continuous and positive on $\O$. 
+} where $\O = [0, \pi)^{p-2} \times [0, 2\pi)$ and $\fncD{r}{\cdot; \mub}$ is a polar function with respect to pole $\mub$. We exclude \mbox{writing $\mub$} when it is convenient and understood from context. Since we \mbox{assume $D$} is star-shaped and bounded with a continuous boundary, it follows \mbox{that $\fncD{r}{\cdot}$} is continuous and positive \mbox{on $\O$}. 
 
 Using the homogeneity property of the gauge function, it can be shown that \eeq[boundary]{
   \fncD{r}{\tbm} = \dfrac{1}{\fncD{n}{\fnc{\tb}{\tbm}}},
