@@ -1,9 +1,9 @@
 
 
-In this section, we develop an iterative approach for estimating a \ac{pdf} $f \in \HC{D}$ on $\R^2$ from data $\xb_1, \dots, \xb_n$ by combining shape set estimators in Equations \eqref{Eq:estimator-Kamiya} and \eqref{Eq:free-knot-estimator} with \ac{ml} estimation for the density generator. Given known location parameter $\mub = \zerob$, the iterative approach is as follows:
+In this section, we develop an iterative approach for estimating a \ac{pdf} $f \in \HC{D}$ on $\R^2$ from data $\xb_1, \dots, \xb_n$ by combining shape set estimators in Equations \eqref{Eq:K-standard} and \eqref{Eq:free-knot-estimator} with \ac{ml} estimation for the density generator. Given known location parameter $\mub = \zerob$, the iterative approach is as follows:
 
   - Use Kamiya's estimator in Equation \eqref{Eq:K-standard} to produce a first estimate of the shape set, $\est{D}^{(1)}$, and its corresponding gauge function, $\fncD[\est{D}^{(1)}]{n}{\xb}$.
-  - Estimate the star-generalized radii to produce the psuedo-sample, \eqq{
+  - Apply the gauge function to the data to produce the star-generalized radii psuedo-sample, \eqq{
   \est{r}_i^{(1)} = \fncD[\est{D}^{(1)}]{n}{\xb_i}, \qquad i = 1, \dots, n.
   }
   - By assuming a Weibull-type density generator \eqq{
