@@ -8,14 +8,14 @@ Trochoids have been studied for centuries by mathematicians such as Galileo, Pas
 
 We focus on centered trochoids which are roulettes in $\R^2$ formed by tracing a point $P$ that is a distance $d$ from the center of a circle as it rolls around either the inside or outside of a fixed circle. The rolling circle has radius $r>0$ and the fixed circle has radius $R>0$. The distance $d \in \R$ is given with respect to the center of the rolling circle.
 
-Throughout this section, we assume that the center of the fixed circle is assumed to be the origin in $\R^2$. Parametric equations for trochoids in $\R^2$ take argument $t$ for the radian angle measured counter-clockwise from the positive horizontal axis to the line passing through the centers of the fixed and rolling circles. See Figure \ref{Fig:trochoid-construct} for a geometric interpretation and Figure \ref{Fig:distances-pos} and Figure \ref{Fig:distances-epi} for construction of 2 trochoids as $t$ traverses $[0, 2\pi]$.
+Throughout this section, we assume that the center of the fixed circle is the origin. Parametric equations for trochoids in $\R^2$ take argument $t$ for the radian angle measured counter-clockwise from the positive horizontal axis to the line passing through the centers of the fixed and rolling circles. See Figure \ref{Fig:trochoid-construct} for a geometric interpretation and Figure \ref{Fig:distances-pos} and Figure \ref{Fig:distances-epi} for construction of 2 trochoids as $t$ \mbox{traverses $[0, 2\pi]$}.
 
 The most common form of parametric equations for trochoids are based on its construction and have parameters $R$, $r$, and $d$ in addition to argument $t$. To avoid confusion as we start talking about the parameterization of trochoids, we refer to $t$ strictly as the argument so that the point $\paren{\fnc{x}{t; R, r, d}, \fnc{y}{t; R, r, d}}$ is the point evaluated at argument $t$ for the trochoid with parameters $R$, $r$, and $d$.
 
-![\label{Fig:trochoid-construct}Tracing a hypotrochoid in plot (a) and an epitrochoid in plot (b) as the argument traverses $\brac{0, t}$ where the radius of the fixed black circle is $R$, the radius of the grey rolling circle is $r$, and point $P$ is a distance $d$ in green from the center of the rolling circle. The resulting trochoids are indicated by the red dashed curve traced by point $P$.](../Thesis/Trochoidal/Images/trochoid-construction-1.pdf)
+![\label{Fig:trochoid-construct}Tracing a hypotrochoid in plot (a) and an epitrochoid in plot (b) as the argument traverses $\brac{0, t}$ where the radius of the fixed black circle is $R$, the radius of the grey rolling circle is $r$, and point $P$ is a distance $d$ in green from the center of the rolling circle. The trochoids are indicated by the red dashed curve traced by point $P$.](../Thesis/Trochoidal/Images/trochoid-construction-1.pdf)
 
 As with any curve represented by parametric equations, we need to know the interval that the argument must traverse to complete one full trace of the curve. This interval can be calculated as \eqq{
-  t \in \paren{0, 2\pi \times \dfrac{\fnc{\text{LCM}}{r, R}}{R}}, 
+  t \in \left[0, 2\pi \times \dfrac{\fnc{\text{LCM}}{r, R}}{R}\right), 
 } where LCM stands for the least common multiple. If $r, R \in \Q$ with $r=r_1/r_2$ and $R=R_1/R_2$, \eqq{
   \fnc{\text{LCM}}{\frac{r_1}{r_2}, \frac{R_1}{R_2}} = \dfrac{\fnc{\text{LCM}}{r_1, R_1}}{\fnc{\text{HCF}}{r_2, R_2}},
 } where HCF is the highest common factor.
