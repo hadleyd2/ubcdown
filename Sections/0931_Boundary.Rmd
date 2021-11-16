@@ -1,6 +1,6 @@
 
 
-The stochastic representation of \citet[Theorem 8]{Richter2014} is \eeq[Richter]{
+The stochastic representation in Theorem 8 of \citet{Richter2014} is \eeq[Richter]{
   \Xb = \mub + R\Ub,
 } where $\Ub$ is simulated uniformly over the boundary of shape set $D$, and the scaling variable $R$ is the star-generalized radius variable, independent from $\Ub$, with density \eeq[scale-r]{
   \fnc{f_{R}}{r} = p\abs{D}r^{p-1}\fnc{f_0}{r}, \qquad r > 0.
